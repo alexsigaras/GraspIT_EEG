@@ -1,0 +1,15 @@
+C:\Users\Kinect\Documents\GitHub\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\GraspIT_EEG.exe.config
+C:\Users\Kinect\Documents\GitHub\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\GraspIT_EEG.exe
+C:\Users\Kinect\Documents\GitHub\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\GraspIT_EEG.pdb
+C:\Users\Kinect\Documents\GitHub\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\MahApps.Metro.dll
+C:\Users\Kinect\Documents\GitHub\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Kinect\Documents\GitHub\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.csprojResolveAssemblyReference.cache
+C:\Users\Kinect\Documents\GitHub\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\MainWindow.baml
+C:\Users\Kinect\Documents\GitHub\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\MainWindow.g.cs
+C:\Users\Kinect\Documents\GitHub\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\App.g.cs
+C:\Users\Kinect\Documents\GitHub\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_MarkupCompile.cache
+C:\Users\Kinect\Documents\GitHub\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.g.resources
+C:\Users\Kinect\Documents\GitHub\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.Properties.Resources.resources
+C:\Users\Kinect\Documents\GitHub\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.csproj.GenerateResource.Cache
+C:\Users\Kinect\Documents\GitHub\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.exe
+C:\Users\Kinect\Documents\GitHub\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.pdb
