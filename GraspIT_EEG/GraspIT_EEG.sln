@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraspIT_EEG", "GraspIT_EEG\GraspIT_EEG.csproj", "{0D3874EB-637C-4432-8B9D-EE24D5FBC722}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraspIT_EEG_WPF", "GraspIT_EEG\GraspIT_EEG_WPF.csproj", "{5F16BF4D-D54F-471E-8CFA-CA971DA1A51A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0D3874EB-637C-4432-8B9D-EE24D5FBC722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D3874EB-637C-4432-8B9D-EE24D5FBC722}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D3874EB-637C-4432-8B9D-EE24D5FBC722}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D3874EB-637C-4432-8B9D-EE24D5FBC722}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F16BF4D-D54F-471E-8CFA-CA971DA1A51A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F16BF4D-D54F-471E-8CFA-CA971DA1A51A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F16BF4D-D54F-471E-8CFA-CA971DA1A51A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F16BF4D-D54F-471E-8CFA-CA971DA1A51A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,24 +1,168 @@
-﻿<Controls:MetroWindow x:Class="GraspIT_EEG.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                      ShowIconOnTitleBar="True"
-        Title="GraspIT EEG" Height="350" Width="525">
-
-    <!-- Metro Colors -->
-    <Window.Resources>
+﻿<Controls:MetroWindow 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:UserControls="clr-namespace:EmotivBCIWPF.Assets.UserControls" 
+    x:Class="GraspIT_EEG.MainWindow"
+    Title="GraspIT EEG" Height="600" Width="800" mc:Ignorable="d">
+    
+    <Controls:MetroWindow.Resources>
         <ResourceDictionary>
+
+            <!-- Metro Theme -->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="Resources/Icons.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                
+                <!-- Metro Theme Dark -->
+                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />-->
+
+                <!-- Metro Theme Light -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                
+                <ResourceDictionary Source="Resources/Icons.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
+            <Storyboard x:Key="MainWindowPageIn">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MainWindowPage">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="MainWindowPage">
+                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="MainWindowPageOut">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MainWindowPage">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="MainWindowPage">
+                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}"/>
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="SettingsPageIn">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="SettingsPage">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="SettingsPage">
+                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="SettingsPageOut">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="SettingsPage">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="SettingsPage">
+                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}"/>
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
         </ResourceDictionary>
-    </Window.Resources>
-    
-    <Grid>
-        
+    </Controls:MetroWindow.Resources>
+
+    <Controls:MetroWindow.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource MainWindowPageIn}"/>
+        </EventTrigger>
+    </Controls:MetroWindow.Triggers>
+    <Controls:MetroWindow.WindowCommands>
+        <Controls:WindowCommands>
+            <Label x:Name="EmotivStatusLbl" Content="Not Connected" Foreground="White" VerticalAlignment="Center" />
+            <Image x:Name="Signal" HorizontalAlignment="Left" Height="22" VerticalAlignment="Center" Width="22" Source="Assets/Images/Signal/Wireless - No Signal.png" />
+            <Image x:Name="Battery" HorizontalAlignment="Left" Height="16" VerticalAlignment="Center" Width="16" Source="Assets/Images/Battery/Battery-Empty.png" />
+            <Button x:Name="ShowSettingsBtn" Content="settings" Click="ShowSettingsBtn_Click" />
+            <Button x:Name="HelpBtn" Content="?" Click="HelpBtn_Click"/>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.WindowCommands>
+
+    <Grid x:Name="PageHolder">
+        <Grid x:Name="MainWindowPage" Opacity="0" Visibility="Collapsed">
+            <!--<Controls:MetroContentControl></Controls:MetroContentControl>-->
+            <TabControl>
+                <TabItem Header="SSVEP">
+                    <Grid>
+                        <!--<Controls:ToggleSwitch x:Name="EmotivToggleSwitch" Header="Emotiv State" OnLabel="ON" OffLabel="OFF" Width="100" IsChecked="False" Checked="EmotivToggleSwitch_Checked" Unchecked="EmotivToggleSwitch_Unchecked" />-->
+                        <!--<Button Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" Content="&#xE112;" HorizontalAlignment="Left" Margin="146,222,0,0" VerticalAlignment="Top" Width="45" Height="45"/>-->
+                        <!--<Controls:RangeSlider Margin="255,110,143.209,148.178"></Controls:RangeSlider>-->
+                        <!--<Slider Margin="96,128,329.209,148.178"></Slider>-->
+                    </Grid>
+                </TabItem>
+                <TabItem Header="P300">
+                    <Grid>
+                        <!--Background="#FFE5E5E5"-->
+                        <!--<Button Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" Content="&#xE112;" HorizontalAlignment="Left" Margin="146,222,0,0" VerticalAlignment="Top" Width="45" Height="45"/>-->
+                    </Grid>
+                </TabItem>
+            </TabControl>
+
+        </Grid>
+        <Grid x:Name="SettingsPage" Opacity="0" Visibility="Collapsed">
+            <Button x:Name="BackToMainWindowBtn" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" FontSize="18" Content="&#xE112;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="BackToMainWindowBtn_Click"/>
+            <Label x:Name="SettingsLbl" Content="Settings" HorizontalAlignment="Left" Margin="60,13,0,0" VerticalAlignment="Top" FontSize="24"/>
+            <Grid x:Name="SettingsSidebar" Margin="0,0,585.141,0.482">
+                <Controls:ToggleSwitch x:Name="EmotivToggleSwitch" Header="Emotiv" OnLabel="ON" OffLabel="OFF" Width="100" IsChecked="False" Checked="EmotivToggleSwitch_Checked" Unchecked="EmotivToggleSwitch_Unchecked" Margin="10,65,100,442" />
+                <Label x:Name="UptimeLbl" Content="Uptime:" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" FontSize="18"/>
+                <Label x:Name="Uptime" Content="" HorizontalAlignment="Left" Margin="88,135,0,0" VerticalAlignment="Top" Width="112" FontSize="18"/>
+                <Image Source="Assets/UserControls/HeadsetMap.png" Stretch="Fill" Margin="10,174,10,135"/>
+                <Label x:Name="UserLbl" Content="User" HorizontalAlignment="Left" Margin="10,442,0,0" VerticalAlignment="Top" FontSize="18"/>
+                <ComboBox x:Name="UsersComboBox" HorizontalAlignment="Left" Margin="10,481,0,0" VerticalAlignment="Top" Width="189"/>
+                <Controls:AppBarButton x:Name="AddUserBtn" VerticalAlignment="Top" MetroImageSource="{DynamicResource appbar_user_add}" Foreground="{DynamicResource BlackBrush}" Content="Add" Margin="0,512,165,0" Width="50" Height="50" Click="AddUserBtn_Click" />
+                <Controls:AppBarButton x:Name="RemoveUserBtn" VerticalAlignment="Top" MetroImageSource="{DynamicResource appbar_user_minus}" Foreground="{DynamicResource BlackBrush}" Content="Remove" Margin="50,512,115,0" Width="50" Height="50" Click="RemoveUserBtn_Click" />
+                <Controls:AppBarButton x:Name="SaveUserBtn" Content="Save" VerticalAlignment="Top" MetroImageSource="{DynamicResource appbar_save}" Foreground="{DynamicResource BlackBrush}" Margin="100,512,65,0" Width="50" Height="50" Click="SaveUserBtn_Click" />
+                <Controls:AppBarButton x:Name="TrainUserBtn" Content="Train" VerticalAlignment="Top" MetroImageSource="{DynamicResource appbar_timer_record}" Foreground="{DynamicResource BlackBrush}" Margin="150,512,15,0" Width="50" Height="50" Click="TrainUserBtn_Click" />
+            </Grid>
+            <Grid Margin="215,10,0.141,0.482">
+                <TabControl>
+                    <TabItem Header="Expresiv">
+                        <Grid Margin="0,0,-0.01,0.424">
+                            <!--Expressiv Controls-->
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Affectiv">
+                        <Grid>
+                            <!--Affectiv Controls-->
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Cognitiv">
+                        <Grid>
+                            <!--Cognitiv Controls-->
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="EEG">
+                        <Grid>
+                            <!--EEG Controls-->
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="FFT">
+                        <Grid>
+                            <!--FFT Controls-->
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Gyro">
+                        <Grid>
+                            <!--Gyro Controls-->
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Data">
+                        <Grid>
+                            <!--Data Controls-->
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Grid>
     </Grid>
 </Controls:MetroWindow>
