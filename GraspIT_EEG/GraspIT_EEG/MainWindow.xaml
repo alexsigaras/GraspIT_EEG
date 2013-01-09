@@ -89,7 +89,7 @@
     </Controls:MetroWindow.WindowCommands>
 
     <Grid x:Name="PageHolder">
-        <Grid x:Name="MainWindowPage" Opacity="100" Visibility="Visible">
+        <Grid x:Name="MainWindowPage">
             <Rectangle x:Name="O1rect"  Fill="Black" HorizontalAlignment="Left" Height="100" Margin="223,237,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
             <Rectangle x:Name="O2rect"  Fill="Black" HorizontalAlignment="Left" Height="100" Margin="407,237,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
             <!--<Controls:MetroContentControl></Controls:MetroContentControl>-->
@@ -112,25 +112,44 @@
             
 
         </Grid>
-        <Grid x:Name="SettingsPage" Opacity="0" Visibility="Collapsed">
+        <Grid x:Name="SettingsPage">
             <Button x:Name="BackToMainWindowBtn" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" FontSize="18" Content="&#xE112;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="BackToMainWindowBtn_Click"/>
             <Label x:Name="SettingsLbl" Content="Settings" HorizontalAlignment="Left" Margin="60,13,0,0" VerticalAlignment="Top" FontSize="24"/>
             <Grid x:Name="SettingsSidebar" Margin="0,0,585.141,0.482">
-                <Controls:ToggleSwitch x:Name="EmotivToggleSwitch" Header="Emotiv" OnLabel="ON" OffLabel="OFF" Width="100" IsChecked="False" Checked="EmotivToggleSwitch_Checked" Unchecked="EmotivToggleSwitch_Unchecked" Margin="10,65,100,442" />
+                <Controls:ToggleSwitch x:Name="EmotivToggleSwitch" Header="Emotiv" OnLabel="ON" OffLabel="OFF" Width="100" IsChecked="False" Checked="EmotivToggleSwitch_Checked" Unchecked="EmotivToggleSwitch_Unchecked" Margin="10,65,0,0" HorizontalAlignment="Left" Height="62.518" VerticalAlignment="Top" />
                 <Label x:Name="UptimeLbl" Content="Uptime:" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" FontSize="18"/>
                 <Label x:Name="Uptime" Content="" HorizontalAlignment="Left" Margin="88,135,0,0" VerticalAlignment="Top" Width="112" FontSize="18"/>
-                <Image Source="Assets/UserControls/HeadsetMap.png" Stretch="Fill" Margin="10,174,10,135"/>
+                <Grid x:Name="Headset" Margin="10,174,10,132.392">
+                	<Image Source="Assets/UserControls/HeadsetMap.png" Stretch="Fill" HorizontalAlignment="Left" Width="186.859" Height="260.518" VerticalAlignment="Top"/>
+                	<Ellipse x:Name="AF3Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="41.847,31.656,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                	<Ellipse x:Name="AF4Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="113.169,30.768,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                	<Ellipse x:Name="F7Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="15.29,69.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                	<Ellipse x:Name="F3Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="55.113,61.83,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                	<Ellipse x:Name="F4Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="115.833,61.83,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                	<Ellipse x:Name="F8Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="147.988,69.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                	<Ellipse x:Name="FC5Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="40.959,99.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                	<Ellipse x:Name="FC6Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="127.283,99.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                	<Ellipse x:Name="T7Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="0,124.855,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                	<Ellipse x:Name="T8Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="156.476,124.855,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                	<Ellipse x:Name="CMSContact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="15.29,160.239,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                	<Ellipse x:Name="DRLContact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="140,160.239,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                	<Ellipse x:Name="P7Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="40.959,200.966,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                	<Ellipse x:Name="P8Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="127.283,200.966,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                	<Ellipse x:Name="O1Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="55.113,238.126,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                	<Ellipse x:Name="O2Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="115,238.126,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                </Grid>
                 <Label x:Name="UserLbl" Content="User" HorizontalAlignment="Left" Margin="10,442,0,0" VerticalAlignment="Top" FontSize="18"/>
                 <ComboBox x:Name="UsersComboBox" HorizontalAlignment="Left" Margin="10,481,0,0" VerticalAlignment="Top" Width="189"/>
-                <Controls:AppBarButton x:Name="AddUserBtn" VerticalAlignment="Top" MetroImageSource="{DynamicResource appbar_user_add}" Foreground="{DynamicResource BlackBrush}" Content="Add" Margin="0,512,165,0" Width="50" Height="50" Click="AddUserBtn_Click" />
-                <Controls:AppBarButton x:Name="RemoveUserBtn" VerticalAlignment="Top" MetroImageSource="{DynamicResource appbar_user_minus}" Foreground="{DynamicResource BlackBrush}" Content="Remove" Margin="50,512,115,0" Width="50" Height="50" Click="RemoveUserBtn_Click" />
-                <Controls:AppBarButton x:Name="SaveUserBtn" Content="Save" VerticalAlignment="Top" MetroImageSource="{DynamicResource appbar_save}" Foreground="{DynamicResource BlackBrush}" Margin="100,512,65,0" Width="50" Height="50" Click="SaveUserBtn_Click" />
-                <Controls:AppBarButton x:Name="TrainUserBtn" Content="Train" VerticalAlignment="Top" MetroImageSource="{DynamicResource appbar_timer_record}" Foreground="{DynamicResource BlackBrush}" Margin="150,512,15,0" Width="50" Height="50" Click="TrainUserBtn_Click" />
+                <Controls:AppBarButton x:Name="AddUserBtn" MetroImageSource="{DynamicResource appbar_user_add}" Foreground="{DynamicResource BlackBrush}" Content="Add" Margin="0,0,0,7.518" Width="50" Height="50" Click="AddUserBtn_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                <Controls:AppBarButton x:Name="RemoveUserBtn" MetroImageSource="{DynamicResource appbar_user_minus}" Foreground="{DynamicResource BlackBrush}" Content="Remove" Margin="50,0,0,7.518" Width="50" Height="50" Click="RemoveUserBtn_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                <Controls:AppBarButton x:Name="SaveUserBtn" Content="Save" MetroImageSource="{DynamicResource appbar_save}" Foreground="{DynamicResource BlackBrush}" Margin="100,0,0,7.518" Width="50" Height="50" Click="SaveUserBtn_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                <Controls:AppBarButton x:Name="TrainUserBtn" Content="Train" VerticalAlignment="Bottom" MetroImageSource="{DynamicResource appbar_timer_record}" Foreground="{DynamicResource BlackBrush}" Margin="150,0,0,7.518" Width="50" Height="50" Click="TrainUserBtn_Click" HorizontalAlignment="Left"  />
             </Grid>
             <Grid Margin="215,10,0.141,0.482">
                 <TabControl>
                     <TabItem Header="Expresiv">
                         <Grid Margin="0,0,-0.01,0.424">
+                            <Label x:Name="Clench" Content="Label" HorizontalAlignment="Left" Margin="83,346,0,0" VerticalAlignment="Top"/>
                             <!--Expressiv Controls-->
                         </Grid>
                     </TabItem>

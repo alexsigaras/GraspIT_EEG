@@ -262,30 +262,41 @@ namespace GraspIT_EEG
             SignalStatus = es.GetWirelessSignalStatus().ToString();
             Uptime.Content = ConvertToTime(es.GetTimeFromStart());
             es.GetBatteryChargeLevel(out BatteryLevel, out MaxBatteryLevel);
+            UpdateSensorContactQuality(es);
+
+            float clench = es.ExpressivGetClenchExtent();
+            Clench.Content = clench.ToString();
+            if (clench > 0.20)
+            {
+                O1rect.Fill = Brushes.Green;
+            }
+            else
+            {
+                O1rect.Fill = Brushes.Red;
+            }
+            
+            
+        }
+
+        private void UpdateSensorContactQuality(EmoState es)
+        {
             EdkDll.EE_EEG_ContactQuality_t[] contactQualityArray = es.GetContactQualityFromAllChannels();
-            
-            //foreach (EdkDll.EE_EEG_ContactQuality_t electrode in contactQualityArray)
-            //{
-             
-            //}
-
-            O1rect.Fill = getContactQualityColor(contactQualityArray[10].ToString());
-            O2rect.Fill = getContactQualityColor(contactQualityArray[11].ToString());
-
-
-            
-
-            //string alex = es.GetContactQuality(9).ToString();
-
-
-            //es.GetContactQualityFromAllChannels()
-            //EdkDll.ES_GetContactQuality(0)
-            //    EdkDll.EE_EEG_ContactQuality_t
-            //EdkDll.InputSensorDescriptor_t alex = new EdkDll.InputSensorDescriptor_t();
-            //EdkDll.EE_HeadsetGetSensorDetails(EdkDll.EE_InputChannels_t.EE_CHAN_O1, out alex);
-            //O1Label.Content = alex.ToString();
-            //O1Label.Content = EdkDll.EE_DataChannel_t.O1.ToString();
-            //O1Label.Content = EdkDll.ES_GetContactQuality(es, 0).ToString();
+            AF3Contact.Fill = getContactQualityColor(contactQualityArray[3].ToString());
+            AF4Contact.Fill = getContactQualityColor(contactQualityArray[16].ToString());
+            F7Contact.Fill = getContactQualityColor(contactQualityArray[4].ToString());
+            F3Contact.Fill = getContactQualityColor(contactQualityArray[5].ToString());
+            F4Contact.Fill = getContactQualityColor(contactQualityArray[14].ToString());
+            F8Contact.Fill = getContactQualityColor(contactQualityArray[15].ToString());
+            FC5Contact.Fill = getContactQualityColor(contactQualityArray[6].ToString());
+            FC6Contact.Fill = getContactQualityColor(contactQualityArray[13].ToString());
+            T7Contact.Fill = getContactQualityColor(contactQualityArray[7].ToString());
+            T8Contact.Fill = getContactQualityColor(contactQualityArray[12].ToString());
+            CMSContact.Fill = getContactQualityColor(contactQualityArray[0].ToString());
+            DRLContact.Fill = getContactQualityColor(contactQualityArray[1].ToString());
+            P7Contact.Fill = getContactQualityColor(contactQualityArray[8].ToString());
+            P8Contact.Fill = getContactQualityColor(contactQualityArray[11].ToString());
+            O1Contact.Fill = getContactQualityColor(contactQualityArray[9].ToString());
+            O2Contact.Fill = getContactQualityColor(contactQualityArray[10].ToString());
         }
 
         private Brush getContactQualityColor(string contactQuality)
@@ -294,13 +305,13 @@ namespace GraspIT_EEG
             {
                 case "EEG_CQ_NO_SIGNAL":
                     return Brushes.Black;
-                case "EEG_CQ_POOR":
+                case "EEG_CQ_VERY_BAD":
                     return Brushes.Red;
-                case "EEG_CQ_FAIR":
+                case "EEG_CQ_POOR":
                     return Brushes.Orange;
-                case "EEG_CQ_GOOD":
+                case "EEG_CQ_FAIR":
                     return Brushes.Yellow;
-                case "EEG_CQ_EXCELLENT":
+                case "EEG_CQ_GOOD":
                     return Brushes.Green;
                 default:
                     return Brushes.Black;
