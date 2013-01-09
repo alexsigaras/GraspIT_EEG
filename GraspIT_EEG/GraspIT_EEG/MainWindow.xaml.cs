@@ -15,10 +15,10 @@ using System.Windows.Shapes;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
-// Metro Library.
+// Metro Library
 using MahApps.Metro.Controls;
 
-// Emotiv Libraries.
+// Emotiv Libraries
 using Emotiv;
 using EmoEngineClientLibrary;
 using EmoEngineControlLibrary;
@@ -31,56 +31,7 @@ namespace GraspIT_EEG
     public partial class MainWindow : MetroWindow
     {
 
-        #region Emotiv
-
-        EmoEngineClient _emoEngineClient;
-        private EmoEngine engine;
-
-        #endregion Emotiv
-
-        #region Timers
-
-        #region P300 Timers Declaration
-
-        DispatcherTimer P300FlashDuration = new DispatcherTimer();
-        DispatcherTimer P300NoFlashDuration = new DispatcherTimer();
-        DispatcherTimer P300FlashingPeriod = new DispatcherTimer();
-
-        #endregion P300 Timers Declaration
-
-        #endregion Timers
-
-        public MainWindow()
-        {
-            InitializeComponent();
-            P300FlashDuration.Interval = new TimeSpan(0, 0, 0, 0, 125);
-            P300FlashDuration.Tick += P300FlashDuration_Tick;
-
-            P300NoFlashDuration.Interval = new TimeSpan(0, 0, 0, 0, 475);
-            P300NoFlashDuration.Tick += P300NoFlashDuration_Tick;
-
-            P300FlashingPeriod.Interval = new TimeSpan(0, 0, 0, 0, 8);
-            P300FlashingPeriod.Tick += P300FlashingPeriod_Tick;
-        }
-
-        #region P300 Timers Ticks
-
-        void P300FlashingPeriod_Tick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        void P300NoFlashDuration_Tick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        void P300FlashDuration_Tick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion P300 Timers Ticks
+        #region UI Specific
 
         #region Variables
 
@@ -88,7 +39,7 @@ namespace GraspIT_EEG
 
         #endregion Variables
 
-        #region Animation Function.
+        #region Animation Function
 
         private void pageFadeOut(int currentPage)
         {
@@ -131,102 +82,284 @@ namespace GraspIT_EEG
 
         private void HelpBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            // Display a modal window with help how to use the application.
         }
 
-        private void EmotivToggleSwitch_Unchecked(object sender, RoutedEventArgs e)
+        #endregion UI Specific
+
+        #region Emotiv
+
+        // Emotiv Engine
+        EmoEngine engine = EmoEngine.Instance;
+
+        // User ID
+        uint userID = 0;
+
+        // Channels
+        public double AF3, F7, F3, FC5, T7, P7, O1, O2, P8, T8, FC6, F4, F8, AF4;
+
+        // Gyros
+        public double GYROX, GYROY;
+
+        // Others
+        public double COUNTER, ES_TIMESTAMP, FUNC_ID, FUNC_VALUE, INTERPOLATED, MARKER, RAW_CQ, SYNC_SIGNAL, TIMESTAMP;
+
+        // Emotiv Wireless Signal
+        public string SignalStatus = "NO_SIGNAL";
+
+        // Emotiv Battery
+        public int BatteryLevel = 0;
+        public int MaxBatteryLevel = 5;
+
+        // EmoEngineClient _emoEngineClient;
+        
+        int xmax = 0, ymax = 0;
+        bool allow = false;
+
+        #endregion Emotiv
+
+        #region Timers
+
+        DispatcherTimer gyrotimer = new DispatcherTimer();
+
+        #region P300 Timers Declaration
+
+        DispatcherTimer P300FlashDuration = new DispatcherTimer();
+        DispatcherTimer P300NoFlashDuration = new DispatcherTimer();
+        DispatcherTimer P300FlashingPeriod = new DispatcherTimer();
+
+        #endregion P300 Timers Declaration
+
+        #region SSVEP Timers Declaration
+
+        DispatcherTimer SSVEPFlashDuration = new DispatcherTimer();
+        DispatcherTimer SSVEPNoFlashDuration = new DispatcherTimer();
+        DispatcherTimer SSVEPFlashingPeriod = new DispatcherTimer();
+
+        #endregion SSVEP Timers Declaration
+
+        #endregion Timers
+
+        public MainWindow()
         {
-            EmotivStatusLbl.Content = "Not Connected";
-            //Battery.Source = new BitmapImage(new Uri ("Assets/Images/Battery/Battery-Empty.png", UriKind.Relative));
-            UpdateBatteryCapacityIcon(0);
-            UpdateSignalStrengthIcon(0);
+            InitializeComponent();
+
+            #region Instantiate Timers
+
+            gyrotimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            gyrotimer.Tick += gyrotimer_Tick;
+
+            P300FlashDuration.Interval = new TimeSpan(0, 0, 0, 0, 125);
+            P300FlashDuration.Tick += P300FlashDuration_Tick;
+
+            P300NoFlashDuration.Interval = new TimeSpan(0, 0, 0, 0, 475);
+            P300NoFlashDuration.Tick += P300NoFlashDuration_Tick;
+
+            P300FlashingPeriod.Interval = new TimeSpan(0, 0, 0, 0, 8);
+            P300FlashingPeriod.Tick +=P300FlashingPeriod_Tick;
+
+            SSVEPFlashDuration.Interval = new TimeSpan(0, 0, 0, 0, 125);
+            SSVEPFlashDuration.Tick += SSVEPFlashDuration_Tick;
+
+            SSVEPNoFlashDuration.Interval = new TimeSpan(0, 0, 0, 0, 475);
+            SSVEPNoFlashDuration.Tick += SSVEPNoFlashDuration_Tick;
+
+            SSVEPFlashingPeriod.Interval = new TimeSpan(0, 0, 0, 0, 8);
+            SSVEPFlashingPeriod.Tick += SSVEPFlashingPeriod_Tick;
+
+            #endregion Instantiate Timers
         }
 
+        #region Timer Ticks
+
+        void gyrotimer_Tick(object sender, EventArgs e)
+        {
+            engine.ProcessEvents(1000);
+
+            if ((int)userID == -1)
+                return;
+
+            if (allow)
+            {
+                int x = 0, y = 0;
+                engine.HeadsetGetGyroDelta(userID, out x, out y);
+
+                xmax += x;
+                ymax += y;
+                xValue.Content = xmax.ToString();
+                yValue.Content = ymax.ToString();
+            }
+
+            Dictionary<EdkDll.EE_DataChannel_t, double[]> data = engine.GetData((uint)userID);
+
+            if (data == null)
+            {
+                return;
+            }
+
+            // Update Emotiv Sensor Data
+            int _bufferSize = data[EdkDll.EE_DataChannel_t.TIMESTAMP].Length;
+            for (int i = 0; i < _bufferSize; i++)
+            {
+                UpdateEmotivSensorData(data, i);
+            }
+        }
+
+        #region P300 Timers Ticks
+
+        void P300FlashingPeriod_Tick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        void P300NoFlashDuration_Tick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        void P300FlashDuration_Tick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion P300 Timers Ticks
+
+        #region SSVEP Timers Ticks
+
+        void SSVEPFlashingPeriod_Tick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        void SSVEPNoFlashDuration_Tick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        void SSVEPFlashDuration_Tick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion SSVEP Timers Ticks
+
+        #endregion Timer Ticks
+
+        #region Emotiv Event Handlers
+
+        void engine_EmoStateUpdated(object sender, EmoStateUpdatedEventArgs e)
+        {
+            EmoState es = e.emoState;
+            float elapsed = es.GetTimeFromStart();
+            if ((elapsed > 5) && (!allow))
+            {
+                allow = true;
+            }
+            if (es.GetWirelessSignalStatus() == EdkDll.EE_SignalStrength_t.NO_SIGNAL)
+            {
+                allow = false;
+            }
+            SignalStatus = es.GetWirelessSignalStatus().ToString();
+            Uptime.Content = ConvertToTime(es.GetTimeFromStart());
+            es.GetBatteryChargeLevel(out BatteryLevel, out MaxBatteryLevel);
+            EdkDll.EE_EEG_ContactQuality_t[] contactQualityArray = es.GetContactQualityFromAllChannels();
+            
+            //foreach (EdkDll.EE_EEG_ContactQuality_t electrode in contactQualityArray)
+            //{
+             
+            //}
+
+            O1rect.Fill = getContactQualityColor(contactQualityArray[10].ToString());
+            O2rect.Fill = getContactQualityColor(contactQualityArray[11].ToString());
+
+
+            
+
+            //string alex = es.GetContactQuality(9).ToString();
+
+
+            //es.GetContactQualityFromAllChannels()
+            //EdkDll.ES_GetContactQuality(0)
+            //    EdkDll.EE_EEG_ContactQuality_t
+            //EdkDll.InputSensorDescriptor_t alex = new EdkDll.InputSensorDescriptor_t();
+            //EdkDll.EE_HeadsetGetSensorDetails(EdkDll.EE_InputChannels_t.EE_CHAN_O1, out alex);
+            //O1Label.Content = alex.ToString();
+            //O1Label.Content = EdkDll.EE_DataChannel_t.O1.ToString();
+            //O1Label.Content = EdkDll.ES_GetContactQuality(es, 0).ToString();
+        }
+
+        private Brush getContactQualityColor(string contactQuality)
+        {
+            switch (contactQuality)
+            {
+                case "EEG_CQ_NO_SIGNAL":
+                    return Brushes.Black;
+                case "EEG_CQ_POOR":
+                    return Brushes.Red;
+                case "EEG_CQ_FAIR":
+                    return Brushes.Orange;
+                case "EEG_CQ_GOOD":
+                    return Brushes.Yellow;
+                case "EEG_CQ_EXCELLENT":
+                    return Brushes.Green;
+                default:
+                    return Brushes.Black;
+            }
+        }
+
+        void engine_UserAdded_Event(object sender, EmoEngineEventArgs e)
+        {
+            //   Console.WriteLine("User Added Event has occured");
+
+            // record the user 
+            userID = e.userId;
+
+            // enable data aquisition for this user.
+            engine.DataAcquisitionEnable((uint)userID, true);
+
+            // ask for up to 1 second of buffered data
+            engine.EE_DataSetBufferSizeInSec(1);
+
+        }
+
+        #endregion Emotiv Event Handlers
+
+        #region Settings
+
+        // Emotiv Turned On
         private void EmotivToggleSwitch_Checked(object sender, RoutedEventArgs e)
         {
             // Try to connect the Emotiv device.
 
-            EmotivStatusLbl.Content = "Connected";
-            //Battery.Source = new BitmapImage(new Uri("Assets/Images/Battery/Battery-High.png", UriKind.Relative));
-            UpdateBatteryCapacityIcon(3);
-            UpdateSignalStrengthIcon(4);
+            // Connect Emotiv
+            engine.EmoStateUpdated += new EmoEngine.EmoStateUpdatedEventHandler(engine_EmoStateUpdated);
+            engine.UserAdded += new EmoEngine.UserAddedEventHandler(engine_UserAdded_Event);
+            engine.Connect();
+            gyrotimer.Start();
+
+            EmotivStatusLbl.Content = "Connected"; // Set to Connected
+            UpdateBatteryCapacityIcon(BatteryLevel); // Get Battery Level
+            UpdateSignalStrengthIcon(SignalStatus); // Get Wireless Signal Strength
         }
 
-
-        /// <summary>
-        /// Set the battery capacity based on the charge
-        /// </summary>
-        /// <param name="charge">The charge taking values: 0 -> empty, 1 -> low, 2 -> medium, 3-> high </param>
-        private void UpdateBatteryCapacityIcon(int charge)
+        // Emotiv Turned Off
+        private void EmotivToggleSwitch_Unchecked(object sender, RoutedEventArgs e)
         {
-            switch (charge)
-            {
-                // Empty
-                case 0:
-                Battery.Source = new BitmapImage(new Uri("Assets/Images/Battery/Battery-Empty.png", UriKind.Relative));
-                break;
+            // Disconnect Emotiv
+            engine.EmoStateUpdated -= new EmoEngine.EmoStateUpdatedEventHandler(engine_EmoStateUpdated);
+            engine.UserAdded -= new EmoEngine.UserAddedEventHandler(engine_UserAdded_Event);
+            engine.Disconnect();
+            gyrotimer.Stop();
 
-                // Low
-                case 1:
-                Battery.Source = new BitmapImage(new Uri("Assets/Images/Battery/Battery-Low.png", UriKind.Relative));
-                break;
-
-                // Medium
-                case 2:
-                Battery.Source = new BitmapImage(new Uri("Assets/Images/Battery/Battery-Medium.png", UriKind.Relative));
-                break;
-
-                // High
-                case 3:
-                Battery.Source = new BitmapImage(new Uri("Assets/Images/Battery/Battery-High.png", UriKind.Relative));
-                break;
-
-                default:
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Set the signal capacity based on the strength
-        /// </summary>
-        /// <param name="strength">The strength taking values: 0 -> No Signal, 1 -> low, 2 -> medium low, 3-> medium high, 4 -> high </param>
-        private void UpdateSignalStrengthIcon(int strength)
-        {
-            switch (strength)
-            {
-                // Empty
-                case 0:
-                    Signal.Source = new BitmapImage(new Uri("Assets/Images/Signal/Wireless - No Signal.png", UriKind.Relative));
-                    break;
-
-                // Low
-                case 1:
-                    Signal.Source = new BitmapImage(new Uri("Assets/Images/Signal/Wireless - Signal 1.png", UriKind.Relative));
-                    break;
-
-                // Medium low
-                case 2:
-                    Signal.Source = new BitmapImage(new Uri("Assets/Images/Signal/Wireless - Signal 2.png", UriKind.Relative));
-                    break;
-
-                // Medium high
-                case 3:
-                    Signal.Source = new BitmapImage(new Uri("Assets/Images/Signal/Wireless - Signal 3.png", UriKind.Relative));
-                    break;
-                
-                // High
-                case 4:
-                    Signal.Source = new BitmapImage(new Uri("Assets/Images/Signal/Wireless - Signal 4.png", UriKind.Relative));
-                    break;
-                default:
-                    break;
-            }
+            EmotivStatusLbl.Content = "Not Connected"; // Set to Disconnected
+            UpdateBatteryCapacityIcon(0); // Set Battery Level
+            UpdateSignalStrengthIcon("NO_SIGNAL"); // Set Wireless Signal Strength
         }
 
         // Add User.
         private void AddUserBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         // Remove User.
@@ -246,5 +379,124 @@ namespace GraspIT_EEG
         {
 
         }
+
+        #endregion Settings
+
+        #region Helper Functions
+
+        private string ConvertToTime(float GetTimeFromStartFloat)
+        {
+            int GetTimeFromStart = (Int32)GetTimeFromStartFloat;
+
+            string hours = (GetTimeFromStart / 3600).ToString();
+            string minutes = ((GetTimeFromStart / 60) % 60).ToString();
+            string seconds = (GetTimeFromStart % 60).ToString();
+            return (hours + " h " + minutes + " ' " + seconds + " \" ");
+        }
+
+        /// <summary>
+        /// Updates the Emotiv Sensor Data
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="i"></param>
+        private void UpdateEmotivSensorData(Dictionary<EdkDll.EE_DataChannel_t, double[]> data, int i)
+        {
+            // EEG Sensor Data
+            AF3 = data[EdkDll.EE_DataChannel_t.AF3][i];
+            AF4 = data[EdkDll.EE_DataChannel_t.AF4][i];
+            F3 = data[EdkDll.EE_DataChannel_t.F3][i];
+            F4 = data[EdkDll.EE_DataChannel_t.F4][i];
+            F7 = data[EdkDll.EE_DataChannel_t.F7][i];
+            F8 = data[EdkDll.EE_DataChannel_t.F8][i];
+            FC5 = data[EdkDll.EE_DataChannel_t.FC5][i];
+            FC6 = data[EdkDll.EE_DataChannel_t.FC6][i];
+            O1 = data[EdkDll.EE_DataChannel_t.O1][i];
+            O2 = data[EdkDll.EE_DataChannel_t.O2][i];
+            P7 = data[EdkDll.EE_DataChannel_t.P7][i];
+            P8 = data[EdkDll.EE_DataChannel_t.P8][i];
+            T7 = data[EdkDll.EE_DataChannel_t.T7][i];
+            T8 = data[EdkDll.EE_DataChannel_t.T8][i];
+
+            // Gyro Data
+            GYROX = data[EdkDll.EE_DataChannel_t.GYROX][i];
+            GYROY = data[EdkDll.EE_DataChannel_t.GYROY][i];
+
+            // Other Data
+            COUNTER = data[EdkDll.EE_DataChannel_t.COUNTER][i];
+            ES_TIMESTAMP = data[EdkDll.EE_DataChannel_t.ES_TIMESTAMP][i];
+            FUNC_ID = data[EdkDll.EE_DataChannel_t.FUNC_ID][i];
+            FUNC_ID = data[EdkDll.EE_DataChannel_t.FUNC_VALUE][i];
+            INTERPOLATED = data[EdkDll.EE_DataChannel_t.INTERPOLATED][i];
+            MARKER = data[EdkDll.EE_DataChannel_t.MARKER][i];
+            RAW_CQ = data[EdkDll.EE_DataChannel_t.RAW_CQ][i];
+            SYNC_SIGNAL = data[EdkDll.EE_DataChannel_t.SYNC_SIGNAL][i];
+            TIMESTAMP = data[EdkDll.EE_DataChannel_t.TIMESTAMP][i];
+        }
+
+        /// <summary>
+        /// Set the battery capacity based on the charge
+        /// </summary>
+        /// <param name="charge">The charge taking values: 0 -> empty, 1 -> low, 2 -> medium, 3-> high </param>
+        private void UpdateBatteryCapacityIcon(int charge)
+        {
+            switch (charge)
+            {
+                // Empty
+                case 0:
+                    Battery.Source = new BitmapImage(new Uri("Assets/Images/Battery/Battery-Empty.png", UriKind.Relative));
+                    break;
+
+                // Low
+                case 1:
+                    Battery.Source = new BitmapImage(new Uri("Assets/Images/Battery/Battery-Low.png", UriKind.Relative));
+                    break;
+
+                // Low
+                case 2:
+                    Battery.Source = new BitmapImage(new Uri("Assets/Images/Battery/Battery-Low.png", UriKind.Relative));
+                    break;
+
+                // Medium
+                case 3:
+                    Battery.Source = new BitmapImage(new Uri("Assets/Images/Battery/Battery-Medium.png", UriKind.Relative));
+                    break;
+
+                case 4:
+                    Battery.Source = new BitmapImage(new Uri("Assets/Images/Battery/Battery-Medium.png", UriKind.Relative));
+                    break;
+
+                // High
+                case 5:
+                    Battery.Source = new BitmapImage(new Uri("Assets/Images/Battery/Battery-High.png", UriKind.Relative));
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Set the signal capacity based on the strength
+        /// </summary>
+        /// <param name="strength">The strength taking values: NO_SIGNAL, BAD_SIGNAL, GOOD_SIGNAL </param>
+        private void UpdateSignalStrengthIcon(string strength)
+        {
+            switch (strength)
+            {
+                case "NO_SIGNAL":
+                    Signal.Source = new BitmapImage(new Uri("Assets/Images/Signal/Wireless - No Signal.png", UriKind.Relative));
+                    break;
+                case "BAD_SIGNAL":
+                    Signal.Source = new BitmapImage(new Uri("Assets/Images/Signal/Wireless - Signal 2.png", UriKind.Relative));
+                    break;
+                case "GOOD_SIGNAL":
+                    Signal.Source = new BitmapImage(new Uri("Assets/Images/Signal/Wireless - Signal 4.png", UriKind.Relative));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        #endregion Helper Functions
     }
 }

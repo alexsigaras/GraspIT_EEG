@@ -89,24 +89,27 @@
     </Controls:MetroWindow.WindowCommands>
 
     <Grid x:Name="PageHolder">
-        <Grid x:Name="MainWindowPage" Opacity="0" Visibility="Collapsed">
+        <Grid x:Name="MainWindowPage" Opacity="100" Visibility="Visible">
+            <Rectangle x:Name="O1rect"  Fill="Black" HorizontalAlignment="Left" Height="100" Margin="223,237,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
+            <Rectangle x:Name="O2rect"  Fill="Black" HorizontalAlignment="Left" Height="100" Margin="407,237,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
             <!--<Controls:MetroContentControl></Controls:MetroContentControl>-->
-            <TabControl>
+            <!--<TabControl>
                 <TabItem Header="SSVEP">
-                    <Grid>
+                    <Grid>-->
                         <!--<Controls:ToggleSwitch x:Name="EmotivToggleSwitch" Header="Emotiv State" OnLabel="ON" OffLabel="OFF" Width="100" IsChecked="False" Checked="EmotivToggleSwitch_Checked" Unchecked="EmotivToggleSwitch_Unchecked" />-->
                         <!--<Button Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" Content="&#xE112;" HorizontalAlignment="Left" Margin="146,222,0,0" VerticalAlignment="Top" Width="45" Height="45"/>-->
                         <!--<Controls:RangeSlider Margin="255,110,143.209,148.178"></Controls:RangeSlider>-->
                         <!--<Slider Margin="96,128,329.209,148.178"></Slider>-->
-                    </Grid>
-                </TabItem>
-                <TabItem Header="P300">
-                    <Grid>
+                    <!--</Grid>
+                </TabItem>-->
+                <!--<TabItem Header="P300">
+                    <Grid>-->
                         <!--Background="#FFE5E5E5"-->
                         <!--<Button Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" Content="&#xE112;" HorizontalAlignment="Left" Margin="146,222,0,0" VerticalAlignment="Top" Width="45" Height="45"/>-->
-                    </Grid>
+                    <!--</Grid>
                 </TabItem>
-            </TabControl>
+            </TabControl>-->
+            
 
         </Grid>
         <Grid x:Name="SettingsPage" Opacity="0" Visibility="Collapsed">
@@ -154,6 +157,10 @@
                     <TabItem Header="Gyro">
                         <Grid>
                             <!--Gyro Controls-->
+                            <Label x:Name="xLbl" Content="x:" HorizontalAlignment="Left" Margin="183,37,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="xValue" Content="x value" HorizontalAlignment="Left" Margin="206,37,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="yLbl" Content="y:" HorizontalAlignment="Left" Margin="297,37,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="yValue" Content="y value" HorizontalAlignment="Left" Margin="320,37,0,0" VerticalAlignment="Top"/>
                         </Grid>
                     </TabItem>
                     <TabItem Header="Data">

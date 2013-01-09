@@ -163,6 +163,8 @@
     <Resource Include="Assets\UserControls\HeadsetMap.png" />
     <Content Include="DLLs\DotNetEmotivDongleDriver.dll" />
     <Content Include="DLLs\DotNetEmotivSDK.dll" />
+    <Content Include="DLLs\edk.dll" />
+    <Content Include="DLLs\edk_utils.dll" />
     <Content Include="DLLs\EmoEngineClientLibrary.dll" />
     <Content Include="DLLs\EmoEngineControlLibrary.dll" />
     <Resource Include="Resources\Entypo-license.txt" />

@@ -10,6 +10,8 @@
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/dotnetemotivdongledriver.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/dotnetemotivsdk.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/edk.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/edk_utils.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/emoengineclientlibrary.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/emoenginecontrollibrary.dll")]
 
