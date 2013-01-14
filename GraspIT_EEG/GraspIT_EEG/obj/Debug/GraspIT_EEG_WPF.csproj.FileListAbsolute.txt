@@ -55,3 +55,4 @@ C:\Users\Kinect\Dropbox\Columbia\Fall 2012\Robotics Lab - Project\Code\EmotivBCI
 C:\Users\Kinect\Dropbox\Columbia\Fall 2012\Robotics Lab - Project\Code\EmotivBCIWPF\GraspIT_EEG\obj\Debug\GraspIT_EEG.g.resources
 C:\Users\Kinect\Dropbox\Columbia\Fall 2012\Robotics Lab - Project\Code\EmotivBCIWPF\GraspIT_EEG\obj\Debug\GraspIT_EEG.Properties.Resources.resources
 C:\Users\Kinect\Dropbox\Columbia\Fall 2012\Robotics Lab - Project\Code\EmotivBCIWPF\GraspIT_EEG\obj\Debug\GraspIT_EEG_WPF.csproj.GenerateResource.Cache
+C:\Users\Kinect\Dropbox\Columbia\Fall 2012\Robotics Lab - Project\Code\EmotivBCIWPF\GraspIT_EEG\obj\Debug\GraspIT_EEG_WPF.csprojResolveAssemblyReference.cache

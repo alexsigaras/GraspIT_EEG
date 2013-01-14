@@ -89,9 +89,7 @@
     </Controls:MetroWindow.WindowCommands>
 
     <Grid x:Name="PageHolder">
-        <Grid x:Name="MainWindowPage">
-            <Rectangle x:Name="O1rect"  Fill="Black" HorizontalAlignment="Left" Height="100" Margin="223,237,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
-            <Rectangle x:Name="O2rect"  Fill="Black" HorizontalAlignment="Left" Height="100" Margin="407,237,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
+        <Grid x:Name="MainWindowPage" Opacity="0" Visibility="Collapsed">
             <!--<Controls:MetroContentControl></Controls:MetroContentControl>-->
             <!--<TabControl>
                 <TabItem Header="SSVEP">
@@ -112,7 +110,7 @@
             
 
         </Grid>
-        <Grid x:Name="SettingsPage">
+        <Grid x:Name="SettingsPage" Opacity="0" Visibility="Collapsed">
             <Button x:Name="BackToMainWindowBtn" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" FontSize="18" Content="&#xE112;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="BackToMainWindowBtn_Click"/>
             <Label x:Name="SettingsLbl" Content="Settings" HorizontalAlignment="Left" Margin="60,13,0,0" VerticalAlignment="Top" FontSize="24"/>
             <Grid x:Name="SettingsSidebar" Margin="0,0,585.141,0.482">
@@ -149,7 +147,10 @@
                 <TabControl>
                     <TabItem Header="Expresiv">
                         <Grid Margin="0,0,-0.01,0.424">
-                            <Label x:Name="Clench" Content="Label" HorizontalAlignment="Left" Margin="83,346,0,0" VerticalAlignment="Top"/>
+                            <Rectangle x:Name="ClenchRect"  Fill="Black" HorizontalAlignment="Left" Height="100" Margin="37,207,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
+                            <Rectangle x:Name="EyebrowRect"  Fill="Black" HorizontalAlignment="Left" Height="100" Margin="184,207,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
+                            <Label x:Name="Clench" Content="Label" HorizontalAlignment="Left" Margin="37,328,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="Eyebrows" Content="Label" HorizontalAlignment="Left" Margin="184,328,0,0" VerticalAlignment="Top"/>
                             <!--Expressiv Controls-->
                         </Grid>
                     </TabItem>

@@ -116,6 +116,16 @@ namespace GraspIT_EEG
         int xmax = 0, ymax = 0;
         bool allow = false;
 
+        #region Expressiv (EMG Signals)
+
+        float clench;
+        float smile;
+        float eyeXCoordinate;
+        float eyeYCoordinate;
+        float eyebrows;
+
+        #endregion Expressiv (EMG Signals)
+
         #endregion Emotiv
 
         #region Timers
@@ -264,15 +274,58 @@ namespace GraspIT_EEG
             es.GetBatteryChargeLevel(out BatteryLevel, out MaxBatteryLevel);
             UpdateSensorContactQuality(es);
 
-            float clench = es.ExpressivGetClenchExtent();
-            Clench.Content = clench.ToString();
-            if (clench > 0.20)
+            float leftEye, rightEye;
+            EdkDll.EE_ExpressivAlgo_t lowerFaceAction, upperFaceAction;
+            bool expressivIsActive, expressivIsBlink, expressivIsEyesOpen, expressivIsLeftWink, expressivIsLookingDown, expressivIsLookingLeft, expressivIsLookingRight, expressivIsLookingUp, expressivIsRightWink;
+            float lowerFaceActionPower, upperFaceActionPower;
+
+
+            es.ExpressivGetEyelidState(out leftEye, out rightEye);
+            lowerFaceAction = es.ExpressivGetLowerFaceAction();
+            lowerFaceActionPower = es.ExpressivGetLowerFaceActionPower();
+            upperFaceAction = es.ExpressivGetUpperFaceAction();
+            upperFaceActionPower = es.ExpressivGetUpperFaceActionPower();
+            //expressivIsActive = es.ExpressivIsActive(
+            expressivIsBlink = es.ExpressivIsBlink();
+            expressivIsEyesOpen = es.ExpressivIsEyesOpen();
+            expressivIsLeftWink = es.ExpressivIsLeftWink();
+            expressivIsLookingDown = es.ExpressivIsLookingDown();
+            expressivIsLookingLeft = es.ExpressivIsLookingLeft();
+            expressivIsLookingRight = es.ExpressivIsLookingRight();
+            expressivIsLookingUp = es.ExpressivIsLookingUp();
+            expressivIsRightWink = es.ExpressivIsRightWink();
+
+            EdkDll.EE_CognitivAction_t EEGAction;
+
+            EEGAction = es.CognitivGetCurrentAction();
+
+            bool cognitivIsNoisy;
+
+            cognitivIsNoisy = es.CognitivIsActive();
+
+            clench = es.ExpressivGetClenchExtent();
+            smile = es.ExpressivGetSmileExtent();
+            eyebrows = es.ExpressivGetEyebrowExtent();
+            es.ExpressivGetEyeLocation(out eyeXCoordinate, out eyeYCoordinate);
+
+            Eyebrows.Content = eyebrows.ToString();
+            if (eyebrows > 0.10)
             {
-                O1rect.Fill = Brushes.Green;
+                EyebrowRect.Fill = Brushes.Green;
             }
             else
             {
-                O1rect.Fill = Brushes.Red;
+                EyebrowRect.Fill = Brushes.Red;
+            }
+
+            Clench.Content = clench.ToString();
+            if (clench > 0.10)
+            {
+                ClenchRect.Fill = Brushes.Green;
+            }
+            else
+            {
+                ClenchRect.Fill = Brushes.Red;
             }
             
             
