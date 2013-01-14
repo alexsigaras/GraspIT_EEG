@@ -110,7 +110,7 @@
             
 
         </Grid>
-        <Grid x:Name="SettingsPage" Opacity="0" Visibility="Collapsed">
+        <Grid x:Name="SettingsPage">
             <Button x:Name="BackToMainWindowBtn" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" FontSize="18" Content="&#xE112;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="BackToMainWindowBtn_Click"/>
             <Label x:Name="SettingsLbl" Content="Settings" HorizontalAlignment="Left" Margin="60,13,0,0" VerticalAlignment="Top" FontSize="24"/>
             <Grid x:Name="SettingsSidebar" Margin="0,0,585.141,0.482">
@@ -151,6 +151,8 @@
                             <Rectangle x:Name="EyebrowRect"  Fill="Black" HorizontalAlignment="Left" Height="100" Margin="184,207,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
                             <Label x:Name="Clench" Content="Label" HorizontalAlignment="Left" Margin="37,328,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="Eyebrows" Content="Label" HorizontalAlignment="Left" Margin="184,328,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="SamplingRateLbl" Content="Label" HorizontalAlignment="Left" Margin="145.834,422.97,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="BufferSizeLbl" Content="Label" HorizontalAlignment="Left" Margin="246.006,415.869,0,0" VerticalAlignment="Top"/>
                             <!--Expressiv Controls-->
                         </Grid>
                     </TabItem>

@@ -89,20 +89,10 @@ namespace GraspIT_EEG
 
         #region Emotiv
 
+        #region Device
+
         // Emotiv Engine
         EmoEngine engine = EmoEngine.Instance;
-
-        // User ID
-        uint userID = 0;
-
-        // Channels
-        public double AF3, F7, F3, FC5, T7, P7, O1, O2, P8, T8, FC6, F4, F8, AF4;
-
-        // Gyros
-        public double GYROX, GYROY;
-
-        // Others
-        public double COUNTER, ES_TIMESTAMP, FUNC_ID, FUNC_VALUE, INTERPOLATED, MARKER, RAW_CQ, SYNC_SIGNAL, TIMESTAMP;
 
         // Emotiv Wireless Signal
         public string SignalStatus = "NO_SIGNAL";
@@ -111,10 +101,29 @@ namespace GraspIT_EEG
         public int BatteryLevel = 0;
         public int MaxBatteryLevel = 5;
 
-        // EmoEngineClient _emoEngineClient;
-        
+        // Channels
+        public double AF3, F7, F3, FC5, T7, P7, O1, O2, P8, T8, FC6, F4, F8, AF4;
+
+        // Gyros
+        public double GYROX, GYROY;
+
         int xmax = 0, ymax = 0;
         bool allow = false;
+
+        // Others
+        public double COUNTER, ES_TIMESTAMP, FUNC_ID, FUNC_VALUE, INTERPOLATED, MARKER, RAW_CQ, SYNC_SIGNAL, TIMESTAMP;
+
+        float bufferSize;
+        uint samplingRate;
+
+        #endregion Device
+
+        #region User
+
+        // User ID
+        uint userID = 0;
+
+        #endregion User
 
         #region Expressiv (EMG Signals)
 
@@ -125,6 +134,14 @@ namespace GraspIT_EEG
         float eyebrows;
 
         #endregion Expressiv (EMG Signals)
+
+        #region Affectiv
+
+        #endregion Affectiv
+
+        #region Cognitiv
+
+        #endregion Cognitiv
 
         #endregion Emotiv
 
@@ -269,6 +286,7 @@ namespace GraspIT_EEG
             {
                 allow = false;
             }
+
             SignalStatus = es.GetWirelessSignalStatus().ToString();
             Uptime.Content = ConvertToTime(es.GetTimeFromStart());
             es.GetBatteryChargeLevel(out BatteryLevel, out MaxBatteryLevel);
@@ -279,6 +297,8 @@ namespace GraspIT_EEG
             bool expressivIsActive, expressivIsBlink, expressivIsEyesOpen, expressivIsLeftWink, expressivIsLookingDown, expressivIsLookingLeft, expressivIsLookingRight, expressivIsLookingUp, expressivIsRightWink;
             float lowerFaceActionPower, upperFaceActionPower;
 
+            EdkDll.EE_DataGetBufferSizeInSec(out bufferSize);
+            EdkDll.EE_DataGetSamplingRate(userID, out samplingRate);
 
             es.ExpressivGetEyelidState(out leftEye, out rightEye);
             lowerFaceAction = es.ExpressivGetLowerFaceAction();
@@ -327,8 +347,10 @@ namespace GraspIT_EEG
             {
                 ClenchRect.Fill = Brushes.Red;
             }
-            
-            
+
+            SamplingRateLbl.Content = samplingRate.ToString();
+            BufferSizeLbl.Content = bufferSize.ToString();
+
         }
 
         private void UpdateSensorContactQuality(EmoState es)
@@ -352,24 +374,7 @@ namespace GraspIT_EEG
             O2Contact.Fill = getContactQualityColor(contactQualityArray[10].ToString());
         }
 
-        private Brush getContactQualityColor(string contactQuality)
-        {
-            switch (contactQuality)
-            {
-                case "EEG_CQ_NO_SIGNAL":
-                    return Brushes.Black;
-                case "EEG_CQ_VERY_BAD":
-                    return Brushes.Red;
-                case "EEG_CQ_POOR":
-                    return Brushes.Orange;
-                case "EEG_CQ_FAIR":
-                    return Brushes.Yellow;
-                case "EEG_CQ_GOOD":
-                    return Brushes.Green;
-                default:
-                    return Brushes.Black;
-            }
-        }
+        
 
         void engine_UserAdded_Event(object sender, EmoEngineEventArgs e)
         {
@@ -388,114 +393,19 @@ namespace GraspIT_EEG
 
         #endregion Emotiv Event Handlers
 
-        #region Settings
 
-        // Emotiv Turned On
-        private void EmotivToggleSwitch_Checked(object sender, RoutedEventArgs e)
-        {
-            // Try to connect the Emotiv device.
 
-            // Connect Emotiv
-            engine.EmoStateUpdated += new EmoEngine.EmoStateUpdatedEventHandler(engine_EmoStateUpdated);
-            engine.UserAdded += new EmoEngine.UserAddedEventHandler(engine_UserAdded_Event);
-            engine.Connect();
-            gyrotimer.Start();
+        #region P300
 
-            EmotivStatusLbl.Content = "Connected"; // Set to Connected
-            UpdateBatteryCapacityIcon(BatteryLevel); // Get Battery Level
-            UpdateSignalStrengthIcon(SignalStatus); // Get Wireless Signal Strength
-        }
+        #endregion P300
 
-        // Emotiv Turned Off
-        private void EmotivToggleSwitch_Unchecked(object sender, RoutedEventArgs e)
-        {
-            // Disconnect Emotiv
-            engine.EmoStateUpdated -= new EmoEngine.EmoStateUpdatedEventHandler(engine_EmoStateUpdated);
-            engine.UserAdded -= new EmoEngine.UserAddedEventHandler(engine_UserAdded_Event);
-            engine.Disconnect();
-            gyrotimer.Stop();
+        #region SSVEP
 
-            EmotivStatusLbl.Content = "Not Connected"; // Set to Disconnected
-            UpdateBatteryCapacityIcon(0); // Set Battery Level
-            UpdateSignalStrengthIcon("NO_SIGNAL"); // Set Wireless Signal Strength
-        }
+        #endregion SSVEP
 
-        // Add User.
-        private void AddUserBtn_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
+        #region StatusBar
 
-        // Remove User.
-        private void RemoveUserBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        // Save User.
-        private void SaveUserBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        // Train User.
-        private void TrainUserBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        #endregion Settings
-
-        #region Helper Functions
-
-        private string ConvertToTime(float GetTimeFromStartFloat)
-        {
-            int GetTimeFromStart = (Int32)GetTimeFromStartFloat;
-
-            string hours = (GetTimeFromStart / 3600).ToString();
-            string minutes = ((GetTimeFromStart / 60) % 60).ToString();
-            string seconds = (GetTimeFromStart % 60).ToString();
-            return (hours + " h " + minutes + " ' " + seconds + " \" ");
-        }
-
-        /// <summary>
-        /// Updates the Emotiv Sensor Data
-        /// </summary>
-        /// <param name="data"></param>
-        /// <param name="i"></param>
-        private void UpdateEmotivSensorData(Dictionary<EdkDll.EE_DataChannel_t, double[]> data, int i)
-        {
-            // EEG Sensor Data
-            AF3 = data[EdkDll.EE_DataChannel_t.AF3][i];
-            AF4 = data[EdkDll.EE_DataChannel_t.AF4][i];
-            F3 = data[EdkDll.EE_DataChannel_t.F3][i];
-            F4 = data[EdkDll.EE_DataChannel_t.F4][i];
-            F7 = data[EdkDll.EE_DataChannel_t.F7][i];
-            F8 = data[EdkDll.EE_DataChannel_t.F8][i];
-            FC5 = data[EdkDll.EE_DataChannel_t.FC5][i];
-            FC6 = data[EdkDll.EE_DataChannel_t.FC6][i];
-            O1 = data[EdkDll.EE_DataChannel_t.O1][i];
-            O2 = data[EdkDll.EE_DataChannel_t.O2][i];
-            P7 = data[EdkDll.EE_DataChannel_t.P7][i];
-            P8 = data[EdkDll.EE_DataChannel_t.P8][i];
-            T7 = data[EdkDll.EE_DataChannel_t.T7][i];
-            T8 = data[EdkDll.EE_DataChannel_t.T8][i];
-
-            // Gyro Data
-            GYROX = data[EdkDll.EE_DataChannel_t.GYROX][i];
-            GYROY = data[EdkDll.EE_DataChannel_t.GYROY][i];
-
-            // Other Data
-            COUNTER = data[EdkDll.EE_DataChannel_t.COUNTER][i];
-            ES_TIMESTAMP = data[EdkDll.EE_DataChannel_t.ES_TIMESTAMP][i];
-            FUNC_ID = data[EdkDll.EE_DataChannel_t.FUNC_ID][i];
-            FUNC_ID = data[EdkDll.EE_DataChannel_t.FUNC_VALUE][i];
-            INTERPOLATED = data[EdkDll.EE_DataChannel_t.INTERPOLATED][i];
-            MARKER = data[EdkDll.EE_DataChannel_t.MARKER][i];
-            RAW_CQ = data[EdkDll.EE_DataChannel_t.RAW_CQ][i];
-            SYNC_SIGNAL = data[EdkDll.EE_DataChannel_t.SYNC_SIGNAL][i];
-            TIMESTAMP = data[EdkDll.EE_DataChannel_t.TIMESTAMP][i];
-        }
+        #region Battery
 
         /// <summary>
         /// Set the battery capacity based on the charge
@@ -539,6 +449,10 @@ namespace GraspIT_EEG
             }
         }
 
+        #endregion Battery
+
+        #region Wireless Signal
+
         /// <summary>
         /// Set the signal capacity based on the strength
         /// </summary>
@@ -561,6 +475,163 @@ namespace GraspIT_EEG
             }
         }
 
-        #endregion Helper Functions
+        #endregion Wireless Signal
+
+
+        #endregion StatusBar
+
+        #region Settings
+
+        #region General Settings
+
+        #region Emotiv Toggle Switch
+
+        // Emotiv Turned On
+        private void EmotivToggleSwitch_Checked(object sender, RoutedEventArgs e)
+        {
+            // Try to connect the Emotiv device.
+
+            // Connect Emotiv
+            engine.EmoStateUpdated += new EmoEngine.EmoStateUpdatedEventHandler(engine_EmoStateUpdated);
+            engine.UserAdded += new EmoEngine.UserAddedEventHandler(engine_UserAdded_Event);
+            engine.Connect();
+            gyrotimer.Start();
+
+            EmotivStatusLbl.Content = "Connected"; // Set to Connected
+            UpdateBatteryCapacityIcon(BatteryLevel); // Get Battery Level
+            UpdateSignalStrengthIcon(SignalStatus); // Get Wireless Signal Strength
+        }
+
+        // Emotiv Turned Off
+        private void EmotivToggleSwitch_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // Disconnect Emotiv
+            engine.EmoStateUpdated -= new EmoEngine.EmoStateUpdatedEventHandler(engine_EmoStateUpdated);
+            engine.UserAdded -= new EmoEngine.UserAddedEventHandler(engine_UserAdded_Event);
+            engine.Disconnect();
+            gyrotimer.Stop();
+
+            EmotivStatusLbl.Content = "Not Connected"; // Set to Disconnected
+            UpdateBatteryCapacityIcon(0); // Set Battery Level
+            UpdateSignalStrengthIcon("NO_SIGNAL"); // Set Wireless Signal Strength
+        }
+
+        #endregion Emotiv Toggle Switch
+
+        #region Get Running Time
+
+        private string ConvertToTime(float GetTimeFromStartFloat)
+        {
+            int GetTimeFromStart = (Int32)GetTimeFromStartFloat;
+
+            string hours = (GetTimeFromStart / 3600).ToString();
+            string minutes = ((GetTimeFromStart / 60) % 60).ToString();
+            string seconds = (GetTimeFromStart % 60).ToString();
+            return (hours + " h " + minutes + " ' " + seconds + " \" ");
+        }
+
+        #endregion Get Running Time
+
+        /// <summary>
+        /// Sets the contact quality color for the contact quality provided.
+        /// </summary>
+        /// <param name="contactQuality"></param>
+        /// <returns></returns>
+        private Brush getContactQualityColor(string contactQuality)
+        {
+            switch (contactQuality)
+            {
+                case "EEG_CQ_NO_SIGNAL":
+                    return Brushes.Black;
+                case "EEG_CQ_VERY_BAD":
+                    return Brushes.Red;
+                case "EEG_CQ_POOR":
+                    return Brushes.Orange;
+                case "EEG_CQ_FAIR":
+                    return Brushes.Yellow;
+                case "EEG_CQ_GOOD":
+                    return Brushes.Green;
+                default:
+                    return Brushes.Black;
+            }
+        }
+
+        /// <summary>
+        /// Updates the Emotiv Sensor Data
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="i"></param>
+        private void UpdateEmotivSensorData(Dictionary<EdkDll.EE_DataChannel_t, double[]> data, int i)
+        {
+            // EEG Sensor Data
+            AF3 = data[EdkDll.EE_DataChannel_t.AF3][i];
+            AF4 = data[EdkDll.EE_DataChannel_t.AF4][i];
+            F3 = data[EdkDll.EE_DataChannel_t.F3][i];
+            F4 = data[EdkDll.EE_DataChannel_t.F4][i];
+            F7 = data[EdkDll.EE_DataChannel_t.F7][i];
+            F8 = data[EdkDll.EE_DataChannel_t.F8][i];
+            FC5 = data[EdkDll.EE_DataChannel_t.FC5][i];
+            FC6 = data[EdkDll.EE_DataChannel_t.FC6][i];
+            O1 = data[EdkDll.EE_DataChannel_t.O1][i];
+            O2 = data[EdkDll.EE_DataChannel_t.O2][i];
+            P7 = data[EdkDll.EE_DataChannel_t.P7][i];
+            P8 = data[EdkDll.EE_DataChannel_t.P8][i];
+            T7 = data[EdkDll.EE_DataChannel_t.T7][i];
+            T8 = data[EdkDll.EE_DataChannel_t.T8][i];
+
+            // Gyro Data
+            GYROX = data[EdkDll.EE_DataChannel_t.GYROX][i];
+            GYROY = data[EdkDll.EE_DataChannel_t.GYROY][i];
+
+            // Other Data
+            COUNTER = data[EdkDll.EE_DataChannel_t.COUNTER][i];
+            ES_TIMESTAMP = data[EdkDll.EE_DataChannel_t.ES_TIMESTAMP][i];
+            FUNC_ID = data[EdkDll.EE_DataChannel_t.FUNC_ID][i];
+            FUNC_ID = data[EdkDll.EE_DataChannel_t.FUNC_VALUE][i];
+            INTERPOLATED = data[EdkDll.EE_DataChannel_t.INTERPOLATED][i];
+            MARKER = data[EdkDll.EE_DataChannel_t.MARKER][i];
+            RAW_CQ = data[EdkDll.EE_DataChannel_t.RAW_CQ][i];
+            SYNC_SIGNAL = data[EdkDll.EE_DataChannel_t.SYNC_SIGNAL][i];
+            TIMESTAMP = data[EdkDll.EE_DataChannel_t.TIMESTAMP][i];
+        }
+
+
+        // Add User.
+        private void AddUserBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // Remove User.
+        private void RemoveUserBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // Save User.
+        private void SaveUserBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // Train User.
+        private void TrainUserBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        #endregion General Settings
+
+        #region Specific Settings
+
+        #endregion Specific Settings
+
+        #endregion Settings
+
+
+
+
+
+
     }
 }
