@@ -22,6 +22,7 @@ using MahApps.Metro.Controls;
 using Emotiv;
 using EmoEngineClientLibrary;
 using EmoEngineControlLibrary;
+using Telerik.Windows.Controls.ChartView;
 
 namespace GraspIT_EEG
 {
@@ -91,6 +92,11 @@ namespace GraspIT_EEG
 
         #region Device
 
+        List<ChartDataObject> GyroXList = new List<ChartDataObject>();
+        List<ChartDataObject> GyroYList = new List<ChartDataObject>();
+        List<EEGChartDataObject> O1List = new List<EEGChartDataObject>();
+        List<EEGChartDataObject> O2List = new List<EEGChartDataObject>();
+
         // Emotiv Engine
         EmoEngine engine = EmoEngine.Instance;
 
@@ -115,6 +121,7 @@ namespace GraspIT_EEG
 
         float bufferSize;
         uint samplingRate;
+        float elapsed;
 
         #endregion Device
 
@@ -170,10 +177,11 @@ namespace GraspIT_EEG
         public MainWindow()
         {
             InitializeComponent();
+            //engine.EmoStateUpdated +=engine_EmoStateUpdated;
 
             #region Instantiate Timers
 
-            gyrotimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            gyrotimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             gyrotimer.Tick += gyrotimer_Tick;
 
             P300FlashDuration.Interval = new TimeSpan(0, 0, 0, 0, 125);
@@ -201,35 +209,146 @@ namespace GraspIT_EEG
 
         void gyrotimer_Tick(object sender, EventArgs e)
         {
-            engine.ProcessEvents(1000);
+            engine.ProcessEvents();
 
             if ((int)userID == -1)
                 return;
 
-            if (allow)
-            {
+            UpdateBatteryCapacityIcon(BatteryLevel); // Get Battery Level
+            UpdateSignalStrengthIcon(SignalStatus); // Get Wireless Signal Strength
+
+            //if (allow)
+            //{
                 int x = 0, y = 0;
                 engine.HeadsetGetGyroDelta(userID, out x, out y);
 
                 xmax += x;
                 ymax += y;
                 xValue.Content = xmax.ToString();
+                xValueMax.Content = x.ToString();
                 yValue.Content = ymax.ToString();
-            }
+                yValueMax.Content = y.ToString();
+                xValueMax_Copy.Content = GYROX.ToString();
+                yValueMax_Copy.Content = GYROY.ToString();
 
-            Dictionary<EdkDll.EE_DataChannel_t, double[]> data = engine.GetData((uint)userID);
 
-            if (data == null)
+                int seconds = Convert.ToInt32(elapsed);
+
+                UpdateGraphs();
+
+                Dictionary<EdkDll.EE_DataChannel_t, double[]> data = engine.GetData(userID);
+
+                if (data == null)
+                {
+                    return;
+                }
+
+                // Update Emotiv Sensor Data
+                int _bufferSize = data[EdkDll.EE_DataChannel_t.TIMESTAMP].Length;
+                for (int i = 0; i < _bufferSize; i++)
+                {
+                    UpdateEmotivSensorData(data, i);
+                }
+        }
+
+        private void UpdateGraphs()
+        {
+            #region GyroXGraph
+
+            ChartDataObject GyroXObj = new ChartDataObject
             {
-                return;
-            }
+                //Time = ConvertToTime(elapsed),
+                Time = DateTime.Now,
+                Value = xmax
+            };
+            GyroXList.Add(GyroXObj);
 
-            // Update Emotiv Sensor Data
-            int _bufferSize = data[EdkDll.EE_DataChannel_t.TIMESTAMP].Length;
-            for (int i = 0; i < _bufferSize; i++)
+            LineSeries xSeries = (LineSeries)this.GyroXChart.Series[0];
+            xSeries.CategoryBinding = new PropertyNameDataPointBinding()
             {
-                UpdateEmotivSensorData(data, i);
+                PropertyName = "Time"
+            };
+            xSeries.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            xSeries.ItemsSource = GyroXList;
+
+            #endregion GyroXGraph
+
+            #region GyroYGraph
+
+            ChartDataObject GyroYObj = new ChartDataObject
+            {
+                //Time = ConvertToTime(elapsed),
+                Time = DateTime.Now,
+                Value = ymax
+            };
+            GyroYList.Add(GyroYObj);
+
+            LineSeries ySeries = (LineSeries)this.GyroYChart.Series[0];
+            ySeries.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            ySeries.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            ySeries.ItemsSource = GyroYList;
+
+            #endregion GyroYGraph
+
+            #region O1Graph
+
+            EEGChartDataObject O1Obj = new EEGChartDataObject
+            {
+                //Time = ConvertToTime(elapsed),
+                Time = DateTime.Now,
+                Value = O1
+            };
+            O1List.Add(O1Obj);
+
+            LineSeries O1Series = (LineSeries)this.O1Chart.Series[0];
+            O1Series.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            O1Series.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            O1Series.ItemsSource = O1List;
+
+            #endregion O1Graph
+
+            #region O2Graph
+
+            EEGChartDataObject O2Obj = new EEGChartDataObject
+            {
+                //Time = ConvertToTime(elapsed),
+                Time = DateTime.Now,
+                Value = O2
+            };
+
+            if(O2 !=0)
+            {
+                O2Obj.Value -= 4200;
             }
+            O2List.Add(O2Obj);
+
+            LineSeries O2Series = (LineSeries)this.O2Chart.Series[0];
+            O2Series.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            O2Series.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            O2Series.ItemsSource = O2List;
+
+            #endregion O2Graph
         }
 
         #region P300 Timers Ticks
@@ -277,15 +396,15 @@ namespace GraspIT_EEG
         void engine_EmoStateUpdated(object sender, EmoStateUpdatedEventArgs e)
         {
             EmoState es = e.emoState;
-            float elapsed = es.GetTimeFromStart();
-            if ((elapsed > 5) && (!allow))
-            {
-                allow = true;
-            }
-            if (es.GetWirelessSignalStatus() == EdkDll.EE_SignalStrength_t.NO_SIGNAL)
-            {
-                allow = false;
-            }
+            elapsed = es.GetTimeFromStart();
+            //if ((elapsed > 5) && (!allow))
+            //{
+            //    allow = true;
+            //}
+            //if (es.GetWirelessSignalStatus() == EdkDll.EE_SignalStrength_t.NO_SIGNAL)
+            //{
+            //    allow = false;
+            //}
 
             SignalStatus = es.GetWirelessSignalStatus().ToString();
             Uptime.Content = ConvertToTime(es.GetTimeFromStart());
@@ -328,30 +447,52 @@ namespace GraspIT_EEG
             eyebrows = es.ExpressivGetEyebrowExtent();
             es.ExpressivGetEyeLocation(out eyeXCoordinate, out eyeYCoordinate);
 
+            ClenchCheckBox.IsChecked = false;
+            EyebrowsCheckBox.IsChecked = false;
+            SmileCheckBox.IsChecked = false;
+
             Eyebrows.Content = eyebrows.ToString();
             if (eyebrows > 0.10)
             {
                 EyebrowRect.Fill = Brushes.Green;
+                EyebrowsCheckBox.IsChecked = true;
             }
             else
             {
                 EyebrowRect.Fill = Brushes.Red;
+                EyebrowsCheckBox.IsChecked = false;
             }
 
             Clench.Content = clench.ToString();
             if (clench > 0.10)
             {
                 ClenchRect.Fill = Brushes.Green;
+                ClenchCheckBox.IsChecked = true;
             }
             else
             {
                 ClenchRect.Fill = Brushes.Red;
+                ClenchCheckBox.IsChecked = false;
+            }
+
+            if (smile > 0.05)
+            {
+                SmileCheckBox.IsChecked = true;
+            }
+            else
+            {
+                SmileCheckBox.IsChecked = false;
             }
 
             SamplingRateLbl.Content = samplingRate.ToString();
             BufferSizeLbl.Content = bufferSize.ToString();
 
-        }
+
+            
+
+            
+
+            }
 
         private void UpdateSensorContactQuality(EmoState es)
         {
@@ -631,7 +772,19 @@ namespace GraspIT_EEG
 
 
 
+        public class ChartDataObject
+        {
+            //public String Time { get; set; }
+            public DateTime Time { get; set; }
+            public int Value { get; set; }
+        }
 
+        public class EEGChartDataObject
+        {
+            //public String Time { get; set; }
+            public DateTime Time { get; set; }
+            public double Value { get; set; }
+        }
 
     }
 }
