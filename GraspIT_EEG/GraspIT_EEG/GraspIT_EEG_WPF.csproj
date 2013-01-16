@@ -124,6 +124,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Butterworth.cs" />
     <Compile Include="Model\FFT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

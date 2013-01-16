@@ -13,6 +13,8 @@
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
 
+            <!-- Region Metro Theme -->
+
             <!-- Metro Theme -->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
@@ -30,6 +32,10 @@
                 <ResourceDictionary Source="Resources/Icons.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- EndRegion -->
+
+            <!-- Region Storyboards & Animations -->
             
             <Storyboard x:Key="MainWindowPageIn">
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MainWindowPage">
@@ -71,6 +77,7 @@
                     <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}"/>
                 </ObjectAnimationUsingKeyFrames>
             </Storyboard>
+            
         </ResourceDictionary>
     </Controls:MetroWindow.Resources>
 
@@ -79,6 +86,11 @@
             <BeginStoryboard Storyboard="{StaticResource MainWindowPageIn}"/>
         </EventTrigger>
     </Controls:MetroWindow.Triggers>
+
+    <!-- EndRegion -->
+
+    <!-- Region Titlebar -->
+    
     <Controls:MetroWindow.WindowCommands>
         <Controls:WindowCommands>
             <Label x:Name="EmotivStatusLbl" Content="Not Connected" Foreground="White" VerticalAlignment="Center" />
@@ -89,7 +101,12 @@
         </Controls:WindowCommands>
     </Controls:MetroWindow.WindowCommands>
 
+    <!-- EndRegion -->
+
     <Grid x:Name="PageHolder">
+        
+        <!-- Region Main Window -->
+        
         <Grid x:Name="MainWindowPage" Opacity="0" Visibility="Collapsed">
             <!--<Controls:MetroContentControl></Controls:MetroContentControl>-->
             <!--<TabControl>
@@ -108,10 +125,17 @@
                     <!--</Grid>
                 </TabItem>
             </TabControl>-->
-            
 
         </Grid>
+
+        <!-- EndRegion -->
+
+        <!-- Region Settings -->
+        
         <Grid x:Name="SettingsPage">
+            
+            <!-- Region Settings Sidebar -->
+            
             <Button x:Name="BackToMainWindowBtn" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" FontSize="18" Content="&#xE112;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="BackToMainWindowBtn_Click"/>
             <Label x:Name="SettingsLbl" Content="Settings" HorizontalAlignment="Left" Margin="60,13,0,0" VerticalAlignment="Top" FontSize="24"/>
             <Grid x:Name="SettingsSidebar" Margin="0,0,585.141,0.482">
@@ -144,8 +168,16 @@
                 <Controls:AppBarButton x:Name="SaveUserBtn" Content="Save" MetroImageSource="{DynamicResource appbar_save}" Foreground="{DynamicResource BlackBrush}" Margin="100,0,0,7.518" Width="50" Height="50" Click="SaveUserBtn_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
                 <Controls:AppBarButton x:Name="TrainUserBtn" Content="Train" VerticalAlignment="Bottom" MetroImageSource="{DynamicResource appbar_timer_record}" Foreground="{DynamicResource BlackBrush}" Margin="150,0,0,7.518" Width="50" Height="50" Click="TrainUserBtn_Click" HorizontalAlignment="Left"  />
             </Grid>
+
+            <!-- EndRegion -->
+            
+            <!-- Region Settings Tabs -->
+            
             <Grid Margin="215,10,0.141,0.482">
                 <TabControl>
+                    
+                    <!-- Region Expressiv -->
+                    
                     <TabItem Header="Expresiv">
                         <Grid Margin="0,0,-0.01,0.424">
                         	<Grid.ColumnDefinitions>
@@ -164,16 +196,31 @@
                             <!--Expressiv Controls-->
                         </Grid>
                     </TabItem>
+
+                    <!-- EndRegion -->
+
+                    <!-- Region Affectiv -->
+                    
                     <TabItem Header="Affectiv">
                         <Grid>
                             <!--Affectiv Controls-->
                         </Grid>
                     </TabItem>
+
+                    <!-- EndRegion -->
+
+                    <!-- Region Cognitiv -->
+                    
                     <TabItem Header="Cognitiv">
                         <Grid>
                             <!--Cognitiv Controls-->
                         </Grid>
                     </TabItem>
+
+                    <!-- EndRegion -->
+
+                    <!-- Region EEG -->
+                    
                     <TabItem Header="EEG">
                         <Grid>
                         	<telerik:RadCartesianChart x:Name="O1Chart" Palette="Windows8" Margin="70,11,0,292" MaxZoom="100,1" Zoom="100,1">
@@ -237,11 +284,21 @@
                             <!--EEG Controls-->
                         </Grid>
                     </TabItem>
+
+                    <!-- EndRegion -->
+
+                    <!-- Region FFT -->
+
                     <TabItem Header="FFT">
                         <Grid>
                             <!--FFT Controls-->
                         </Grid>
                     </TabItem>
+
+                    <!-- EndRegion -->
+
+                    <!-- Region Gyro -->
+
                     <TabItem Header="Gyro">
                         <Grid>
                             <!--Gyro Controls-->
@@ -253,9 +310,14 @@
                             <Label x:Name="yValueMax" Content="y value" HorizontalAlignment="Left" Margin="320,28.198,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="xValueMax_Copy" Content="x value" HorizontalAlignment="Left" Margin="206,59.198,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="yValueMax_Copy" Content="y value" HorizontalAlignment="Left" Margin="320,59.198,0,0" VerticalAlignment="Top"/>
+                            
                             <telerik:RadCartesianChart x:Name="GyroXChart" Palette="Windows8" Margin="0,89.522,0,212.522" Height="200" MaxZoom="10,1" Zoom="10,1">
                                 <telerik:RadCartesianChart.Behaviors>
-                                	<telerik:ChartPanAndZoomBehavior PanMode="Horizontal" ZoomMode="Horizontal" />
+                                	<telerik:ChartPanAndZoomBehavior PanMode="Horizontal"
+                                                                     ZoomMode="Horizontal" />
+                                    <telerik:ChartTrackBallBehavior ShowIntersectionPoints="True"
+                                                                    ShowTrackInfo="True"
+                                                                    SnapMode="AllClosePoints" />
                                 </telerik:RadCartesianChart.Behaviors>
                                 <telerik:RadCartesianChart.Grid>
                                     <telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
@@ -275,17 +337,27 @@
                                     <telerik:LinearAxis/>
                                 </telerik:RadCartesianChart.VerticalAxis>
                                 <telerik:RadCartesianChart.HorizontalAxis>
-                                    <telerik:DateTimeContinuousAxis MajorStepUnit="Second" 
+                                    <telerik:DateTimeContinuousAxis MajorStepUnit="Second"  
                             			LabelInterval="5"
                             			LabelFormat="HH:mm:ss.f" FontFamily="Segoe UI"
                             			PlotMode="OnTicks" />
                                 </telerik:RadCartesianChart.HorizontalAxis>
-                            	<telerik:SplineSeries Stroke="Blue"/>
+                                <telerik:SplineSeries Stroke="Blue" >
+                                    <!--<telerik:SplineSeries.TrackBallInfoTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Foreground="Red" Text="{Binding DataPoint.Category}"
+                                        </DataTemplate>
+                                    </telerik:SplineSeries.TrackBallInfoTemplate>-->
+                                </telerik:SplineSeries>
                             </telerik:RadCartesianChart>
                             
                             <telerik:RadCartesianChart x:Name="GyroYChart" Palette="Windows8" Margin="0,287,0,0" Height="200" MaxZoom="10,1" Zoom="10,1">
                                 <telerik:RadCartesianChart.Behaviors>
-                                    <telerik:ChartPanAndZoomBehavior PanMode="Horizontal" ZoomMode="Horizontal" />
+                                    <telerik:ChartPanAndZoomBehavior PanMode="Horizontal"
+                                                                     ZoomMode="Horizontal" />
+                                    <telerik:ChartTrackBallBehavior ShowIntersectionPoints="True"
+                                                                    ShowTrackInfo="True"
+                                                                    SnapMode="AllClosePoints" />
                                 </telerik:RadCartesianChart.Behaviors>
                                 <telerik:RadCartesianChart.Grid>
                                     <telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
@@ -315,13 +387,23 @@
 
                         </Grid>
                     </TabItem>
+
+                    <!-- EndRegion -->
+
+                    <!-- Region Data -->
+                    
                     <TabItem Header="Data">
                         <Grid>
                             <!--Data Controls-->
                         </Grid>
                     </TabItem>
                 </TabControl>
+                
+                <!-- EndRegion -->
+                
             </Grid>
         </Grid>
+
+        <!-- EndRegion -->
     </Grid>
 </Controls:MetroWindow>
