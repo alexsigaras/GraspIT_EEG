@@ -111,7 +111,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Butterworth.cs" />
+    <Compile Include="Model\ChartDataObjects.cs" />
     <Compile Include="Model\FFT.cs" />
+    <Compile Include="Model\P300.cs" />
+    <Compile Include="Model\SSVEP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -150,7 +153,7 @@
     <Resource Include="Assets\Images\Signal\Wireless - Signal 2.png" />
     <Resource Include="Assets\Images\Signal\Wireless - Signal 3.png" />
     <Resource Include="Assets\Images\Signal\Wireless - Signal 4.png" />
-    <Resource Include="Assets\UserControls\HeadsetMap.png" />
+    <Resource Include="Assets\Images\HeadsetMap.png" />
     <Content Include="DLLs\DotNetEmotivDongleDriver.dll" />
     <Content Include="DLLs\DotNetEmotivSDK.dll" />
     <Content Include="DLLs\edk.dll" />

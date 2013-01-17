@@ -5,7 +5,6 @@
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:UserControls="clr-namespace:EmotivBCIWPF.Assets.UserControls"
     xmlns:telerik ="http://schemas.telerik.com/2008/xaml/presentation"
     x:Class="GraspIT_EEG.MainWindow"
     Title="GraspIT EEG" Height="600" Width="800" mc:Ignorable="d">
@@ -146,7 +145,7 @@
                 <!-- Region Headset -->
                 
                 <Grid x:Name="Headset" Margin="10,174,10,132.392">
-                	<Image Source="Assets/UserControls/HeadsetMap.png" Stretch="Fill" HorizontalAlignment="Left" Width="186.859" Height="260.518" VerticalAlignment="Top"/>
+                	<Image Source="Assets/Images/HeadsetMap.png" Stretch="Fill" HorizontalAlignment="Left" Width="186.859" Height="260.518" VerticalAlignment="Top"/>
                 	<Ellipse x:Name="AF3Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="41.847,31.656,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
                 	<Ellipse x:Name="AF4Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="113.169,30.768,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
                 	<Ellipse x:Name="F7Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="15.29,69.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>

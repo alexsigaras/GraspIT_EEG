@@ -11,7 +11,7 @@ using System.Windows;
 [assembly: AssemblyDescription("GraspIT EEG SSVEP/P300 Application")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Columbia University")]
-[assembly: AssemblyProduct("Emotiv EPOC")]
+[assembly: AssemblyProduct("Emotiv EEG")]
 [assembly: AssemblyCopyright("Alexandros Sigaras | Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
