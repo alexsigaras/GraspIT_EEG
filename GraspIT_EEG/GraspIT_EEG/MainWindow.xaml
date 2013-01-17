@@ -77,7 +77,9 @@
                     <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}"/>
                 </ObjectAnimationUsingKeyFrames>
             </Storyboard>
-            
+
+            <!-- EndRegion -->
+
         </ResourceDictionary>
     </Controls:MetroWindow.Resources>
 
@@ -86,8 +88,6 @@
             <BeginStoryboard Storyboard="{StaticResource MainWindowPageIn}"/>
         </EventTrigger>
     </Controls:MetroWindow.Triggers>
-
-    <!-- EndRegion -->
 
     <!-- Region Titlebar -->
     
@@ -142,6 +142,9 @@
                 <Controls:ToggleSwitch x:Name="EmotivToggleSwitch" Header="Emotiv" OnLabel="ON" OffLabel="OFF" Width="100" IsChecked="False" Checked="EmotivToggleSwitch_Checked" Unchecked="EmotivToggleSwitch_Unchecked" Margin="10,65,0,0" HorizontalAlignment="Left" Height="62.518" VerticalAlignment="Top" />
                 <Label x:Name="UptimeLbl" Content="Uptime:" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" FontSize="18"/>
                 <Label x:Name="Uptime" Content="" HorizontalAlignment="Left" Margin="88,135,0,0" VerticalAlignment="Top" Width="112" FontSize="18"/>
+
+                <!-- Region Headset -->
+                
                 <Grid x:Name="Headset" Margin="10,174,10,132.392">
                 	<Image Source="Assets/UserControls/HeadsetMap.png" Stretch="Fill" HorizontalAlignment="Left" Width="186.859" Height="260.518" VerticalAlignment="Top"/>
                 	<Ellipse x:Name="AF3Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="41.847,31.656,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
@@ -161,6 +164,9 @@
                 	<Ellipse x:Name="O1Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="55.113,238.126,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
                 	<Ellipse x:Name="O2Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="115,238.126,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
                 </Grid>
+
+                <!-- EndRegion -->
+                
                 <Label x:Name="UserLbl" Content="User" HorizontalAlignment="Left" Margin="10,442,0,0" VerticalAlignment="Top" FontSize="18"/>
                 <ComboBox x:Name="UsersComboBox" HorizontalAlignment="Left" Margin="10,481,0,0" VerticalAlignment="Top" Width="189"/>
                 <Controls:AppBarButton x:Name="AddUserBtn" MetroImageSource="{DynamicResource appbar_user_add}" Foreground="{DynamicResource BlackBrush}" Content="Add" Margin="0,0,0,7.518" Width="50" Height="50" Click="AddUserBtn_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
