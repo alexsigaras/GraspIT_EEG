@@ -199,18 +199,6 @@ namespace GraspIT_EEG
 
         #endregion Emotiv
 
-        #region P300
-
-        #region P300 Timers Declaration
-
-        DispatcherTimer P300FlashDuration = new DispatcherTimer();
-        DispatcherTimer P300NoFlashDuration = new DispatcherTimer();
-        DispatcherTimer P300FlashingPeriod = new DispatcherTimer();
-
-        #endregion P300 Timers Declaration
-
-        #endregion P300
-
         #region SSVEP
 
         #region SSVEP Timers Declaration
@@ -220,6 +208,10 @@ namespace GraspIT_EEG
         DispatcherTimer SSVEPFlashingPeriod = new DispatcherTimer();
 
         #endregion SSVEP Timers Declaration
+
+        double gain = 1.22698672;
+        double[] coefficients = new double[6] { 0.6642317127, 0.2500608525, -2.2141423193, -0.6015694459, 2.5249625592, 0.3764534782 };
+        Butterworth ButO1 = new Butterworth();
 
         #endregion SSVEP
 
@@ -234,15 +226,6 @@ namespace GraspIT_EEG
 
             emotivDataCollectionTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             emotivDataCollectionTimer.Tick += emotivDataCollectionTimer_Tick;
-
-            P300FlashDuration.Interval = new TimeSpan(0, 0, 0, 0, 125);
-            P300FlashDuration.Tick += P300FlashDuration_Tick;
-
-            P300NoFlashDuration.Interval = new TimeSpan(0, 0, 0, 0, 475);
-            P300NoFlashDuration.Tick += P300NoFlashDuration_Tick;
-
-            P300FlashingPeriod.Interval = new TimeSpan(0, 0, 0, 0, 8);
-            P300FlashingPeriod.Tick +=P300FlashingPeriod_Tick;
 
             SSVEPFlashDuration.Interval = new TimeSpan(0, 0, 0, 0, 125);
             SSVEPFlashDuration.Tick += SSVEPFlashDuration_Tick;
@@ -435,6 +418,9 @@ namespace GraspIT_EEG
             P8 = data[EdkDll.EE_DataChannel_t.P8][i];
             T7 = data[EdkDll.EE_DataChannel_t.T7][i];
             T8 = data[EdkDll.EE_DataChannel_t.T8][i];
+
+            double but = ButO1.getFilteredValue(O1, coefficients, gain);
+            Console.WriteLine("O1: " + O1.ToString() + ", O1Buttered: " + but);
 
             // Gyro Data
             GYROX = data[EdkDll.EE_DataChannel_t.GYROX][i];
@@ -762,29 +748,6 @@ namespace GraspIT_EEG
 
         #endregion Settings
 
-        #region P300
-
-        #region P300 Timers Ticks
-
-        void P300FlashingPeriod_Tick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        void P300NoFlashDuration_Tick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        void P300FlashDuration_Tick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion P300 Timers Ticks
-
-        #endregion P300
-
         #region SSVEP
 
         #region SSVEP Timers Ticks
@@ -807,6 +770,15 @@ namespace GraspIT_EEG
         #endregion SSVEP Timers Ticks
 
         #endregion SSVEP
+
+        #region TestCode
+
+        //double gain = 1.22698672;
+        //double[] coefficients = new double[6] { 0.6642317127, 0.2500608525, -2.2141423193, -0.6015694459, 2.5249625592, 0.3764534782};
+        
+
+
+        #endregion
 
     }
 }

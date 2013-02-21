@@ -67,3 +67,40 @@ C:\Users\Kinect\Dropbox\Columbia\Fall 2012\Robotics Lab - Project\Code\EmotivBCI
 C:\Users\Kinect\Dropbox\Columbia\Fall 2012\Robotics Lab - Project\Code\EmotivBCIWPF\GraspIT_EEG\obj\Debug\GraspIT_EEG.exe
 C:\Users\Kinect\Dropbox\Columbia\Fall 2012\Robotics Lab - Project\Code\EmotivBCIWPF\GraspIT_EEG\obj\Debug\GraspIT_EEG.pdb
 C:\Users\Kinect\Dropbox\Columbia\Fall 2012\Robotics Lab - Project\Code\EmotivBCIWPF\GraspIT_EEG\obj\Debug\GraspIT_EEG_WPF.csprojResolveAssemblyReference.cache
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\GraspIT_EEG.exe.config
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.exe
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.pdb
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\GraspIT_EEG.exe
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\GraspIT_EEG.pdb
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\DotNetEmotivDongleDriver.dll
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\DotNetEmotivSDK.dll
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\EmoEngineClientLibrary.dll
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\EmoEngineControlLibrary.dll
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\MahApps.Metro.dll
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\Telerik.Windows.Controls.pdb
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\Telerik.Windows.Controls.xml
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\Telerik.Windows.Controls.Chart.pdb
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\Telerik.Windows.Controls.Chart.xml
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\Telerik.Windows.Data.pdb
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\Telerik.Windows.Data.xml
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\de\Telerik.Windows.Controls.resources.dll
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\es\Telerik.Windows.Controls.resources.dll
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\fr\Telerik.Windows.Controls.resources.dll
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\it\Telerik.Windows.Controls.resources.dll
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\nl\Telerik.Windows.Controls.resources.dll
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\tr\Telerik.Windows.Controls.resources.dll
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_WPF.csprojResolveAssemblyReference.cache
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\MainWindow.baml
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\Resources\Colours.baml
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\Resources\Icons.baml
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\App.baml
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\MainWindow.g.cs
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\App.g.cs
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_Content.g.cs
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_MarkupCompile.cache
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_MarkupCompile.lref
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\Themes\Generic.baml
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.g.resources
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.Properties.Resources.resources
+C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_WPF.csproj.GenerateResource.Cache
