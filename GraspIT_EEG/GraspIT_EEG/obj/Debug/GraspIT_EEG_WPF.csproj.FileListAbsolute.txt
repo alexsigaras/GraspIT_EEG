@@ -104,3 +104,6 @@ C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_
 C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.g.resources
 C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.Properties.Resources.resources
 C:\Users\alex\Desktop\GraspIT_EEG-master\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_WPF.csproj.GenerateResource.Cache
+C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\GraspIT_EEG.exe.config
+C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.exe
+C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.pdb

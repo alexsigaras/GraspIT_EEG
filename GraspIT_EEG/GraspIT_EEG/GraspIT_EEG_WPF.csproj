@@ -113,6 +113,7 @@
     <Compile Include="Model\Butterworth.cs" />
     <Compile Include="Model\ChartDataObjects.cs" />
     <Compile Include="Model\Emotiv.cs" />
+    <Compile Include="Model\Flasher.cs" />
     <Compile Include="Model\P300.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
