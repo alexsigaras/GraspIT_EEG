@@ -2,7 +2,7 @@
  * GraspIT EEG - Emotiv Project
  * 
  * Columbia Robotics Lab
- * Columbia University Copyright ©  2012
+ * Columbia University Copyright ©  2013
  * 
  * Supervisor: Professor Peter Allen
  * Coordination: Jon Weisz
@@ -10,7 +10,7 @@
  * Email: alex@sigaras.com
  * 
  * Description
- * Using P300 & SSVEP Signals to control a robotic arm by thought.
+ * Using SSVEP Signals to control a robotic arm by thought.
  * 
  */
 
@@ -107,9 +107,11 @@ namespace GraspIT_EEG
 
         #endregion Navigation Buttons
 
+        // Display a the help file on how to use the application.
         private void HelpBtn_Click(object sender, RoutedEventArgs e)
         {
-            // Display a modal window with help how to use the application.
+            string helpFilePath = System.IO.Directory.GetCurrentDirectory() + "\\Assets\\Help\\help.pdf";
+            System.Diagnostics.Process.Start(helpFilePath);
         }
 
         #endregion UI Specific
@@ -131,7 +133,6 @@ namespace GraspIT_EEG
         public int MaxBatteryLevel = 5;
 
         int xmax = 0, ymax = 0;
-        bool allow = false;
 
         // Others
         public double COUNTER, ES_TIMESTAMP, FUNC_ID, FUNC_VALUE, INTERPOLATED, MARKER, RAW_CQ, SYNC_SIGNAL, TIMESTAMP;
@@ -188,12 +189,27 @@ namespace GraspIT_EEG
 
         #endregion Gyro
 
+        #region Sequence Number
+
+        List<SequenceNumberChartDataObject> SequenceNumberList = new List<SequenceNumberChartDataObject>();
+
+        #endregion Sequence Number
+
+        #region Packet Loss
+
+        List<PacketLossChartDataObject> PacketLossList = new List<PacketLossChartDataObject>();
+
+        #endregion Packet Loss
+
         #endregion Device
 
         #region User
 
         // User ID
         uint userID = (uint)0;
+        //int seconds = 0;
+        int x = 0;
+        int y = 0;
 
         #endregion User
 
@@ -221,7 +237,6 @@ namespace GraspIT_EEG
         {
             InitializeComponent();
             //engine.EmoStateUpdated +=engine_EmoStateUpdated;
-
             #region Instantiate Timers
 
             emotivDataCollectionTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
@@ -335,6 +350,10 @@ namespace GraspIT_EEG
             EmotivStatusLbl.Content = "Connected"; // Set to Connected
             UpdateBatteryCapacityIcon(BatteryLevel); // Get Battery Level
             UpdateSignalStrengthIcon(SignalStatus); // Get Wireless Signal Strength
+
+            // Set seconds to 0.
+            x = y = 0;
+            //seconds = x = y = 0;
         }
 
         // Emotiv Turned Off
@@ -349,6 +368,9 @@ namespace GraspIT_EEG
             EmotivStatusLbl.Content = "Not Connected"; // Set to Disconnected
             UpdateBatteryCapacityIcon(0); // Set Battery Level
             UpdateSignalStrengthIcon("NO_SIGNAL"); // Set Wireless Signal Strength
+
+            SamplingRate.Content = "No Data";
+            BufferSize.Content = "No Data";
         }
 
         #endregion Emotiv Toggle Switch
@@ -420,7 +442,7 @@ namespace GraspIT_EEG
             T8 = data[EdkDll.EE_DataChannel_t.T8][i];
 
             double but = ButO1.getFilteredValue(O1, coefficients, gain);
-            Console.WriteLine("O1: " + O1.ToString() + ", O1Buttered: " + but);
+            //Console.WriteLine("O1: " + O1.ToString() + ", O1Buttered: " + but);
 
             // Gyro Data
             GYROX = data[EdkDll.EE_DataChannel_t.GYROX][i];
@@ -468,14 +490,6 @@ namespace GraspIT_EEG
         {
             es = e.emoState;
             elapsed = es.GetTimeFromStart();
-            //if ((elapsed > 5) && (!allow))
-            //{
-            //    allow = true;
-            //}
-            //if (es.GetWirelessSignalStatus() == EdkDll.EE_SignalStrength_t.NO_SIGNAL)
-            //{
-            //    allow = false;
-            //}
 
             SignalStatus = es.GetWirelessSignalStatus().ToString();
             Uptime.Content = ConvertToTime(es.GetTimeFromStart());
@@ -517,6 +531,8 @@ namespace GraspIT_EEG
             smile = es.ExpressivGetSmileExtent();
             eyebrows = es.ExpressivGetEyebrowExtent();
             es.ExpressivGetEyeLocation(out eyeXCoordinate, out eyeYCoordinate);
+            EyeXCoordinate.Content = eyeXCoordinate.ToString();
+            EyeYCoordinate.Content = eyeYCoordinate.ToString();
 
             ClenchCheckBox.IsChecked = false;
             EyebrowsCheckBox.IsChecked = false;
@@ -555,8 +571,8 @@ namespace GraspIT_EEG
                 SmileCheckBox.IsChecked = false;
             }
 
-            SamplingRateLbl.Content = samplingRate.ToString();
-            BufferSizeLbl.Content = bufferSize.ToString();
+            SamplingRate.Content = samplingRate.ToString();
+            BufferSize.Content = bufferSize.ToString();
         }
 
         private void UpdateSensorContactQuality(EmoState es)
@@ -611,21 +627,28 @@ namespace GraspIT_EEG
             UpdateBatteryCapacityIcon(BatteryLevel); // Get Battery Level
             UpdateSignalStrengthIcon(SignalStatus); // Get Wireless Signal Strength
 
-            //if (allow)
-            //{
-            int x = 0, y = 0;
-            engine.HeadsetGetGyroDelta(userID, out x, out y);
+            // Get elapsed seconds.
+            //seconds = Convert.ToInt32(elapsed);
+            
+            try
+            {
+                x = y = 0;
+                engine.HeadsetGetGyroDelta(userID, out x, out y);
+                GyroStatus.Content = "On";
 
-            xmax += x;
-            ymax += y;
-            xValue.Content = xmax.ToString();
-            xValueMax.Content = x.ToString();
-            yValue.Content = ymax.ToString();
-            yValueMax.Content = y.ToString();
-            xValueMax_Copy.Content = GYROX.ToString();
-            yValueMax_Copy.Content = GYROY.ToString();
-
-            int seconds = Convert.ToInt32(elapsed);
+                xmax += x;
+                ymax += y;
+                xValue.Content = xmax.ToString();
+                xValueMax.Content = x.ToString();
+                yValue.Content = ymax.ToString();
+                yValueMax.Content = y.ToString();
+                xValueMax_Copy.Content = GYROX.ToString();
+                yValueMax_Copy.Content = GYROY.ToString();
+            }
+            catch (Exception)
+            {
+                GyroStatus.Content = "Calibrating...";
+            }
 
             UpdateGraphs();
 
@@ -742,6 +765,52 @@ namespace GraspIT_EEG
             O2Series.ItemsSource = O2List;
 
             #endregion O2Graph
+
+            #region SequenceNumberGraph
+
+            SequenceNumberChartDataObject SequenceNumberObj = new SequenceNumberChartDataObject
+            {
+                //Time = ConvertToTime(elapsed),
+                Time = DateTime.Now,
+                Value = COUNTER
+            };
+            SequenceNumberList.Add(SequenceNumberObj);
+
+            LineSeries SequenceNumberSeries = (LineSeries)this.SequenceNumberChart.Series[0];
+            SequenceNumberSeries.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            SequenceNumberSeries.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            SequenceNumberSeries.ItemsSource = SequenceNumberList;
+
+            #endregion SequenceNumberGraph
+
+            #region PacketLossGraph
+
+            PacketLossChartDataObject PacketLossObj = new PacketLossChartDataObject
+            {
+                //Time = ConvertToTime(elapsed),
+                Time = DateTime.Now,
+                Value = RAW_CQ
+            };
+            PacketLossList.Add(PacketLossObj);
+
+            LineSeries PacketLossSeries = (LineSeries)this.PacketLossChart.Series[0];
+            PacketLossSeries.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            PacketLossSeries.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            PacketLossSeries.ItemsSource = PacketLossList;
+
+            #endregion PacketLossGraph
         }
 
         #endregion Specific Settings

@@ -19,4 +19,18 @@ namespace GraspIT_EEG.Model
         public DateTime Time { get; set; }
         public double Value { get; set; }
     }
+
+    public class SequenceNumberChartDataObject
+    {
+        //public String Time { get; set; }
+        public DateTime Time { get; set; }
+        public double Value { get; set; }
+    }
+
+    public class PacketLossChartDataObject
+    {
+        //public String Time { get; set; }
+        public DateTime Time { get; set; }
+        public double Value { get; set; }
+    }
 }

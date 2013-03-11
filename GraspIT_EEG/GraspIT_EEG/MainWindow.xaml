@@ -193,11 +193,11 @@
                             <Rectangle x:Name="EyebrowRect"  Fill="Black" HorizontalAlignment="Left" Height="100" Margin="184,207,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
                             <Label x:Name="Clench" Content="Label" HorizontalAlignment="Left" Margin="37,328,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="Eyebrows" Content="Label" HorizontalAlignment="Left" Margin="184,328,0,0" VerticalAlignment="Top"/>
-                            <Label x:Name="SamplingRateLbl" Content="Label" HorizontalAlignment="Left" Margin="145.834,422.97,0,0" VerticalAlignment="Top"/>
-                            <Label x:Name="BufferSizeLbl" Content="Label" HorizontalAlignment="Left" Margin="246.006,415.869,0,0" VerticalAlignment="Top"/>
                             <CheckBox x:Name="ClenchCheckBox" Content="Clench" HorizontalAlignment="Left" Margin="62.686,24.248,0,0" VerticalAlignment="Top"/>
                             <CheckBox x:Name="EyebrowsCheckBox" Content="Eyebrows" HorizontalAlignment="Left" Margin="62.686,49.971,0,0" VerticalAlignment="Top"/>
                             <CheckBox x:Name="SmileCheckBox" Content="Smile" HorizontalAlignment="Left" Margin="62.686,71.931,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="EyeXCoordinate" Content="EyeXCoordinate" HorizontalAlignment="Left" Margin="190,109,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="EyeYCoordinate" Content="EyeYCoordinate" HorizontalAlignment="Left" Margin="347,109,0,0" VerticalAlignment="Top"/>
                             <!--Expressiv Controls-->
                         </Grid>
                     </TabItem>
@@ -307,14 +307,16 @@
                     <TabItem Header="Gyro">
                         <Grid>
                             <!--Gyro Controls-->
-                            <Label x:Name="xLbl" Content="x:" HorizontalAlignment="Left" Margin="183,2.198,0,0" VerticalAlignment="Top"/>
-                            <Label x:Name="xValue" Content="x value" HorizontalAlignment="Left" Margin="206,2.198,0,0" VerticalAlignment="Top"/>
-                            <Label x:Name="yLbl" Content="y:" HorizontalAlignment="Left" Margin="297,2.198,0,0" VerticalAlignment="Top"/>
-                            <Label x:Name="yValue" Content="y value" HorizontalAlignment="Left" Margin="320,2.198,0,0" VerticalAlignment="Top"/>
-                            <Label x:Name="xValueMax" Content="x value" HorizontalAlignment="Left" Margin="206,28.198,0,0" VerticalAlignment="Top"/>
-                            <Label x:Name="yValueMax" Content="y value" HorizontalAlignment="Left" Margin="320,28.198,0,0" VerticalAlignment="Top"/>
-                            <Label x:Name="xValueMax_Copy" Content="x value" HorizontalAlignment="Left" Margin="206,59.198,0,0" VerticalAlignment="Top"/>
-                            <Label x:Name="yValueMax_Copy" Content="y value" HorizontalAlignment="Left" Margin="320,59.198,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="GyroStatusLbl" FontSize="26.67" FontFamily="Segoe WP" Content="Status:" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="GyroStatus" FontSize="26.67" FontFamily="Segoe WP" Content="Off" HorizontalAlignment="Left" Margin="103,10,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="xLbl" Content="x:" HorizontalAlignment="Left" Margin="334,2,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="xValue" Content="x value" HorizontalAlignment="Left" Margin="357,2,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="yLbl" Content="y:" HorizontalAlignment="Left" Margin="448,2,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="yValue" Content="y value" HorizontalAlignment="Left" Margin="471,2,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="xValueMax" Content="x value" HorizontalAlignment="Left" Margin="357,28,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="yValueMax" Content="y value" HorizontalAlignment="Left" Margin="471,28,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="xValueMax_Copy" Content="x value" HorizontalAlignment="Left" Margin="357,59,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="yValueMax_Copy" Content="y value" HorizontalAlignment="Left" Margin="471,59,0,0" VerticalAlignment="Top"/>
                             
                             <telerik:RadCartesianChart x:Name="GyroXChart" Palette="Windows8" Margin="0,89.522,0,212.522" Height="200" MaxZoom="10,1" Zoom="10,1">
                                 <telerik:RadCartesianChart.Behaviors>
@@ -389,7 +391,7 @@
                                 </telerik:RadCartesianChart.HorizontalAxis>
                                 <telerik:SplineSeries Stroke="Red" />
                             </telerik:RadCartesianChart>
-
+                            
                         </Grid>
                     </TabItem>
 
@@ -400,6 +402,85 @@
                     <TabItem Header="Data">
                         <Grid>
                             <!--Data Controls-->
+                            <Label x:Name="SamplingRateLbl" FontSize="26.67" FontFamily="Segoe WP" Content="Sampling Rate:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="SamplingRate" FontSize="26.67" FontFamily="Segoe WP" Content="No Data" HorizontalAlignment="Left" Margin="201,10,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="BufferSize" FontSize="26.67" FontFamily="Segoe WP" Content="No Data" HorizontalAlignment="Left" Margin="201,64,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="BufferSizeLbl" FontSize="26.67" FontFamily="Segoe WP" Content="Buffer Size:" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top"/>
+
+                            <telerik:RadCartesianChart x:Name="SequenceNumberChart" Palette="Windows8" Margin="0,89.522,0,212.522" Height="200" MaxZoom="10,1" Zoom="10,1">
+                                <telerik:RadCartesianChart.Behaviors>
+                                    <telerik:ChartPanAndZoomBehavior PanMode="Horizontal"
+                                                                     ZoomMode="Horizontal" />
+                                    <telerik:ChartTrackBallBehavior ShowIntersectionPoints="True"
+                                                                    ShowTrackInfo="True"
+                                                                    SnapMode="AllClosePoints" />
+                                </telerik:RadCartesianChart.Behaviors>
+                                <telerik:RadCartesianChart.Grid>
+                                    <telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
+                                        <telerik:CartesianChartGrid.MajorYLineStyle>
+                                            <Style TargetType="{x:Type Line}">
+                                                <Setter Property="Stroke" Value="Gray"/>
+                                            </Style>
+                                        </telerik:CartesianChartGrid.MajorYLineStyle>
+                                        <telerik:CartesianChartGrid.MajorXLineStyle>
+                                            <Style TargetType="{x:Type Line}">
+                                                <Setter Property="Stroke" Value="Gray"/>
+                                            </Style>
+                                        </telerik:CartesianChartGrid.MajorXLineStyle>
+                                    </telerik:CartesianChartGrid>
+                                </telerik:RadCartesianChart.Grid>
+                                <telerik:RadCartesianChart.VerticalAxis>
+                                    <telerik:LinearAxis/>
+                                </telerik:RadCartesianChart.VerticalAxis>
+                                <telerik:RadCartesianChart.HorizontalAxis>
+                                    <telerik:DateTimeContinuousAxis MajorStepUnit="Second"  
+                            			LabelInterval="5"
+                            			LabelFormat="HH:mm:ss.f" FontFamily="Segoe UI"
+                            			PlotMode="OnTicks" />
+                                </telerik:RadCartesianChart.HorizontalAxis>
+                                <telerik:SplineSeries Stroke="Blue" >
+                                    <!--<telerik:SplineSeries.TrackBallInfoTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Foreground="Red" Text="{Binding DataPoint.Category}"
+                                        </DataTemplate>
+                                    </telerik:SplineSeries.TrackBallInfoTemplate>-->
+                                </telerik:SplineSeries>
+                            </telerik:RadCartesianChart>
+
+                            <telerik:RadCartesianChart x:Name="PacketLossChart" Palette="Windows8" Margin="0,287,0,0" Height="200" MaxZoom="10,1" Zoom="10,1">
+                                <telerik:RadCartesianChart.Behaviors>
+                                    <telerik:ChartPanAndZoomBehavior PanMode="Horizontal"
+                                                                     ZoomMode="Horizontal" />
+                                    <telerik:ChartTrackBallBehavior ShowIntersectionPoints="True"
+                                                                    ShowTrackInfo="True"
+                                                                    SnapMode="AllClosePoints" />
+                                </telerik:RadCartesianChart.Behaviors>
+                                <telerik:RadCartesianChart.Grid>
+                                    <telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
+                                        <telerik:CartesianChartGrid.MajorYLineStyle>
+                                            <Style TargetType="{x:Type Line}">
+                                                <Setter Property="Stroke" Value="Gray"/>
+                                            </Style>
+                                        </telerik:CartesianChartGrid.MajorYLineStyle>
+                                        <telerik:CartesianChartGrid.MajorXLineStyle>
+                                            <Style TargetType="{x:Type Line}">
+                                                <Setter Property="Stroke" Value="Gray"/>
+                                            </Style>
+                                        </telerik:CartesianChartGrid.MajorXLineStyle>
+                                    </telerik:CartesianChartGrid>
+                                </telerik:RadCartesianChart.Grid>
+                                <telerik:RadCartesianChart.VerticalAxis>
+                                    <telerik:LinearAxis/>
+                                </telerik:RadCartesianChart.VerticalAxis>
+                                <telerik:RadCartesianChart.HorizontalAxis>
+                                    <telerik:DateTimeContinuousAxis MajorStepUnit="Second" 
+                                                                    LabelInterval="5"
+                                                                    LabelFormat="HH:mm:ss.f" FontFamily="Segoe UI"
+                                                                    PlotMode="OnTicks" />
+                                </telerik:RadCartesianChart.HorizontalAxis>
+                                <telerik:SplineSeries Stroke="Red" />
+                            </telerik:RadCartesianChart>
+
                         </Grid>
                     </TabItem>
                 </TabControl>
