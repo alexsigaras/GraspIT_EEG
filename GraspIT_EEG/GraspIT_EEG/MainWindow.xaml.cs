@@ -228,6 +228,8 @@ namespace GraspIT_EEG
         double gain = 1.22698672;
         double[] coefficients = new double[6] { 0.6642317127, 0.2500608525, -2.2141423193, -0.6015694459, 2.5249625592, 0.3764534782 };
         Butterworth ButO1 = new Butterworth();
+        Butterworth ButAF4 = new Butterworth();
+        double butO1, butAF4;
 
         #endregion SSVEP
 
@@ -371,6 +373,24 @@ namespace GraspIT_EEG
 
             SamplingRate.Content = "No Data";
             BufferSize.Content = "No Data";
+
+            // Turn off the color of the contacts to Black.
+            AF3Contact.Fill = Brushes.Black;
+            AF4Contact.Fill = Brushes.Black;
+            F7Contact.Fill = Brushes.Black;
+            F3Contact.Fill = Brushes.Black;
+            F4Contact.Fill = Brushes.Black;
+            F8Contact.Fill = Brushes.Black;
+            FC5Contact.Fill = Brushes.Black;
+            FC6Contact.Fill = Brushes.Black;
+            T7Contact.Fill = Brushes.Black;
+            T8Contact.Fill = Brushes.Black;
+            CMSContact.Fill = Brushes.Black;
+            DRLContact.Fill = Brushes.Black;
+            P7Contact.Fill = Brushes.Black;
+            P8Contact.Fill = Brushes.Black;
+            O1Contact.Fill = Brushes.Black;
+            O2Contact.Fill = Brushes.Black;
         }
 
         #endregion Emotiv Toggle Switch
@@ -441,7 +461,10 @@ namespace GraspIT_EEG
             T7 = data[EdkDll.EE_DataChannel_t.T7][i];
             T8 = data[EdkDll.EE_DataChannel_t.T8][i];
 
-            double but = ButO1.getFilteredValue(O1, coefficients, gain);
+            butO1 = ButO1.getFilteredValue(O1, coefficients, gain);
+            butAF4 = ButAF4.getFilteredValue(AF4, coefficients, gain);
+            AF4val.Content = ((Int32)AF4).ToString();
+            AF4butval.Content = ((Int32)butAF4).ToString();
             //Console.WriteLine("O1: " + O1.ToString() + ", O1Buttered: " + but);
 
             // Gyro Data
@@ -458,6 +481,8 @@ namespace GraspIT_EEG
             RAW_CQ = data[EdkDll.EE_DataChannel_t.RAW_CQ][i];
             SYNC_SIGNAL = data[EdkDll.EE_DataChannel_t.SYNC_SIGNAL][i];
             TIMESTAMP = data[EdkDll.EE_DataChannel_t.TIMESTAMP][i];
+
+            InterpolatedLbl.Content = SYNC_SIGNAL.ToString();
         }
 
         // Add User.
@@ -539,6 +564,9 @@ namespace GraspIT_EEG
             SmileCheckBox.IsChecked = false;
 
             Eyebrows.Content = eyebrows.ToString();
+            Smile.Content = smile.ToString();
+            LowerFaceAction.Content = lowerFaceAction.ToString();
+            UpperFaceAction.Content = upperFaceAction.ToString();
             if (eyebrows > 0.10)
             {
                 EyebrowRect.Fill = Brushes.Green;
@@ -564,10 +592,12 @@ namespace GraspIT_EEG
 
             if (smile > 0.05)
             {
+                SmileRect.Fill = Brushes.Green;
                 SmileCheckBox.IsChecked = true;
             }
             else
             {
+                SmileRect.Fill = Brushes.Red;
                 SmileCheckBox.IsChecked = false;
             }
 
@@ -675,7 +705,7 @@ namespace GraspIT_EEG
             {
                 //Time = ConvertToTime(elapsed),
                 Time = DateTime.Now,
-                Value = xmax
+                Value = x
             };
             GyroXList.Add(GyroXObj);
 
@@ -698,7 +728,7 @@ namespace GraspIT_EEG
             {
                 //Time = ConvertToTime(elapsed),
                 Time = DateTime.Now,
-                Value = ymax
+                Value = y
             };
             GyroYList.Add(GyroYObj);
 
@@ -717,11 +747,12 @@ namespace GraspIT_EEG
 
             #region O1Graph
 
+            
             EEGChartDataObject O1Obj = new EEGChartDataObject
             {
                 //Time = ConvertToTime(elapsed),
                 Time = DateTime.Now,
-                Value = O1
+                Value = AF4
             };
             O1List.Add(O1Obj);
 
@@ -744,13 +775,13 @@ namespace GraspIT_EEG
             {
                 //Time = ConvertToTime(elapsed),
                 Time = DateTime.Now,
-                Value = O2
+                Value = butAF4
             };
 
-            if (O2 != 0)
-            {
-                O2Obj.Value -= 4200;
-            }
+            //if (O2 != 0)
+            //{
+            //    O2Obj.Value -= 4200;
+            //}
             O2List.Add(O2Obj);
 
             LineSeries O2Series = (LineSeries)this.O2Chart.Series[0];
