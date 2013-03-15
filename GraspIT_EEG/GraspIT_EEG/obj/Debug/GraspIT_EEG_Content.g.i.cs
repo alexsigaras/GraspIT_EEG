@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/nkh.mindsqualls.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/dotnetemotivdongledriver.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/dotnetemotivsdk.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/edk.dll")]

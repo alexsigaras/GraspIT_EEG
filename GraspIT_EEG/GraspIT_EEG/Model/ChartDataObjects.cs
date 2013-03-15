@@ -33,4 +33,10 @@ namespace GraspIT_EEG.Model
         public DateTime Time { get; set; }
         public double Value { get; set; }
     }
+
+    public class AffectivChartDataObject
+    {
+        public DateTime Time { get; set; }
+        public double Value { get; set; }
+    }
 }

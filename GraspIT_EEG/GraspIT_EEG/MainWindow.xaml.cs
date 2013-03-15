@@ -44,8 +44,11 @@ using Telerik.Windows.Controls.ChartView;
 
 // Emotiv Libraries
 using Emotiv;
+using System.IO.Ports;
 //using EmoEngineClientLibrary;
 //using EmoEngineControlLibrary;
+
+using NKH.MindSqualls;
 
 #endregion Libraries
 
@@ -56,6 +59,12 @@ namespace GraspIT_EEG
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+
+        public SerialPort serialport;
+        bool R2D2isConnected = false;
+        public static NxtBrick Brick;
+        public static NxtMotorSync MotorPair;
+
         #region Declarations
 
         #region UI Specific
@@ -152,6 +161,21 @@ namespace GraspIT_EEG
         #endregion Expressiv (EMG Signals)
 
         #region Affectiv
+
+        // EdkDll.EE_AffectivAlgo_t  must declare algo type to finish affectiv.
+
+        bool AffectivIsActive;
+        float AffectiveEngagementBoredom;
+        float AffectivMeditation;
+        float AffectivFrustration;
+        float AffectivExcitementShort;
+        float AffectivExcitementLong;
+
+        List<AffectivChartDataObject> AffectivEngagementBoredomList = new List<AffectivChartDataObject>();
+        List<AffectivChartDataObject> AffectivMeditationList = new List<AffectivChartDataObject>();
+        List<AffectivChartDataObject> AffectivFrustrationList = new List<AffectivChartDataObject>();
+        List<AffectivChartDataObject> AffectivExcitementShortList = new List<AffectivChartDataObject>();
+        List<AffectivChartDataObject> AffectivExcitementLongList = new List<AffectivChartDataObject>();
 
         #endregion Affectiv
 
@@ -521,6 +545,8 @@ namespace GraspIT_EEG
             es.GetBatteryChargeLevel(out BatteryLevel, out MaxBatteryLevel);
             UpdateSensorContactQuality(es);
 
+            #region Expressiv
+
             float leftEye, rightEye;
             EdkDll.EE_ExpressivAlgo_t lowerFaceAction, upperFaceAction;
             bool expressivIsActive, expressivIsBlink, expressivIsEyesOpen, expressivIsLeftWink, expressivIsLookingDown, expressivIsLookingLeft, expressivIsLookingRight, expressivIsLookingUp, expressivIsRightWink;
@@ -534,9 +560,18 @@ namespace GraspIT_EEG
             lowerFaceActionPower = es.ExpressivGetLowerFaceActionPower();
             upperFaceAction = es.ExpressivGetUpperFaceAction();
             upperFaceActionPower = es.ExpressivGetUpperFaceActionPower();
+            
             //expressivIsActive = es.ExpressivIsActive(
             expressivIsBlink = es.ExpressivIsBlink();
             expressivIsEyesOpen = es.ExpressivIsEyesOpen();
+            if (es.ExpressivIsEyesOpen())
+            {
+                MiddleFaceAction.Content = "Eyes Open";
+            }
+            else
+            {
+                MiddleFaceAction.Content = "Eyes Closed";
+            }
             expressivIsLeftWink = es.ExpressivIsLeftWink();
             expressivIsLookingDown = es.ExpressivIsLookingDown();
             expressivIsLookingLeft = es.ExpressivIsLookingLeft();
@@ -567,14 +602,36 @@ namespace GraspIT_EEG
             Smile.Content = smile.ToString();
             LowerFaceAction.Content = lowerFaceAction.ToString();
             UpperFaceAction.Content = upperFaceAction.ToString();
+
+            if(R2D2isConnected)
+            {
+                if(lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_CLENCH)
+                {
+                    R2D2.MoveForward();
+                }
+                else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_LEFT)
+                {
+                    R2D2.MoveLeft();
+                }
+                else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_RIGHT)
+                {
+                    R2D2.MoveRight();
+                }
+                else if(eyebrows > 0.10)
+                {
+                    R2D2.Stop();
+                }
+            }
             if (eyebrows > 0.10)
             {
                 EyebrowRect.Fill = Brushes.Green;
+                //R2D2.MoveRight();
                 EyebrowsCheckBox.IsChecked = true;
             }
             else
             {
                 EyebrowRect.Fill = Brushes.Red;
+                //R2D2.Stop();
                 EyebrowsCheckBox.IsChecked = false;
             }
 
@@ -582,11 +639,13 @@ namespace GraspIT_EEG
             if (clench > 0.10)
             {
                 ClenchRect.Fill = Brushes.Green;
+                //R2D2.MoveForward();
                 ClenchCheckBox.IsChecked = true;
             }
             else
             {
                 ClenchRect.Fill = Brushes.Red;
+                //R2D2.Stop();
                 ClenchCheckBox.IsChecked = false;
             }
 
@@ -603,6 +662,20 @@ namespace GraspIT_EEG
 
             SamplingRate.Content = samplingRate.ToString();
             BufferSize.Content = bufferSize.ToString();
+
+            #endregion Expressiv
+
+            #region Affectiv
+
+            //AffectivIsActive = es.AffectivIsActive; Missing the algo type
+            AffectiveEngagementBoredom = es.AffectivGetEngagementBoredomScore();    // Get Engagement/Boredom Score.
+            AffectivExcitementLong = es.AffectivGetExcitementLongTermScore();       // Get Excitement Long Term Score.
+            AffectivExcitementShort = es.AffectivGetExcitementShortTermScore();     // Get Excitement Short Term Score.
+            AffectivFrustration = es.AffectivGetFrustrationScore();                 // Get Frustration Score.
+            AffectivMeditation = es.AffectivGetMeditationScore();              // Get Meditation Score.
+
+            #endregion Affectiv
+
         }
 
         private void UpdateSensorContactQuality(EmoState es)
@@ -842,6 +915,120 @@ namespace GraspIT_EEG
             PacketLossSeries.ItemsSource = PacketLossList;
 
             #endregion PacketLossGraph
+
+            #region Expressiv Graphs
+
+            #region Engagement/Boredom Graph
+
+            AffectivChartDataObject AffectivEngagementBoredomObj = new AffectivChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = AffectiveEngagementBoredom
+            };
+            AffectivEngagementBoredomList.Add(AffectivEngagementBoredomObj);
+
+            LineSeries AffectivEngagementBoredomSeries = (LineSeries)this.AffectivChart.Series[0];
+            AffectivEngagementBoredomSeries.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            AffectivEngagementBoredomSeries.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            AffectivEngagementBoredomSeries.ItemsSource = AffectivEngagementBoredomList;
+
+            #endregion Engagement/Boredom Graph
+
+            #region Meditation Graph
+
+            AffectivChartDataObject AffectivMeditationObj = new AffectivChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = AffectivMeditation
+            };
+            AffectivMeditationList.Add(AffectivMeditationObj);
+
+            LineSeries AffectivMeditationSeries = (LineSeries)this.AffectivChart.Series[1];
+            AffectivMeditationSeries.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            AffectivMeditationSeries.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            AffectivMeditationSeries.ItemsSource = AffectivMeditationList;
+
+            #endregion Meditation Graph
+
+            #region Frustration Graph
+
+            AffectivChartDataObject AffectivFrustrationObj = new AffectivChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = AffectivFrustration
+            };
+            AffectivFrustrationList.Add(AffectivFrustrationObj);
+
+            LineSeries AffectivFrustrationSeries = (LineSeries)this.AffectivChart.Series[2];
+            AffectivFrustrationSeries.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            AffectivFrustrationSeries.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            AffectivFrustrationSeries.ItemsSource = AffectivFrustrationList;
+
+            #endregion Frustration Graph
+
+            #region Short Excitement Graph
+
+            AffectivChartDataObject AffectivExcitementShortObj = new AffectivChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = AffectivExcitementShort
+            };
+            AffectivExcitementShortList.Add(AffectivExcitementShortObj);
+
+            LineSeries AffectivExcitementShortSeries = (LineSeries)this.AffectivChart.Series[3];
+            AffectivExcitementShortSeries.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            AffectivExcitementShortSeries.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            AffectivExcitementShortSeries.ItemsSource = AffectivExcitementShortList;
+
+            #endregion Short Excitement Graph
+
+            #region Long Excitement Graph
+
+            AffectivChartDataObject AffectivExcitementLongObj = new AffectivChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = AffectivExcitementLong
+            };
+            AffectivExcitementLongList.Add(AffectivExcitementLongObj);
+
+            LineSeries AffectivExcitementLongSeries = (LineSeries)this.AffectivChart.Series[4];
+            AffectivExcitementLongSeries.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            AffectivExcitementLongSeries.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            AffectivExcitementLongSeries.ItemsSource = AffectivExcitementLongList;
+
+            #endregion Long Excitement Graph
+
+            #endregion Expressiv Graphs
         }
 
         #endregion Specific Settings
@@ -868,6 +1055,29 @@ namespace GraspIT_EEG
         }
 
         #endregion SSVEP Timers Ticks
+
+        private void r2d2btn_Click_1(object sender, RoutedEventArgs e)
+        {
+            R2D2.ComPort = "4";
+            R2D2.ConnectNXT();
+            R2D2isConnected = true;
+
+            //Brick = new NxtBrick(NxtCommLinkType.Bluetooth, 4);
+            //NxtMotor motorB = new NxtMotor();
+            //Brick.MotorB = motorB;
+            //NxtMotor motorC = new NxtMotor();
+            //Brick.MotorC = motorC;
+            //MotorPair = new NxtMotorSync(Brick.MotorB, Brick.MotorC);
+
+            //Brick.Connect();
+            //motorB.Run(75, 360);
+            //Brick.Disconnect();
+        }
+
+        private void forward()
+        {
+            
+        }
 
         #endregion SSVEP
 

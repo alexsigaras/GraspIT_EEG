@@ -55,6 +55,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MahApps.Metro.0.10.0.1\lib\net40\MahApps.Metro.dll</HintPath>
     </Reference>
+    <Reference Include="NKH.MindSqualls, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\GraspIT_EEG-masterNEW - R2D2\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\DLLs\NKH.MindSqualls.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -116,6 +120,7 @@
     <Compile Include="Model\ChartDataObjects.cs" />
     <Compile Include="Model\Emotiv.cs" />
     <Compile Include="Model\Flasher.cs" />
+    <Compile Include="Model\R2D2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -148,6 +153,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DLLs\NKH.MindSqualls.dll" />
     <Resource Include="Resources\Entypo-license.txt" />
     <Resource Include="Assets\Images\Battery\Battery-Empty.png" />
     <Resource Include="Assets\Images\Battery\Battery-High.png" />

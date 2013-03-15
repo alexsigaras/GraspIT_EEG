@@ -116,6 +116,7 @@ C:\Users\alex\Desktop\GraspIT_EEG-masterNEW\GraspIT_EEG-master\GraspIT_EEG\Grasp
 C:\Users\alex\Desktop\GraspIT_EEG-masterNEW\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\EmoEngineClientLibrary.dll
 C:\Users\alex\Desktop\GraspIT_EEG-masterNEW\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\EmoEngineControlLibrary.dll
 C:\Users\alex\Desktop\GraspIT_EEG-masterNEW\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\MahApps.Metro.dll
+C:\Users\alex\Desktop\GraspIT_EEG-masterNEW\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\NKH.MindSqualls.dll
 C:\Users\alex\Desktop\GraspIT_EEG-masterNEW\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\System.Windows.Interactivity.dll
 C:\Users\alex\Desktop\GraspIT_EEG-masterNEW\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\Telerik.Windows.Controls.Chart.dll
 C:\Users\alex\Desktop\GraspIT_EEG-masterNEW\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\bin\Debug\Telerik.Windows.Controls.dll

@@ -182,28 +182,30 @@
                 <TabControl>
                     
                     <!-- Region Expressiv -->
-                    
                     <TabItem Header="Expresiv">
                         <Grid Margin="0,0,-0.01,0.424">
                         	<Grid.ColumnDefinitions>
-                        		<ColumnDefinition Width="223*"/>
-                        		<ColumnDefinition Width="60*"/>
-                        	</Grid.ColumnDefinitions>
+                        		<ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
                             <Rectangle x:Name="ClenchRect"  Fill="Black" HorizontalAlignment="Left" Height="100" Margin="37,207,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
                             <Rectangle x:Name="EyebrowRect"  Fill="Black" HorizontalAlignment="Left" Height="100" Margin="184,207,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
                             <Label x:Name="Clench" Content="Label" HorizontalAlignment="Left" Margin="37,328,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="Eyebrows" Content="Label" HorizontalAlignment="Left" Margin="184,328,0,0" VerticalAlignment="Top"/>
-                            <CheckBox x:Name="ClenchCheckBox" Content="Clench" HorizontalAlignment="Left" Margin="62.686,24.248,0,0" VerticalAlignment="Top"/>
-                            <CheckBox x:Name="EyebrowsCheckBox" Content="Eyebrows" HorizontalAlignment="Left" Margin="62.686,49.971,0,0" VerticalAlignment="Top"/>
-                            <CheckBox x:Name="SmileCheckBox" Content="Smile" HorizontalAlignment="Left" Margin="62.686,71.931,0,0" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="ClenchCheckBox" Content="Clench" HorizontalAlignment="Left" Margin="63,24,0,0" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="EyebrowsCheckBox" Content="Eyebrows" HorizontalAlignment="Left" Margin="63,50,0,0" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="SmileCheckBox" Content="Smile" HorizontalAlignment="Left" Margin="63,72,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="EyeXCoordinate" Content="EyeXCoordinate" HorizontalAlignment="Left" Margin="190,109,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="EyeYCoordinate" Content="EyeYCoordinate" HorizontalAlignment="Left" Margin="347,109,0,0" VerticalAlignment="Top"/>
                             <Rectangle x:Name="SmileRect"  Fill="Black" HorizontalAlignment="Left" Height="100" Margin="321,207,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
                             <Label x:Name="Smile" Content="Label" HorizontalAlignment="Left" Margin="321,328,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="LowerFaceActionLbl"  FontFamily="Segoe WP" Content="Lower Face Action:" HorizontalAlignment="Left" Margin="37,442,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="LowerFaceAction" FontFamily="Segoe WP" Content="Value" HorizontalAlignment="Left" Margin="152,442,0,0" VerticalAlignment="Top"/>
-                            <Label x:Name="UpperFaceActionLbl" FontFamily="Segoe WP" Content="Upper Face Action:" HorizontalAlignment="Left" Margin="37,395,0,0" VerticalAlignment="Top"/>
-                            <Label x:Name="UpperFaceAction"  FontFamily="Segoe WP" Content="Value" HorizontalAlignment="Left" Margin="152,395,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="UpperFaceActionLbl" FontFamily="Segoe WP" Content="Upper Face Action:" HorizontalAlignment="Left" Margin="37,377,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="UpperFaceAction"  FontFamily="Segoe WP" Content="Value" HorizontalAlignment="Left" Margin="152,377,0,0" VerticalAlignment="Top"/>
+                            <Button x:Name="r2d2btn" Content="R2D2 Control" HorizontalAlignment="Left" Margin="346,50,0,0" VerticalAlignment="Top" Width="94" Click="r2d2btn_Click_1"/>
+                            <Label x:Name="MiddleFaceActionLbl" FontFamily="Segoe WP" Content="Upper Face Action:" HorizontalAlignment="Left" Margin="37,406,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="MiddleFaceAction"  FontFamily="Segoe WP" Content="Value" HorizontalAlignment="Left" Margin="152,406,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="MiddleFaceActionRight"  FontFamily="Segoe WP" Content="Value" HorizontalAlignment="Left" Margin="197,406,0,0" VerticalAlignment="Top"/>
                             <!--Expressiv Controls-->
                         </Grid>
                     </TabItem>
@@ -214,6 +216,42 @@
                     
                     <TabItem Header="Affectiv">
                         <Grid>
+                            <telerik:RadCartesianChart x:Name="AffectivChart" Palette="Windows8" MaxZoom="100,1" Zoom="100,1" Margin="0,0,0,80">
+                                <telerik:RadCartesianChart.Behaviors>
+                                    <telerik:ChartPanAndZoomBehavior PanMode="Both" ZoomMode="Both" />
+                                    <telerik:ChartTrackBallBehavior ShowIntersectionPoints="True"
+                        				ShowTrackInfo="True"
+                        				SnapMode="AllClosePoints" />
+                                </telerik:RadCartesianChart.Behaviors>
+                                <telerik:RadCartesianChart.Grid>
+                                    <telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
+                                        <telerik:CartesianChartGrid.MajorYLineStyle>
+                                            <Style TargetType="{x:Type Line}">
+                                                <Setter Property="Stroke" Value="Gray"/>
+                                            </Style>
+                                        </telerik:CartesianChartGrid.MajorYLineStyle>
+                                        <telerik:CartesianChartGrid.MajorXLineStyle>
+                                            <Style TargetType="{x:Type Line}">
+                                                <Setter Property="Stroke" Value="Gray"/>
+                                            </Style>
+                                        </telerik:CartesianChartGrid.MajorXLineStyle>
+                                    </telerik:CartesianChartGrid>
+                                </telerik:RadCartesianChart.Grid>
+                                <telerik:RadCartesianChart.VerticalAxis>
+                                    <telerik:LinearAxis/>
+                                </telerik:RadCartesianChart.VerticalAxis>
+                                <telerik:RadCartesianChart.HorizontalAxis>
+                                    <telerik:DateTimeContinuousAxis MajorStepUnit="Second" 
+                        				LabelInterval="5"
+                        				LabelFormat="HH:mm:ss.f" FontFamily="Segoe UI"
+                        				PlotMode="OnTicks" />
+                                </telerik:RadCartesianChart.HorizontalAxis>
+                                <telerik:SplineSeries Stroke="Blue"/>
+                                <telerik:SplineSeries Stroke="Red"/>
+                                <telerik:SplineSeries Stroke="Orange"/>
+                                <telerik:SplineSeries Stroke="Black"/>
+                                <telerik:SplineSeries Stroke="Chocolate"/>
+                            </telerik:RadCartesianChart>
                             <!--Affectiv Controls-->
                         </Grid>
                     </TabItem>
@@ -454,13 +492,13 @@
                             			LabelFormat="HH:mm:ss.f" FontFamily="Segoe UI"
                             			PlotMode="OnTicks" />
                                 </telerik:RadCartesianChart.HorizontalAxis>
-                                <telerik:SplineSeries Stroke="Blue" >
+                                <telerik:LineSeries Stroke="Blue" >
                                     <!--<telerik:SplineSeries.TrackBallInfoTemplate>
                                         <DataTemplate>
                                             <TextBlock Foreground="Red" Text="{Binding DataPoint.Category}"
                                         </DataTemplate>
                                     </telerik:SplineSeries.TrackBallInfoTemplate>-->
-                                </telerik:SplineSeries>
+                                </telerik:LineSeries>
                             </telerik:RadCartesianChart>
 
                             <telerik:RadCartesianChart x:Name="PacketLossChart" Palette="Windows8" Margin="0,287,0,0" Height="200" MaxZoom="10,1" Zoom="10,1">
