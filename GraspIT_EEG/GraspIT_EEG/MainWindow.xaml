@@ -202,10 +202,10 @@
                             <Label x:Name="LowerFaceAction" FontFamily="Segoe WP" Content="Value" HorizontalAlignment="Left" Margin="152,442,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="UpperFaceActionLbl" FontFamily="Segoe WP" Content="Upper Face Action:" HorizontalAlignment="Left" Margin="37,377,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="UpperFaceAction"  FontFamily="Segoe WP" Content="Value" HorizontalAlignment="Left" Margin="152,377,0,0" VerticalAlignment="Top"/>
-                            <Button x:Name="r2d2btn" Content="R2D2 Control" HorizontalAlignment="Left" Margin="346,50,0,0" VerticalAlignment="Top" Width="94" Click="r2d2btn_Click_1"/>
+                            <Button x:Name="R2D2ConnectBtn" Content="R2D2 Control" HorizontalAlignment="Left" Margin="346,50,0,0" VerticalAlignment="Top" Width="94" Click="R2D2Conenctbtn_Click"/>
                             <Label x:Name="MiddleFaceActionLbl" FontFamily="Segoe WP" Content="Upper Face Action:" HorizontalAlignment="Left" Margin="37,406,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="MiddleFaceAction"  FontFamily="Segoe WP" Content="Value" HorizontalAlignment="Left" Margin="152,406,0,0" VerticalAlignment="Top"/>
-                            <Label x:Name="MiddleFaceActionRight"  FontFamily="Segoe WP" Content="Value" HorizontalAlignment="Left" Margin="197,406,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="MiddleFaceActionRight"  FontFamily="Segoe WP" Content="Value" HorizontalAlignment="Left" Margin="258,406,0,0" VerticalAlignment="Top"/>
                             <!--Expressiv Controls-->
                         </Grid>
                     </TabItem>

@@ -71,8 +71,13 @@ namespace GraspIT_EEG.Model
 
         #endregion NXTStuff
 
-        #region NXTNavigation
+        #region R2D2 Navigation
 
+        #region Move Forward
+
+        /// <summary>
+        /// Move R2D2 Forward
+        /// </summary>
         public static void MoveForward()
         {
             if (CheckConnection())
@@ -82,6 +87,13 @@ namespace GraspIT_EEG.Model
             }
         }
 
+        #endregion Move Forward
+
+        #region Move Back
+
+        /// <summary>
+        /// Move R2D2 Back
+        /// </summary>
         public static void MoveBack()
         {
             if (CheckConnection())
@@ -90,6 +102,13 @@ namespace GraspIT_EEG.Model
             }
         }
 
+        #endregion Move Back
+
+        #region Move Left
+
+        /// <summary>
+        /// Move R2D2 Left
+        /// </summary>
         public static void MoveLeft()
         {
             if (CheckConnection())
@@ -97,10 +116,16 @@ namespace GraspIT_EEG.Model
                 Brick.PlaySoundfile("left.rso");
                 Brick.MotorB.Run(-100, 0);
                 Brick.MotorC.Run(100, 0);
-
             }
         }
 
+        #endregion Move Left
+
+        #region Move Right
+
+        /// <summary>
+        /// Move R2D2 Right
+        /// </summary>
         public static void MoveRight()
         {
             if (CheckConnection())
@@ -111,11 +136,20 @@ namespace GraspIT_EEG.Model
             }
         }
 
+        #endregion Move Right
+
+        #region Stop
+
+        /// <summary>
+        /// Stop R2D2
+        /// </summary>
         public static void Stop()
         {
             Idle();
         }
 
-        #endregion NXTNavigation
+        #endregion Stop
+
+        #endregion R2D2 Navigation
     }
 }

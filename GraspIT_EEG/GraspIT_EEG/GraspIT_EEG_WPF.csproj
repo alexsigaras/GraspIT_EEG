@@ -121,6 +121,7 @@
     <Compile Include="Model\Emotiv.cs" />
     <Compile Include="Model\Flasher.cs" />
     <Compile Include="Model\R2D2.cs" />
+    <Compile Include="Model\Talos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

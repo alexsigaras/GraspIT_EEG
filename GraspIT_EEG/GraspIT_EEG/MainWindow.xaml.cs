@@ -32,6 +32,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
+using System.IO.Ports;
 
 // Custom written libraries
 using GraspIT_EEG.Model;
@@ -42,12 +43,10 @@ using MahApps.Metro.Controls;
 // Realtime Charts - Telerik RadControls for WPF
 using Telerik.Windows.Controls.ChartView;
 
-// Emotiv Libraries
+// Emotiv Library
 using Emotiv;
-using System.IO.Ports;
-//using EmoEngineClientLibrary;
-//using EmoEngineControlLibrary;
 
+// Lego Mindstorms NXT Library
 using NKH.MindSqualls;
 
 #endregion Libraries
@@ -59,12 +58,6 @@ namespace GraspIT_EEG
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-
-        public SerialPort serialport;
-        bool R2D2isConnected = false;
-        public static NxtBrick Brick;
-        public static NxtMotorSync MotorPair;
-
         #region Declarations
 
         #region UI Specific
@@ -141,14 +134,14 @@ namespace GraspIT_EEG
         public int BatteryLevel = 0;
         public int MaxBatteryLevel = 5;
 
-        int xmax = 0, ymax = 0;
-
         // Others
         public double COUNTER, ES_TIMESTAMP, FUNC_ID, FUNC_VALUE, INTERPOLATED, MARKER, RAW_CQ, SYNC_SIGNAL, TIMESTAMP;
 
         float bufferSize;
         uint samplingRate;
         float elapsed;
+
+        #endregion Device
 
         #region Expressiv (EMG Signals)
 
@@ -207,6 +200,7 @@ namespace GraspIT_EEG
         #region Gyro
 
         public double GYROX, GYROY;
+        int xmax = 0, ymax = 0;
 
         List<GyroChartDataObject> GyroXList = new List<GyroChartDataObject>();
         List<GyroChartDataObject> GyroYList = new List<GyroChartDataObject>();
@@ -224,8 +218,6 @@ namespace GraspIT_EEG
         List<PacketLossChartDataObject> PacketLossList = new List<PacketLossChartDataObject>();
 
         #endregion Packet Loss
-
-        #endregion Device
 
         #region User
 
@@ -251,11 +243,37 @@ namespace GraspIT_EEG
 
         double gain = 1.22698672;
         double[] coefficients = new double[6] { 0.6642317127, 0.2500608525, -2.2141423193, -0.6015694459, 2.5249625592, 0.3764534782 };
+        
+        #region Butterworth Filters Declaration
+
+        Butterworth ButAF3 = new Butterworth();
+        Butterworth ButF7 = new Butterworth();
+        Butterworth ButF3 = new Butterworth();
+        Butterworth ButFC5 = new Butterworth();
+        Butterworth ButT7 = new Butterworth();
+        Butterworth ButP7 = new Butterworth();
         Butterworth ButO1 = new Butterworth();
+        Butterworth ButO2 = new Butterworth();
+        Butterworth ButP8 = new Butterworth();
+        Butterworth ButT8 = new Butterworth();
+        Butterworth ButFC6 = new Butterworth();
+        Butterworth ButF4 = new Butterworth();
+        Butterworth ButF8 = new Butterworth();
         Butterworth ButAF4 = new Butterworth();
-        double butO1, butAF4;
+        double butAF3, butF7, butF3, butFC5, butT7, butP7, butO1, butO2, butP8, butT8, butFC6, butF4, butF8, butAF4;
+
+        #endregion Butterworth Filters Declaration
 
         #endregion SSVEP
+
+        #region R2D2 Declarations
+
+        public SerialPort serialport;
+        bool R2D2isConnected = false;
+        public static NxtBrick Brick;
+        public static NxtMotorSync MotorPair;
+
+        #endregion R2D2 Declarations
 
         #endregion Declarations
 
@@ -362,7 +380,9 @@ namespace GraspIT_EEG
 
         #region Emotiv Toggle Switch
 
-        // Emotiv Turned On
+        /// <summary>
+        /// Emotiv Turned On
+        /// </summary>
         private void EmotivToggleSwitch_Checked(object sender, RoutedEventArgs e)
         {
             // Try to connect the Emotiv device.
@@ -373,16 +393,16 @@ namespace GraspIT_EEG
             engine.Connect();
             emotivDataCollectionTimer.Start();
 
-            EmotivStatusLbl.Content = "Connected"; // Set to Connected
-            UpdateBatteryCapacityIcon(BatteryLevel); // Get Battery Level
-            UpdateSignalStrengthIcon(SignalStatus); // Get Wireless Signal Strength
+            EmotivStatusLbl.Content = "Connected";      // Set to Connected
+            UpdateBatteryCapacityIcon(BatteryLevel);    // Get Battery Level
+            UpdateSignalStrengthIcon(SignalStatus);     // Get Wireless Signal Strength
 
-            // Set seconds to 0.
-            x = y = 0;
-            //seconds = x = y = 0;
+            x = y = 0;                                  // Reset Gyros
         }
 
-        // Emotiv Turned Off
+        /// <summary>
+        /// Emotiv Turned Off
+        /// <summary>
         private void EmotivToggleSwitch_Unchecked(object sender, RoutedEventArgs e)
         {
             // Disconnect Emotiv
@@ -391,9 +411,9 @@ namespace GraspIT_EEG
             engine.Disconnect();
             emotivDataCollectionTimer.Stop();
 
-            EmotivStatusLbl.Content = "Not Connected"; // Set to Disconnected
-            UpdateBatteryCapacityIcon(0); // Set Battery Level
-            UpdateSignalStrengthIcon("NO_SIGNAL"); // Set Wireless Signal Strength
+            EmotivStatusLbl.Content = "Not Connected";      // Set to Disconnected
+            UpdateBatteryCapacityIcon(0);                   // Set Battery Level
+            UpdateSignalStrengthIcon("NO_SIGNAL");          // Set Wireless Signal Strength
 
             SamplingRate.Content = "No Data";
             BufferSize.Content = "No Data";
@@ -438,6 +458,8 @@ namespace GraspIT_EEG
 
         #endregion Get Running Time
 
+        #region Get Contact Quality Color
+
         /// <summary>
         /// Sets the contact quality color for the contact quality provided.
         /// </summary>
@@ -462,6 +484,10 @@ namespace GraspIT_EEG
             }
         }
 
+        #endregion Get Contact Quality Color
+
+        #region Update Emotiv Sensor Data
+
         /// <summary>
         /// Updates the Emotiv Sensor Data
         /// </summary>
@@ -469,6 +495,8 @@ namespace GraspIT_EEG
         /// <param name="i"></param>
         private void UpdateEmotivSensorData(Dictionary<EdkDll.EE_DataChannel_t, double[]> data, int i)
         {
+            #region EEG Sensor Data
+
             // EEG Sensor Data
             AF3 = data[EdkDll.EE_DataChannel_t.AF3][i];
             AF4 = data[EdkDll.EE_DataChannel_t.AF4][i];
@@ -485,15 +513,41 @@ namespace GraspIT_EEG
             T7 = data[EdkDll.EE_DataChannel_t.T7][i];
             T8 = data[EdkDll.EE_DataChannel_t.T8][i];
 
-            butO1 = ButO1.getFilteredValue(O1, coefficients, gain);
+            #endregion EEG Sensor Data
+
+            #region Butterworth Filtered Data
+
+            // Butterworth Filtered Data
+            butAF3 = ButAF3.getFilteredValue(AF3, coefficients, gain);
             butAF4 = ButAF4.getFilteredValue(AF4, coefficients, gain);
+            butF3 = ButF3.getFilteredValue(F3, coefficients, gain);
+            butF4 = ButF4.getFilteredValue(F4, coefficients, gain);
+            butF7 = ButF7.getFilteredValue(F7, coefficients, gain);
+            butF8 = ButF8.getFilteredValue(F8, coefficients, gain);
+            butFC5 = ButFC5.getFilteredValue(FC5, coefficients, gain);
+            butFC6 = ButFC6.getFilteredValue(FC6, coefficients, gain);
+            butO1 = ButO1.getFilteredValue(O1, coefficients, gain);
+            butO2 = ButO2.getFilteredValue(O2, coefficients, gain);
+            butP7 = ButP7.getFilteredValue(P7, coefficients, gain);
+            butP8 = ButP8.getFilteredValue(P8, coefficients, gain);
+            butT7 = ButT7.getFilteredValue(T7, coefficients, gain);
+            butT8 = ButT8.getFilteredValue(T8, coefficients, gain);
+
+            #endregion Butterworth Filtered Data
+
+            // Set Values            
             AF4val.Content = ((Int32)AF4).ToString();
             AF4butval.Content = ((Int32)butAF4).ToString();
-            //Console.WriteLine("O1: " + O1.ToString() + ", O1Buttered: " + but);
+
+            #region Gyro Data
 
             // Gyro Data
             GYROX = data[EdkDll.EE_DataChannel_t.GYROX][i];
             GYROY = data[EdkDll.EE_DataChannel_t.GYROY][i];
+
+            #endregion Gyro Data
+
+            #region Other Data
 
             // Other Data
             COUNTER = data[EdkDll.EE_DataChannel_t.COUNTER][i];
@@ -506,8 +560,13 @@ namespace GraspIT_EEG
             SYNC_SIGNAL = data[EdkDll.EE_DataChannel_t.SYNC_SIGNAL][i];
             TIMESTAMP = data[EdkDll.EE_DataChannel_t.TIMESTAMP][i];
 
+            #endregion Other Data
+
             InterpolatedLbl.Content = SYNC_SIGNAL.ToString();
+
         }
+
+        #endregion Update Emotiv Sensor Data
 
         // Add User.
         private void AddUserBtn_Click(object sender, RoutedEventArgs e)
@@ -579,14 +638,6 @@ namespace GraspIT_EEG
             expressivIsLookingUp = es.ExpressivIsLookingUp();
             expressivIsRightWink = es.ExpressivIsRightWink();
 
-            EdkDll.EE_CognitivAction_t EEGAction;
-
-            EEGAction = es.CognitivGetCurrentAction();
-
-            bool cognitivIsNoisy;
-
-            cognitivIsNoisy = es.CognitivIsActive();
-
             clench = es.ExpressivGetClenchExtent();
             smile = es.ExpressivGetSmileExtent();
             eyebrows = es.ExpressivGetEyebrowExtent();
@@ -603,7 +654,9 @@ namespace GraspIT_EEG
             LowerFaceAction.Content = lowerFaceAction.ToString();
             UpperFaceAction.Content = upperFaceAction.ToString();
 
-            if(R2D2isConnected)
+            #region R2D2
+
+            if (R2D2isConnected)
             {
                 if(lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_CLENCH)
                 {
@@ -622,6 +675,9 @@ namespace GraspIT_EEG
                     R2D2.Stop();
                 }
             }
+
+            #endregion R2D2
+
             if (eyebrows > 0.10)
             {
                 EyebrowRect.Fill = Brushes.Green;
@@ -676,8 +732,21 @@ namespace GraspIT_EEG
 
             #endregion Affectiv
 
+            #region Cognitiv
+
+            EdkDll.EE_CognitivAction_t EEGAction;
+            EEGAction = es.CognitivGetCurrentAction();
+            bool cognitivIsNoisy;
+            cognitivIsNoisy = es.CognitivIsActive();
+
+            #endregion Cognitiv
+
         }
 
+        /// <summary>
+        /// Update Sensor Data Contact Quality
+        /// </summary>
+        /// <param name="es">EmoState</param>
         private void UpdateSensorContactQuality(EmoState es)
         {
             EdkDll.EE_EEG_ContactQuality_t[] contactQualityArray = es.GetContactQualityFromAllChannels();
@@ -727,11 +796,8 @@ namespace GraspIT_EEG
             if ((int)userID == -1)
                 return;
 
-            UpdateBatteryCapacityIcon(BatteryLevel); // Get Battery Level
-            UpdateSignalStrengthIcon(SignalStatus); // Get Wireless Signal Strength
-
-            // Get elapsed seconds.
-            //seconds = Convert.ToInt32(elapsed);
+            UpdateBatteryCapacityIcon(BatteryLevel);    // Get Battery Level
+            UpdateSignalStrengthIcon(SignalStatus);     // Get Wireless Signal Strength
             
             try
             {
@@ -770,60 +836,18 @@ namespace GraspIT_EEG
             }
         }
 
+        /// <summary>
+        /// Update Graphs
+        /// </summary>
         private void UpdateGraphs()
         {
-            #region GyroXGraph
 
-            GyroChartDataObject GyroXObj = new GyroChartDataObject
-            {
-                //Time = ConvertToTime(elapsed),
-                Time = DateTime.Now,
-                Value = x
-            };
-            GyroXList.Add(GyroXObj);
-
-            LineSeries xSeries = (LineSeries)this.GyroXChart.Series[0];
-            xSeries.CategoryBinding = new PropertyNameDataPointBinding()
-            {
-                PropertyName = "Time"
-            };
-            xSeries.ValueBinding = new PropertyNameDataPointBinding()
-            {
-                PropertyName = "Value"
-            };
-            xSeries.ItemsSource = GyroXList;
-
-            #endregion GyroXGraph
-
-            #region GyroYGraph
-
-            GyroChartDataObject GyroYObj = new GyroChartDataObject
-            {
-                //Time = ConvertToTime(elapsed),
-                Time = DateTime.Now,
-                Value = y
-            };
-            GyroYList.Add(GyroYObj);
-
-            LineSeries ySeries = (LineSeries)this.GyroYChart.Series[0];
-            ySeries.CategoryBinding = new PropertyNameDataPointBinding()
-            {
-                PropertyName = "Time"
-            };
-            ySeries.ValueBinding = new PropertyNameDataPointBinding()
-            {
-                PropertyName = "Value"
-            };
-            ySeries.ItemsSource = GyroYList;
-
-            #endregion GyroYGraph
+            #region EEG Graphs
 
             #region O1Graph
 
-            
             EEGChartDataObject O1Obj = new EEGChartDataObject
             {
-                //Time = ConvertToTime(elapsed),
                 Time = DateTime.Now,
                 Value = AF4
             };
@@ -846,15 +870,10 @@ namespace GraspIT_EEG
 
             EEGChartDataObject O2Obj = new EEGChartDataObject
             {
-                //Time = ConvertToTime(elapsed),
                 Time = DateTime.Now,
                 Value = butAF4
             };
 
-            //if (O2 != 0)
-            //{
-            //    O2Obj.Value -= 4200;
-            //}
             O2List.Add(O2Obj);
 
             LineSeries O2Series = (LineSeries)this.O2Chart.Series[0];
@@ -870,51 +889,7 @@ namespace GraspIT_EEG
 
             #endregion O2Graph
 
-            #region SequenceNumberGraph
-
-            SequenceNumberChartDataObject SequenceNumberObj = new SequenceNumberChartDataObject
-            {
-                //Time = ConvertToTime(elapsed),
-                Time = DateTime.Now,
-                Value = COUNTER
-            };
-            SequenceNumberList.Add(SequenceNumberObj);
-
-            LineSeries SequenceNumberSeries = (LineSeries)this.SequenceNumberChart.Series[0];
-            SequenceNumberSeries.CategoryBinding = new PropertyNameDataPointBinding()
-            {
-                PropertyName = "Time"
-            };
-            SequenceNumberSeries.ValueBinding = new PropertyNameDataPointBinding()
-            {
-                PropertyName = "Value"
-            };
-            SequenceNumberSeries.ItemsSource = SequenceNumberList;
-
-            #endregion SequenceNumberGraph
-
-            #region PacketLossGraph
-
-            PacketLossChartDataObject PacketLossObj = new PacketLossChartDataObject
-            {
-                //Time = ConvertToTime(elapsed),
-                Time = DateTime.Now,
-                Value = RAW_CQ
-            };
-            PacketLossList.Add(PacketLossObj);
-
-            LineSeries PacketLossSeries = (LineSeries)this.PacketLossChart.Series[0];
-            PacketLossSeries.CategoryBinding = new PropertyNameDataPointBinding()
-            {
-                PropertyName = "Time"
-            };
-            PacketLossSeries.ValueBinding = new PropertyNameDataPointBinding()
-            {
-                PropertyName = "Value"
-            };
-            PacketLossSeries.ItemsSource = PacketLossList;
-
-            #endregion PacketLossGraph
+            #endregion EEG Graphs
 
             #region Expressiv Graphs
 
@@ -1029,6 +1004,106 @@ namespace GraspIT_EEG
             #endregion Long Excitement Graph
 
             #endregion Expressiv Graphs
+
+            #region Gyro Graphs
+
+            #region GyroXGraph
+
+            GyroChartDataObject GyroXObj = new GyroChartDataObject
+            {
+                //Time = ConvertToTime(elapsed),
+                Time = DateTime.Now,
+                Value = x
+            };
+            GyroXList.Add(GyroXObj);
+
+            LineSeries xSeries = (LineSeries)this.GyroXChart.Series[0];
+            xSeries.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            xSeries.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            xSeries.ItemsSource = GyroXList;
+
+            #endregion GyroXGraph
+
+            #region GyroYGraph
+
+            GyroChartDataObject GyroYObj = new GyroChartDataObject
+            {
+                //Time = ConvertToTime(elapsed),
+                Time = DateTime.Now,
+                Value = y
+            };
+            GyroYList.Add(GyroYObj);
+
+            LineSeries ySeries = (LineSeries)this.GyroYChart.Series[0];
+            ySeries.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            ySeries.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            ySeries.ItemsSource = GyroYList;
+
+            #endregion GyroYGraph
+
+            #endregion Gyro Graphs
+
+            #region Data Graphs
+
+            #region SequenceNumberGraph
+
+            SequenceNumberChartDataObject SequenceNumberObj = new SequenceNumberChartDataObject
+            {
+                //Time = ConvertToTime(elapsed),
+                Time = DateTime.Now,
+                Value = COUNTER
+            };
+            SequenceNumberList.Add(SequenceNumberObj);
+
+            LineSeries SequenceNumberSeries = (LineSeries)this.SequenceNumberChart.Series[0];
+            SequenceNumberSeries.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            SequenceNumberSeries.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            SequenceNumberSeries.ItemsSource = SequenceNumberList;
+
+            #endregion SequenceNumberGraph
+
+            #region PacketLossGraph
+
+            PacketLossChartDataObject PacketLossObj = new PacketLossChartDataObject
+            {
+                //Time = ConvertToTime(elapsed),
+                Time = DateTime.Now,
+                Value = RAW_CQ
+            };
+            PacketLossList.Add(PacketLossObj);
+
+            LineSeries PacketLossSeries = (LineSeries)this.PacketLossChart.Series[0];
+            PacketLossSeries.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            PacketLossSeries.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            PacketLossSeries.ItemsSource = PacketLossList;
+
+            #endregion PacketLossGraph
+
+            #endregion Data Graphs
         }
 
         #endregion Specific Settings
@@ -1056,27 +1131,11 @@ namespace GraspIT_EEG
 
         #endregion SSVEP Timers Ticks
 
-        private void r2d2btn_Click_1(object sender, RoutedEventArgs e)
+        private void R2D2Conenctbtn_Click(object sender, RoutedEventArgs e)
         {
             R2D2.ComPort = "4";
             R2D2.ConnectNXT();
             R2D2isConnected = true;
-
-            //Brick = new NxtBrick(NxtCommLinkType.Bluetooth, 4);
-            //NxtMotor motorB = new NxtMotor();
-            //Brick.MotorB = motorB;
-            //NxtMotor motorC = new NxtMotor();
-            //Brick.MotorC = motorC;
-            //MotorPair = new NxtMotorSync(Brick.MotorB, Brick.MotorC);
-
-            //Brick.Connect();
-            //motorB.Run(75, 360);
-            //Brick.Disconnect();
-        }
-
-        private void forward()
-        {
-            
         }
 
         #endregion SSVEP
@@ -1086,8 +1145,6 @@ namespace GraspIT_EEG
         //double gain = 1.22698672;
         //double[] coefficients = new double[6] { 0.6642317127, 0.2500608525, -2.2141423193, -0.6015694459, 2.5249625592, 0.3764534782};
         
-
-
         #endregion
 
     }
