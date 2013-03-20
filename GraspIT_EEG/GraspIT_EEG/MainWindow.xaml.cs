@@ -589,7 +589,12 @@ namespace GraspIT_EEG
         // Train User.
         private void TrainUserBtn_Click(object sender, RoutedEventArgs e)
         {
+            LoadProfile();
+        }
 
+        private void LoadProfile()
+        {
+            engine.LoadUserProfile(userID, "C:\\ProgramData\\Emotiv\\AlexEEG.emu");
         }
 
         #region Emotiv Event Handlers
@@ -660,15 +665,15 @@ namespace GraspIT_EEG
             {
                 if(lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_CLENCH)
                 {
-                    R2D2.MoveForward();
+                   // R2D2.MoveForward();
                 }
                 else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_LEFT)
                 {
-                    R2D2.MoveLeft();
+                   // R2D2.MoveLeft();
                 }
                 else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_RIGHT)
                 {
-                    R2D2.MoveRight();
+                   // R2D2.MoveRight();
                 }
                 else if(eyebrows > 0.10)
                 {
@@ -736,8 +741,60 @@ namespace GraspIT_EEG
 
             EdkDll.EE_CognitivAction_t EEGAction;
             EEGAction = es.CognitivGetCurrentAction();
+            double cognitivpower = es.CognitivGetCurrentActionPower();
+            cognitivPower.Content = cognitivpower.ToString();
             bool cognitivIsNoisy;
             cognitivIsNoisy = es.CognitivIsActive();
+            if (cognitivIsNoisy)
+            {
+                cognitivIsActive.Content = "Noisy";
+            }
+            else
+            {
+                cognitivIsActive.Content = "Ok";
+            }
+
+            // Get Cognitiv Action
+            switch (EEGAction)
+            {
+                case EdkDll.EE_CognitivAction_t.COG_DISAPPEAR:
+                    //MessageBox.Show("Yes");
+                    if (cognitivpower > 0.2)
+                    {
+                        R2D2.MoveForward();
+                    }
+                    break;
+                case EdkDll.EE_CognitivAction_t.COG_DROP:
+                    MessageBox.Show("Drop");
+                    break;
+                case EdkDll.EE_CognitivAction_t.COG_LEFT:
+                    break;
+                case EdkDll.EE_CognitivAction_t.COG_LIFT:
+                    break;
+                case EdkDll.EE_CognitivAction_t.COG_NEUTRAL:
+                    break;
+                case EdkDll.EE_CognitivAction_t.COG_PULL:
+                    break;
+                case EdkDll.EE_CognitivAction_t.COG_PUSH:
+                    MessageBox.Show("Push");
+                    break;
+                case EdkDll.EE_CognitivAction_t.COG_RIGHT:
+                    break;
+                case EdkDll.EE_CognitivAction_t.COG_ROTATE_CLOCKWISE:
+                    break;
+                case EdkDll.EE_CognitivAction_t.COG_ROTATE_COUNTER_CLOCKWISE:
+                    break;
+                case EdkDll.EE_CognitivAction_t.COG_ROTATE_FORWARDS:
+                    break;
+                case EdkDll.EE_CognitivAction_t.COG_ROTATE_LEFT:
+                    break;
+                case EdkDll.EE_CognitivAction_t.COG_ROTATE_REVERSE:
+                    break;
+                case EdkDll.EE_CognitivAction_t.COG_ROTATE_RIGHT:
+                    break;
+                default:
+                    break;
+            }
 
             #endregion Cognitiv
 

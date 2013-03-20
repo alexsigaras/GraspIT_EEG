@@ -154,6 +154,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DLLs\EdfUtils.dll" />
     <Content Include="DLLs\NKH.MindSqualls.dll" />
     <Resource Include="Resources\Entypo-license.txt" />
     <Resource Include="Assets\Images\Battery\Battery-Empty.png" />

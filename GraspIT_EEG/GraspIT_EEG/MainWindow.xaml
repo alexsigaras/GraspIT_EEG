@@ -262,6 +262,8 @@
                     
                     <TabItem Header="Cognitiv">
                         <Grid>
+                            <Label x:Name="cognitivPower" Content="Label" HorizontalAlignment="Left" Margin="150,109,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="cognitivIsActive" Content="Label" HorizontalAlignment="Left" Margin="150,65,0,0" VerticalAlignment="Top"/>
                             <!--Cognitiv Controls-->
                         </Grid>
                     </TabItem>

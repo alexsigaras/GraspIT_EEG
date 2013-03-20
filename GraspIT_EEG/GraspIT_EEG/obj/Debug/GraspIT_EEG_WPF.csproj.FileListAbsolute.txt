@@ -148,4 +148,3 @@ C:\Users\alex\Desktop\GraspIT_EEG-masterNEW\GraspIT_EEG-master\GraspIT_EEG\Grasp
 C:\Users\alex\Desktop\GraspIT_EEG-masterNEW\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_WPF.csproj.GenerateResource.Cache
 C:\Users\alex\Desktop\GraspIT_EEG-masterNEW\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.exe
 C:\Users\alex\Desktop\GraspIT_EEG-masterNEW\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.pdb
-C:\Users\alex\Desktop\GraspIT_EEG-masterNEW\GraspIT_EEG-master\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_WPF.csprojResolveAssemblyReference.cache
