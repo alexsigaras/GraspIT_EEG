@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+// Lego Mindstorms NXT Library
 using NKH.MindSqualls;
-using System.Windows;
 
 namespace GraspIT_EEG.Model
 {
@@ -12,15 +8,22 @@ namespace GraspIT_EEG.Model
     {
         public static NxtBrick Brick;
         public static NxtMotorSync MotorPair;
+        public static NxtBluetoothConnection conn;
         public static string ComPort;
+        private static byte comPort;
+        public static bool isConnected = false;
 
         #region NXTStuff
 
-        public static void ConnectNXT()
+        /// <summary>
+        /// Connect to the NXT
+        /// </summary>
+        /// <param name="ComPort">The COM Port to connect. ex. 4</param>
+        public static void ConnectNXT(string ComPort)
         {
             try
             {
-                byte comPort = byte.Parse(ComPort);
+                comPort = byte.Parse(ComPort);
 
                 Brick = new NxtBrick(NxtCommLinkType.Bluetooth, comPort);
                 NxtMotor motorB = new NxtMotor();
@@ -29,9 +32,13 @@ namespace GraspIT_EEG.Model
                 Brick.MotorC = motorC;
                 MotorPair = new NxtMotorSync(Brick.MotorB, Brick.MotorC);
 
-                Brick.Connect();
-                MessageBox.Show("Connected: " + Brick.Name);
-                Brick.PlaySoundfile("Atention.rso");
+
+                if (!isConnected)
+                {
+                    Brick.Connect();
+                    isConnected = true;
+                    Brick.PlaySoundfile("! Attention.rso");
+                }
             }
             catch
             {
@@ -39,25 +46,35 @@ namespace GraspIT_EEG.Model
             }
         }
 
+        /// <summary>
+        /// Disconnect the NXT
+        /// </summary>
         public static void DisconnectNXT()
         {
             Idle();
-
+            Brick.PlaySoundfile("! Attention.rso");
+            Brick.CommLink.StopProgram();
+            
             if (Brick != null && Brick.IsConnected)
                 Brick.Disconnect();
 
             Brick = null;
-            MotorPair = null;
-
-            MessageBox.Show("Disconnected");
+            MotorPair = null;            
         }
 
-        public static void Idle()
+        /// <summary>
+        /// Idles the Motor Pair
+        /// </summary>
+        private static void Idle()
         {
             if (Brick != null && Brick.IsConnected)
                 MotorPair.Idle();
         }
 
+        /// <summary>
+        /// Check NXT Connection
+        /// </summary>
+        /// <returns></returns>
         public static bool CheckConnection()
         {
             bool ConnectionCheck = false;
@@ -67,6 +84,89 @@ namespace GraspIT_EEG.Model
             }
 
             return ConnectionCheck;
+        }
+
+        /// <summary>
+        /// Get the Current Firmware from the NXT
+        /// </summary>
+        /// <returns></returns>
+        public static string getFirmware()
+        {
+            if (!isConnected)
+            {
+                // Connect to the NXT.
+                ConnectNXT(ComPort);
+            }
+
+            NxtGetFirmwareVersionReply? reply = Brick.CommLink.GetFirmwareVersion();
+            if (reply.HasValue)
+            {
+                NxtGetFirmwareVersionReply nxtreply = (NxtGetFirmwareVersionReply)reply;
+                return nxtreply.firmwareVersion.ToString();
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Get the Battery from the NXT
+        /// </summary>
+        /// <returns></returns>
+        public static int getBattery()
+        {
+            if (!isConnected)
+            {
+                // Connect to the NXT.
+                ConnectNXT(ComPort);
+            }
+
+            string[] alex = Brick.Sounds;
+
+            return (Int32)Brick.BatteryLevel;
+        }
+
+        /// <summary>
+        /// Get the Sounds from the NXT
+        /// </summary>
+        /// <returns></returns>
+        public static string [] getSounds()
+        {
+            if (!isConnected)
+            {
+                // Connect to the NXT.
+                ConnectNXT(ComPort);
+            }
+
+            return  Brick.Sounds;
+        }
+
+        /// <summary>
+        /// Get the Programs from the NXT
+        /// </summary>
+        /// <returns></returns>
+        public static string[] getPrograms()
+        {
+            if (!isConnected)
+            {
+                // Connect to the NXT.
+                ConnectNXT(ComPort);
+            }
+
+            return Brick.Programs;
+        }
+
+        /// <summary>
+        /// Show the CU Logo
+        /// </summary>
+        /// <returns></returns>
+        public static void showCULogo()
+        {
+            if (!isConnected)
+            {
+                // Connect to the NXT.
+                ConnectNXT(ComPort);
+            }
+
+            Brick.CommLink.StartProgram("CU.rxe");
         }
 
         #endregion NXTStuff
@@ -98,6 +198,7 @@ namespace GraspIT_EEG.Model
         {
             if (CheckConnection())
             {
+                Brick.PlaySoundfile("forward.rso");
                 MotorPair.Run(100, 0, 0);
             }
         }

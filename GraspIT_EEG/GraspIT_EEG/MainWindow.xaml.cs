@@ -36,6 +36,7 @@ using System.IO.Ports;
 
 // Custom written libraries
 using GraspIT_EEG.Model;
+using GraspIT_EEG.DialogBoxes;
 
 // Metro WPF Library - MahApps
 using MahApps.Metro.Controls;
@@ -45,9 +46,7 @@ using Telerik.Windows.Controls.ChartView;
 
 // Emotiv Library
 using Emotiv;
-
-// Lego Mindstorms NXT Library
-using NKH.MindSqualls;
+using System.IO;
 
 #endregion Libraries
 
@@ -121,9 +120,10 @@ namespace GraspIT_EEG
         #region Emotiv
 
         #region Device
-
         EmoEngine engine = EmoEngine.Instance;
         EmoState es;
+
+        bool emotivIsConnected = false;
 
         DispatcherTimer emotivDataCollectionTimer = new DispatcherTimer();
 
@@ -144,12 +144,6 @@ namespace GraspIT_EEG
         #endregion Device
 
         #region Expressiv (EMG Signals)
-
-        float clench;
-        float smile;
-        float eyeXCoordinate;
-        float eyeYCoordinate;
-        float eyebrows;
 
         #endregion Expressiv (EMG Signals)
 
@@ -221,6 +215,9 @@ namespace GraspIT_EEG
 
         #region User
 
+        // .emu User Profile Location
+        public string[] emuFilePaths = Directory.GetFiles("C:\\ProgramData\\Emotiv\\");
+
         // User ID
         uint userID = (uint)0;
         //int seconds = 0;
@@ -266,21 +263,13 @@ namespace GraspIT_EEG
 
         #endregion SSVEP
 
-        #region R2D2 Declarations
-
-        public SerialPort serialport;
-        bool R2D2isConnected = false;
-        public static NxtBrick Brick;
-        public static NxtMotorSync MotorPair;
-
-        #endregion R2D2 Declarations
-
         #endregion Declarations
 
         public MainWindow()
         {
             InitializeComponent();
             //engine.EmoStateUpdated +=engine_EmoStateUpdated;
+            LoadUsers();
             #region Instantiate Timers
 
             emotivDataCollectionTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
@@ -394,6 +383,8 @@ namespace GraspIT_EEG
             emotivDataCollectionTimer.Start();
 
             EmotivStatusLbl.Content = "Connected";      // Set to Connected
+            emotivIsConnected = true;
+            LoadUserProfile();
             UpdateBatteryCapacityIcon(BatteryLevel);    // Get Battery Level
             UpdateSignalStrengthIcon(SignalStatus);     // Get Wireless Signal Strength
 
@@ -412,6 +403,7 @@ namespace GraspIT_EEG
             emotivDataCollectionTimer.Stop();
 
             EmotivStatusLbl.Content = "Not Connected";      // Set to Disconnected
+            emotivIsConnected = false;
             UpdateBatteryCapacityIcon(0);                   // Set Battery Level
             UpdateSignalStrengthIcon("NO_SIGNAL");          // Set Wireless Signal Strength
 
@@ -571,30 +563,84 @@ namespace GraspIT_EEG
         // Add User.
         private void AddUserBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (emotivIsConnected)
+            {
+                string newUserName = "";
+                AddUser dialog = new AddUser();
+                dialog.ShowDialog();
+                if (dialog.DialogResult.HasValue && dialog.DialogResult.Value)
+                {
+                    // Get User Name
+                    newUserName = dialog.UserNameTxtBox.Text;
+                }
+                string newUserNamePath = "C:\\ProgramData\\Emotiv\\" + newUserName + ".emu";
 
+                // User gave a name
+                if (newUserName != "")
+                {
+                    // Name doesn't exist already
+                    if (!emuFilePaths.Contains(newUserNamePath))
+                    {
+                        // Save new user profile
+                        engine.EE_SaveUserProfile(userID, newUserNamePath);
+
+                        // Load profile
+                        engine.LoadUserProfile(userID, newUserNamePath);
+                    }
+                    else
+                    {
+                        MessageBox.Show("User already exists!");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Device has to be connected in order to add a user.");
+            }
         }
 
         // Remove User.
         private void RemoveUserBtn_Click(object sender, RoutedEventArgs e)
         {
+            RemoveUser dialog = new RemoveUser();
+            dialog.ShowDialog();
 
+            if (dialog.DialogResult.HasValue && dialog.DialogResult.Value)
+            { 
+                // Remove user
+                File.Delete(emuFilePaths[UsersComboBox.SelectedIndex]);
+            }
+            LoadUsers();
         }
 
         // Save User.
         private void SaveUserBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (emotivIsConnected)
+            {
+                SaveUserProfile();
+                LoadUsers();
+            }
+            else
+            {
+                MessageBox.Show("Emotiv has to be connected to save user");
+            }
+        }
 
+        private void SaveUserProfile()
+        {
+            engine.EE_SaveUserProfile(userID, "C:\\ProgramData\\Emotiv\\" + System.IO.Path.GetFileName(emuFilePaths[UsersComboBox.SelectedIndex]));
         }
 
         // Train User.
         private void TrainUserBtn_Click(object sender, RoutedEventArgs e)
         {
-            LoadProfile();
+            LoadUsers();
         }
 
-        private void LoadProfile()
+        private void LoadUserProfile()
         {
-            engine.LoadUserProfile(userID, "C:\\ProgramData\\Emotiv\\AlexEEG.emu");
+            engine.LoadUserProfile(userID, "C:\\ProgramData\\Emotiv\\" + System.IO.Path.GetFileName(emuFilePaths[UsersComboBox.SelectedIndex]));
         }
 
         #region Emotiv Event Handlers
@@ -643,39 +689,37 @@ namespace GraspIT_EEG
             expressivIsLookingUp = es.ExpressivIsLookingUp();
             expressivIsRightWink = es.ExpressivIsRightWink();
 
-            clench = es.ExpressivGetClenchExtent();
-            smile = es.ExpressivGetSmileExtent();
-            eyebrows = es.ExpressivGetEyebrowExtent();
-            es.ExpressivGetEyeLocation(out eyeXCoordinate, out eyeYCoordinate);
-            EyeXCoordinate.Content = eyeXCoordinate.ToString();
-            EyeYCoordinate.Content = eyeYCoordinate.ToString();
+            
+            //es.ExpressivGetEyeLocation(out eyeXCoordinate, out eyeYCoordinate);
+            //EyeXCoordinate.Content = eyeXCoordinate.ToString();
+            //EyeYCoordinate.Content = eyeYCoordinate.ToString();
 
             ClenchCheckBox.IsChecked = false;
             EyebrowsCheckBox.IsChecked = false;
             SmileCheckBox.IsChecked = false;
 
-            Eyebrows.Content = eyebrows.ToString();
-            Smile.Content = smile.ToString();
+            Eyebrows.Content = es.ExpressivGetEyebrowExtent().ToString();
+            Smile.Content = es.ExpressivGetSmileExtent().ToString();
             LowerFaceAction.Content = lowerFaceAction.ToString();
             UpperFaceAction.Content = upperFaceAction.ToString();
 
             #region R2D2
 
-            if (R2D2isConnected)
+            if (R2D2.isConnected)
             {
                 if(lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_CLENCH)
                 {
-                   // R2D2.MoveForward();
+                   R2D2.MoveForward();
                 }
                 else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_LEFT)
                 {
-                   // R2D2.MoveLeft();
+                   R2D2.MoveLeft();
                 }
                 else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_RIGHT)
                 {
-                   // R2D2.MoveRight();
+                   R2D2.MoveRight();
                 }
-                else if(eyebrows > 0.10)
+                else if (es.ExpressivGetEyebrowExtent() > 0.10)
                 {
                     R2D2.Stop();
                 }
@@ -683,34 +727,30 @@ namespace GraspIT_EEG
 
             #endregion R2D2
 
-            if (eyebrows > 0.10)
+            if (es.ExpressivGetEyebrowExtent() > 0.10)
             {
                 EyebrowRect.Fill = Brushes.Green;
-                //R2D2.MoveRight();
                 EyebrowsCheckBox.IsChecked = true;
             }
             else
             {
                 EyebrowRect.Fill = Brushes.Red;
-                //R2D2.Stop();
                 EyebrowsCheckBox.IsChecked = false;
             }
 
-            Clench.Content = clench.ToString();
-            if (clench > 0.10)
+            Clench.Content = es.ExpressivGetClenchExtent().ToString();
+            if (es.ExpressivGetClenchExtent() > 0.10)
             {
                 ClenchRect.Fill = Brushes.Green;
-                //R2D2.MoveForward();
                 ClenchCheckBox.IsChecked = true;
             }
             else
             {
                 ClenchRect.Fill = Brushes.Red;
-                //R2D2.Stop();
                 ClenchCheckBox.IsChecked = false;
             }
 
-            if (smile > 0.05)
+            if (es.ExpressivGetSmileExtent() > 0.05)
             {
                 SmileRect.Fill = Brushes.Green;
                 SmileCheckBox.IsChecked = true;
@@ -758,39 +798,51 @@ namespace GraspIT_EEG
             switch (EEGAction)
             {
                 case EdkDll.EE_CognitivAction_t.COG_DISAPPEAR:
-                    //MessageBox.Show("Yes");
-                    if (cognitivpower > 0.2)
-                    {
-                        R2D2.MoveForward();
-                    }
+                    cognitivIsState.Content = "Dissapear";
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_DROP:
                     MessageBox.Show("Drop");
+                    cognitivIsState.Content = "Drop";
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_LEFT:
+                    cognitivIsState.Content = "Left";
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_LIFT:
+                    cognitivIsState.Content = "Lift";
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_NEUTRAL:
+                    cognitivIsState.Content = "Neutral";
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_PULL:
+                    cognitivIsState.Content = "Pull";
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_PUSH:
-                    MessageBox.Show("Push");
+                    cognitivIsState.Content = "Push";
+                    if (cognitivpower > 0.2)
+                    {
+                        R2D2.MoveBack();
+                    }
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_RIGHT:
+                    cognitivIsState.Content = "Right";
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_ROTATE_CLOCKWISE:
+                    cognitivIsState.Content = "Rotate Clockwise";
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_ROTATE_COUNTER_CLOCKWISE:
+                    cognitivIsState.Content = "Rotate Counter Clockwise";
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_ROTATE_FORWARDS:
+                    cognitivIsState.Content = "Rotate Forwards";
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_ROTATE_LEFT:
+                    cognitivIsState.Content = "Rotate Left";
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_ROTATE_REVERSE:
+                    cognitivIsState.Content = "Rotate Reverse";
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_ROTATE_RIGHT:
+                    cognitivIsState.Content = "Rotate Right";
                     break;
                 default:
                     break;
@@ -1190,12 +1242,31 @@ namespace GraspIT_EEG
 
         private void R2D2Conenctbtn_Click(object sender, RoutedEventArgs e)
         {
-            R2D2.ComPort = "4";
-            R2D2.ConnectNXT();
-            R2D2isConnected = true;
+            R2D2.ConnectNXT("4");
+            R2D2.showCULogo();
         }
 
         #endregion SSVEP
+
+        private void LoadUsers()
+        {
+            UsersComboBox.Items.Clear();
+            emuFilePaths = Directory.GetFiles("C:\\ProgramData\\Emotiv\\");
+            foreach (var user in emuFilePaths)
+            {
+                UsersComboBox.Items.Add(System.IO.Path.GetFileNameWithoutExtension(user));   
+            }
+
+            UsersComboBox.SelectedIndex = 0;
+        }
+
+        private void UsersComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (emotivIsConnected)
+            {
+                LoadUserProfile();
+            }
+        }
 
         #region TestCode
 

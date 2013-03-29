@@ -85,6 +85,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="DialogBoxes\AddUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DialogBoxes\RemoveUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -92,6 +100,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DialogBoxes\AddUser.xaml.cs">
+      <DependentUpon>AddUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DialogBoxes\RemoveUser.xaml.cs">
+      <DependentUpon>RemoveUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -120,6 +134,7 @@
     <Compile Include="Model\ChartDataObjects.cs" />
     <Compile Include="Model\Emotiv.cs" />
     <Compile Include="Model\Flasher.cs" />
+    <Compile Include="Model\OWI535RoboticArm.cs" />
     <Compile Include="Model\R2D2.cs" />
     <Compile Include="Model\Talos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

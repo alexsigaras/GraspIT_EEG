@@ -167,7 +167,7 @@
                 <!-- EndRegion -->
                 
                 <Label x:Name="UserLbl" Content="User" HorizontalAlignment="Left" Margin="10,442,0,0" VerticalAlignment="Top" FontSize="18"/>
-                <ComboBox x:Name="UsersComboBox" HorizontalAlignment="Left" Margin="10,481,0,0" VerticalAlignment="Top" Width="189"/>
+                <ComboBox x:Name="UsersComboBox" HorizontalAlignment="Left" Margin="10,481,0,0" VerticalAlignment="Top" Width="189" SelectionChanged="UsersComboBox_SelectionChanged"/>
                 <Controls:AppBarButton x:Name="AddUserBtn" MetroImageSource="{DynamicResource appbar_user_add}" Foreground="{DynamicResource BlackBrush}" Content="Add" Margin="0,0,0,7.518" Width="50" Height="50" Click="AddUserBtn_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
                 <Controls:AppBarButton x:Name="RemoveUserBtn" MetroImageSource="{DynamicResource appbar_user_minus}" Foreground="{DynamicResource BlackBrush}" Content="Remove" Margin="50,0,0,7.518" Width="50" Height="50" Click="RemoveUserBtn_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
                 <Controls:AppBarButton x:Name="SaveUserBtn" Content="Save" MetroImageSource="{DynamicResource appbar_save}" Foreground="{DynamicResource BlackBrush}" Margin="100,0,0,7.518" Width="50" Height="50" Click="SaveUserBtn_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
@@ -264,6 +264,7 @@
                         <Grid>
                             <Label x:Name="cognitivPower" Content="Label" HorizontalAlignment="Left" Margin="150,109,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="cognitivIsActive" Content="Label" HorizontalAlignment="Left" Margin="150,65,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="cognitivIsState" Content="Label" HorizontalAlignment="Left" Margin="150,145,0,0" VerticalAlignment="Top"/>
                             <!--Cognitiv Controls-->
                         </Grid>
                     </TabItem>
