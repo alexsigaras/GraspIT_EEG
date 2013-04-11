@@ -156,9 +156,6 @@ C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Deb
 C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\MahApps.Metro.dll
 C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\NKH.MindSqualls.dll
 C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\System.Windows.Interactivity.dll
-C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\Telerik.Windows.Controls.Chart.dll
-C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\Telerik.Windows.Controls.dll
-C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\Telerik.Windows.Data.dll
 C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\Telerik.Windows.Controls.pdb
 C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\Telerik.Windows.Controls.xml
 C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\Telerik.Windows.Controls.Chart.pdb
@@ -190,3 +187,4 @@ C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Deb
 C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_WPF.csproj.GenerateResource.Cache
 C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.exe
 C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.pdb
+C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_WPF.csprojResolveAssemblyReference.cache

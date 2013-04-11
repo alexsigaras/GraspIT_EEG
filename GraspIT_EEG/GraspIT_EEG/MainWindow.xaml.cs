@@ -47,6 +47,7 @@ using Telerik.Windows.Controls.ChartView;
 // Emotiv Library
 using Emotiv;
 using System.IO;
+using GraspIT_EEG.Properties;
 
 #endregion Libraries
 
@@ -262,6 +263,12 @@ namespace GraspIT_EEG
         #endregion Butterworth Filters Declaration
 
         #endregion SSVEP
+
+        #region R2D2
+
+        private static readonly string R2D2ComPort = Settings.Default.R2D2ComPort;
+
+        #endregion R2D2
 
         #endregion Declarations
 
@@ -1242,7 +1249,7 @@ namespace GraspIT_EEG
 
         private void R2D2Conenctbtn_Click(object sender, RoutedEventArgs e)
         {
-            R2D2.ConnectNXT("4");
+            R2D2.ConnectNXT(R2D2ComPort);
             R2D2.showCULogo();
         }
 
@@ -1266,6 +1273,9 @@ namespace GraspIT_EEG
             {
                 LoadUserProfile();
             }
+
+
+      
         }
 
         #region TestCode
