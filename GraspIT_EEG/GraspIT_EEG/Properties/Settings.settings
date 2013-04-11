@@ -5,5 +5,8 @@
     <Setting Name="R2D2ComPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
+    <Setting Name="EmotivUserFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\\ProgramData\\Emotiv\\</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

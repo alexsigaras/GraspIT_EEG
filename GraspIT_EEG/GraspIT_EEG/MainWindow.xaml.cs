@@ -118,6 +118,12 @@ namespace GraspIT_EEG
 
         #endregion UI Specific
 
+        #region R2D2
+
+        private static readonly string R2D2ComPort = Settings.Default.R2D2ComPort;
+
+        #endregion R2D2
+
         #region Emotiv
 
         #region Device
@@ -217,8 +223,8 @@ namespace GraspIT_EEG
         #region User
 
         // .emu User Profile Location
-        public string[] emuFilePaths = Directory.GetFiles("C:\\ProgramData\\Emotiv\\");
-
+        private static readonly string emotivFilePath = Settings.Default.EmotivUserFilePath;
+        public string[] emuFilePaths = Directory.GetFiles(emotivFilePath);
         // User ID
         uint userID = (uint)0;
         //int seconds = 0;
@@ -264,11 +270,9 @@ namespace GraspIT_EEG
 
         #endregion SSVEP
 
-        #region R2D2
+        
 
-        private static readonly string R2D2ComPort = Settings.Default.R2D2ComPort;
 
-        #endregion R2D2
 
         #endregion Declarations
 

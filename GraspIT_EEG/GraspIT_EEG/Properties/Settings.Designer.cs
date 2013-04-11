@@ -34,5 +34,17 @@ namespace GraspIT_EEG.Properties {
                 this["R2D2ComPort"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\\\ProgramData\\\\Emotiv\\\\")]
+        public string EmotivUserFilePath {
+            get {
+                return ((string)(this["EmotivUserFilePath"]));
+            }
+            set {
+                this["EmotivUserFilePath"] = value;
+            }
+        }
     }
 }
