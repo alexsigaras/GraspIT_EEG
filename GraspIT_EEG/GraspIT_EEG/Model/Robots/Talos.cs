@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraspIT_EEG.Model
+namespace GraspIT_EEG.Model.Robots
 {
-    class Talos
+    public static class Talos
     {
+        // To be completed
     }
 }

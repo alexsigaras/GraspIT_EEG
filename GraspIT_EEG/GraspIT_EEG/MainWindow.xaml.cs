@@ -279,7 +279,8 @@ namespace GraspIT_EEG
         {
             InitializeComponent();
             //engine.EmoStateUpdated +=engine_EmoStateUpdated;
-            LoadUsers();
+            LoadUsers(); // Load the user Profiles
+
             #region Instantiate Timers
 
             emotivDataCollectionTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
@@ -570,7 +571,11 @@ namespace GraspIT_EEG
 
         #endregion Update Emotiv Sensor Data
 
-        // Add User.
+        #region Add Users
+
+        /// <summary>
+        /// Add User
+        /// </summary>
         private void AddUserBtn_Click(object sender, RoutedEventArgs e)
         {
             if (emotivIsConnected)
@@ -609,21 +614,33 @@ namespace GraspIT_EEG
             }
         }
 
-        // Remove User.
+        #endregion Add Users
+
+        #region Remove Users
+
+        /// <summary>
+        /// Remove User
+        /// </summary>
         private void RemoveUserBtn_Click(object sender, RoutedEventArgs e)
         {
             RemoveUser dialog = new RemoveUser();
             dialog.ShowDialog();
 
             if (dialog.DialogResult.HasValue && dialog.DialogResult.Value)
-            { 
+            {
                 // Remove user
                 File.Delete(emuFilePaths[UsersComboBox.SelectedIndex]);
             }
             LoadUsers();
         }
 
-        // Save User.
+        #endregion Remove Users
+
+        #region Save User
+
+        /// <summary>
+        /// Save User
+        /// </summary>
         private void SaveUserBtn_Click(object sender, RoutedEventArgs e)
         {
             if (emotivIsConnected)
@@ -637,21 +654,54 @@ namespace GraspIT_EEG
             }
         }
 
+        /// <summary>
+        /// Save the Users Profile
+        /// </summary>
         private void SaveUserProfile()
         {
             engine.EE_SaveUserProfile(userID, emotivFilePath + System.IO.Path.GetFileName(emuFilePaths[UsersComboBox.SelectedIndex]));
         }
 
-        // Train User.
-        private void TrainUserBtn_Click(object sender, RoutedEventArgs e)
+        #endregion Save Users
+
+        #region Load Users
+
+        /// <summary>
+        /// Load Users
+        /// </summary>
+        private void LoadUsers()
         {
-            LoadUsers();
+            UsersComboBox.Items.Clear();
+            emuFilePaths = Directory.GetFiles(emotivFilePath);
+            foreach (var user in emuFilePaths)
+            {
+                UsersComboBox.Items.Add(System.IO.Path.GetFileNameWithoutExtension(user));
+            }
+
+            UsersComboBox.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Load Users Profiles
+        /// </summary>
         private void LoadUserProfile()
         {
             engine.LoadUserProfile(userID, emotivFilePath + System.IO.Path.GetFileName(emuFilePaths[UsersComboBox.SelectedIndex]));
         }
+
+        #endregion Load Users
+
+        
+
+        
+        // Train User.
+        private void TrainUserBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Navigate to the Train Users .XAML
+            //LoadUsers();
+        }
+
+        
 
         #region Emotiv Event Handlers
 
@@ -984,6 +1034,8 @@ namespace GraspIT_EEG
             }
         }
 
+        #region Update Graphs
+
         /// <summary>
         /// Update Graphs
         /// </summary>
@@ -1254,6 +1306,9 @@ namespace GraspIT_EEG
             #endregion Data Graphs
         }
 
+
+        #endregion Update Graphs
+
         #endregion Specific Settings
 
         #endregion Settings
@@ -1287,17 +1342,7 @@ namespace GraspIT_EEG
 
         #endregion SSVEP
 
-        private void LoadUsers()
-        {
-            UsersComboBox.Items.Clear();
-            emuFilePaths = Directory.GetFiles(emotivFilePath);
-            foreach (var user in emuFilePaths)
-            {
-                UsersComboBox.Items.Add(System.IO.Path.GetFileNameWithoutExtension(user));   
-            }
-
-            UsersComboBox.SelectedIndex = 0;
-        }
+        
 
         private void UsersComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

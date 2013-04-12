@@ -144,7 +144,7 @@
     <Compile Include="Model\Flasher.cs" />
     <Compile Include="Model\Robots\OWI535RoboticArm.cs" />
     <Compile Include="Model\Robots\R2D2.cs" />
-    <Compile Include="Model\Talos.cs" />
+    <Compile Include="Model\Robots\Talos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
