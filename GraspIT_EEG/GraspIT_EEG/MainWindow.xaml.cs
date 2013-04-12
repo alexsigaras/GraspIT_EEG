@@ -260,8 +260,15 @@ namespace GraspIT_EEG
 
         #endregion SSVEP Timers Declaration
 
-        double gain = 1.22698672;
-        double[] coefficients = new double[6] { 0.6642317127, 0.2500608525, -2.2141423193, -0.6015694459, 2.5249625592, 0.3764534782 };
+        //double gain = 1.22698672;
+        //private static readonly double gain = Settings.Default.Frequency1gain;
+        public static double[] gain = new double[] { Settings.Default.Frequency1gain, Settings.Default.Frequency2gain, Settings.Default.Frequency3gain, Settings.Default.Frequency4gain };
+        public static double[][] coefficients = new double[][] {
+                                                                    new double[6] {Settings.Default.Frequency1coef1, Settings.Default.Frequency1coef2, Settings.Default.Frequency1coef3, Settings.Default.Frequency1coef4, Settings.Default.Frequency1coef5, Settings.Default.Frequency1coef6},
+                                                                    new double[6] {Settings.Default.Frequency2coef1, Settings.Default.Frequency2coef2, Settings.Default.Frequency2coef3, Settings.Default.Frequency2coef4, Settings.Default.Frequency2coef5, Settings.Default.Frequency2coef6},
+                                                                    new double[6] {Settings.Default.Frequency3coef1, Settings.Default.Frequency3coef2, Settings.Default.Frequency3coef3, Settings.Default.Frequency3coef4, Settings.Default.Frequency3coef5, Settings.Default.Frequency3coef6},
+                                                                    new double[6] {Settings.Default.Frequency4coef1, Settings.Default.Frequency4coef2, Settings.Default.Frequency4coef3, Settings.Default.Frequency4coef4, Settings.Default.Frequency4coef5, Settings.Default.Frequency4coef6}
+                                                                };
         
         #region Butterworth Filters Declaration
 
@@ -279,6 +286,7 @@ namespace GraspIT_EEG
         Butterworth ButF4 = new Butterworth();
         Butterworth ButF8 = new Butterworth();
         Butterworth ButAF4 = new Butterworth();
+        //Butterworth[] alex = new Butterworth[4];
         double butAF3, butF7, butF3, butFC5, butT7, butP7, butO1, butO2, butP8, butT8, butFC6, butF4, butF8, butAF4;
 
         #endregion Butterworth Filters Declaration
@@ -532,21 +540,26 @@ namespace GraspIT_EEG
 
             #region Butterworth Filtered Data
 
-            // Butterworth Filtered Data
-            butAF3 = ButAF3.getFilteredValue(AF3, coefficients, gain);
-            butAF4 = ButAF4.getFilteredValue(AF4, coefficients, gain);
-            butF3 = ButF3.getFilteredValue(F3, coefficients, gain);
-            butF4 = ButF4.getFilteredValue(F4, coefficients, gain);
-            butF7 = ButF7.getFilteredValue(F7, coefficients, gain);
-            butF8 = ButF8.getFilteredValue(F8, coefficients, gain);
-            butFC5 = ButFC5.getFilteredValue(FC5, coefficients, gain);
-            butFC6 = ButFC6.getFilteredValue(FC6, coefficients, gain);
-            butO1 = ButO1.getFilteredValue(O1, coefficients, gain);
-            butO2 = ButO2.getFilteredValue(O2, coefficients, gain);
-            butP7 = ButP7.getFilteredValue(P7, coefficients, gain);
-            butP8 = ButP8.getFilteredValue(P8, coefficients, gain);
-            butT7 = ButT7.getFilteredValue(T7, coefficients, gain);
-            butT8 = ButT8.getFilteredValue(T8, coefficients, gain);
+            for (int j = 0; j < 4; j++)
+            {
+                // Butterworth Filtered Data
+                butAF3 = ButAF3.getFilteredValue(AF3, coefficients[j], gain[j]);
+                butAF4 = ButAF4.getFilteredValue(AF4, coefficients[j], gain[j]);
+                butF3 = ButF3.getFilteredValue(F3, coefficients[j], gain[j]);
+                butF4 = ButF4.getFilteredValue(F4, coefficients[j], gain[j]);
+                butF7 = ButF7.getFilteredValue(F7, coefficients[j], gain[j]);
+                butF8 = ButF8.getFilteredValue(F8, coefficients[j], gain[j]);
+                butFC5 = ButFC5.getFilteredValue(FC5, coefficients[j], gain[j]);
+                butFC6 = ButFC6.getFilteredValue(FC6, coefficients[j], gain[j]);
+                butO1 = ButO1.getFilteredValue(O1, coefficients[j], gain[j]);
+                butO2 = ButO2.getFilteredValue(O2, coefficients[j], gain[j]);
+                butP7 = ButP7.getFilteredValue(P7, coefficients[j], gain[j]);
+                butP8 = ButP8.getFilteredValue(P8, coefficients[j], gain[j]);
+                butT7 = ButT7.getFilteredValue(T7, coefficients[j], gain[j]);
+                butT8 = ButT8.getFilteredValue(T8, coefficients[j], gain[j]);
+            }
+
+            
 
             #endregion Butterworth Filtered Data
 
@@ -703,10 +716,11 @@ namespace GraspIT_EEG
 
         #endregion Load Users
 
+        #region Train Users
         
-
-        
-        // Train User.
+        /// <summary>
+        /// Train Selected User
+        /// </summary>
         private void TrainUserBtn_Click(object sender, RoutedEventArgs e)
         {
             // Navigate to the Training Page
@@ -716,7 +730,7 @@ namespace GraspIT_EEG
             currentPage = 3;
         }
 
-        
+        #endregion Train Users
 
         #region Emotiv Event Handlers
 
@@ -1349,11 +1363,7 @@ namespace GraspIT_EEG
 
         #endregion SSVEP Timers Ticks
 
-        private void R2D2Conenctbtn_Click(object sender, RoutedEventArgs e)
-        {
-            R2D2.ConnectNXT(R2D2ComPort);
-            R2D2.showCULogo();
-        }
+        
 
         #endregion SSVEP
 
@@ -1421,6 +1431,12 @@ namespace GraspIT_EEG
         //double[] coefficients = new double[6] { 0.6642317127, 0.2500608525, -2.2141423193, -0.6015694459, 2.5249625592, 0.3764534782};
         
         #endregion
+
+        private void R2D2Conenctbtn_Click(object sender, RoutedEventArgs e)
+        {
+            R2D2.ConnectNXT(R2D2ComPort);
+            R2D2.showCULogo();
+        }
 
     }
 }

@@ -82,5 +82,341 @@ namespace GraspIT_EEG.Properties {
                 this["ArmID"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.22698672")]
+        public double Frequency1gain {
+            get {
+                return ((double)(this["Frequency1gain"]));
+            }
+            set {
+                this["Frequency1gain"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.6642317127")]
+        public double Frequency1coef1 {
+            get {
+                return ((double)(this["Frequency1coef1"]));
+            }
+            set {
+                this["Frequency1coef1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.2500608525")]
+        public double Frequency1coef2 {
+            get {
+                return ((double)(this["Frequency1coef2"]));
+            }
+            set {
+                this["Frequency1coef2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-2.2141423193")]
+        public double Frequency1coef3 {
+            get {
+                return ((double)(this["Frequency1coef3"]));
+            }
+            set {
+                this["Frequency1coef3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-0.6015694459")]
+        public double Frequency1coef4 {
+            get {
+                return ((double)(this["Frequency1coef4"]));
+            }
+            set {
+                this["Frequency1coef4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2.5249625592")]
+        public double Frequency1coef5 {
+            get {
+                return ((double)(this["Frequency1coef5"]));
+            }
+            set {
+                this["Frequency1coef5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.3764534782")]
+        public double Frequency1coef6 {
+            get {
+                return ((double)(this["Frequency1coef6"]));
+            }
+            set {
+                this["Frequency1coef6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.22698672")]
+        public double Frequency2gain {
+            get {
+                return ((double)(this["Frequency2gain"]));
+            }
+            set {
+                this["Frequency2gain"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.6642317127")]
+        public double Frequency2coef1 {
+            get {
+                return ((double)(this["Frequency2coef1"]));
+            }
+            set {
+                this["Frequency2coef1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.2500608525")]
+        public double Frequency2coef2 {
+            get {
+                return ((double)(this["Frequency2coef2"]));
+            }
+            set {
+                this["Frequency2coef2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-2.2141423193")]
+        public double Frequency2coef3 {
+            get {
+                return ((double)(this["Frequency2coef3"]));
+            }
+            set {
+                this["Frequency2coef3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-0.6015694459")]
+        public double Frequency2coef4 {
+            get {
+                return ((double)(this["Frequency2coef4"]));
+            }
+            set {
+                this["Frequency2coef4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2.5249625592")]
+        public double Frequency2coef5 {
+            get {
+                return ((double)(this["Frequency2coef5"]));
+            }
+            set {
+                this["Frequency2coef5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.3764534782")]
+        public double Frequency2coef6 {
+            get {
+                return ((double)(this["Frequency2coef6"]));
+            }
+            set {
+                this["Frequency2coef6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.22698672")]
+        public double Frequency3gain {
+            get {
+                return ((double)(this["Frequency3gain"]));
+            }
+            set {
+                this["Frequency3gain"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.6642317127")]
+        public double Frequency3coef1 {
+            get {
+                return ((double)(this["Frequency3coef1"]));
+            }
+            set {
+                this["Frequency3coef1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.2500608525")]
+        public double Frequency3coef2 {
+            get {
+                return ((double)(this["Frequency3coef2"]));
+            }
+            set {
+                this["Frequency3coef2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-2.2141423193")]
+        public double Frequency3coef3 {
+            get {
+                return ((double)(this["Frequency3coef3"]));
+            }
+            set {
+                this["Frequency3coef3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-0.6015694459")]
+        public double Frequency3coef4 {
+            get {
+                return ((double)(this["Frequency3coef4"]));
+            }
+            set {
+                this["Frequency3coef4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2.5249625592")]
+        public double Frequency3coef5 {
+            get {
+                return ((double)(this["Frequency3coef5"]));
+            }
+            set {
+                this["Frequency3coef5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.3764534782")]
+        public double Frequency3coef6 {
+            get {
+                return ((double)(this["Frequency3coef6"]));
+            }
+            set {
+                this["Frequency3coef6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.22698672")]
+        public double Frequency4gain {
+            get {
+                return ((double)(this["Frequency4gain"]));
+            }
+            set {
+                this["Frequency4gain"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.6642317127")]
+        public double Frequency4coef1 {
+            get {
+                return ((double)(this["Frequency4coef1"]));
+            }
+            set {
+                this["Frequency4coef1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.2500608525")]
+        public double Frequency4coef2 {
+            get {
+                return ((double)(this["Frequency4coef2"]));
+            }
+            set {
+                this["Frequency4coef2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-2.2141423193")]
+        public double Frequency4coef3 {
+            get {
+                return ((double)(this["Frequency4coef3"]));
+            }
+            set {
+                this["Frequency4coef3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-0.6015694459")]
+        public double Frequency4coef4 {
+            get {
+                return ((double)(this["Frequency4coef4"]));
+            }
+            set {
+                this["Frequency4coef4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2.5249625592")]
+        public double Frequency4coef5 {
+            get {
+                return ((double)(this["Frequency4coef5"]));
+            }
+            set {
+                this["Frequency4coef5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.3764534782")]
+        public double Frequency4coef6 {
+            get {
+                return ((double)(this["Frequency4coef6"]));
+            }
+            set {
+                this["Frequency4coef6"] = value;
+            }
+        }
     }
 }

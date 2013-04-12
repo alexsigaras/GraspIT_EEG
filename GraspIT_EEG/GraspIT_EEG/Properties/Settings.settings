@@ -17,5 +17,89 @@
     <Setting Name="ArmID" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="Frequency1gain" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1.22698672</Value>
+    </Setting>
+    <Setting Name="Frequency1coef1" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.6642317127</Value>
+    </Setting>
+    <Setting Name="Frequency1coef2" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.2500608525</Value>
+    </Setting>
+    <Setting Name="Frequency1coef3" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-2.2141423193</Value>
+    </Setting>
+    <Setting Name="Frequency1coef4" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-0.6015694459</Value>
+    </Setting>
+    <Setting Name="Frequency1coef5" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2.5249625592</Value>
+    </Setting>
+    <Setting Name="Frequency1coef6" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.3764534782</Value>
+    </Setting>
+    <Setting Name="Frequency2gain" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1.22698672</Value>
+    </Setting>
+    <Setting Name="Frequency2coef1" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.6642317127</Value>
+    </Setting>
+    <Setting Name="Frequency2coef2" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.2500608525</Value>
+    </Setting>
+    <Setting Name="Frequency2coef3" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-2.2141423193</Value>
+    </Setting>
+    <Setting Name="Frequency2coef4" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-0.6015694459</Value>
+    </Setting>
+    <Setting Name="Frequency2coef5" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2.5249625592</Value>
+    </Setting>
+    <Setting Name="Frequency2coef6" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.3764534782</Value>
+    </Setting>
+    <Setting Name="Frequency3gain" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1.22698672</Value>
+    </Setting>
+    <Setting Name="Frequency3coef1" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.6642317127</Value>
+    </Setting>
+    <Setting Name="Frequency3coef2" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.2500608525</Value>
+    </Setting>
+    <Setting Name="Frequency3coef3" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-2.2141423193</Value>
+    </Setting>
+    <Setting Name="Frequency3coef4" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-0.6015694459</Value>
+    </Setting>
+    <Setting Name="Frequency3coef5" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2.5249625592</Value>
+    </Setting>
+    <Setting Name="Frequency3coef6" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.3764534782</Value>
+    </Setting>
+    <Setting Name="Frequency4gain" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1.22698672</Value>
+    </Setting>
+    <Setting Name="Frequency4coef1" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.6642317127</Value>
+    </Setting>
+    <Setting Name="Frequency4coef2" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.2500608525</Value>
+    </Setting>
+    <Setting Name="Frequency4coef3" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-2.2141423193</Value>
+    </Setting>
+    <Setting Name="Frequency4coef4" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-0.6015694459</Value>
+    </Setting>
+    <Setting Name="Frequency4coef5" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2.5249625592</Value>
+    </Setting>
+    <Setting Name="Frequency4coef6" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.3764534782</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
