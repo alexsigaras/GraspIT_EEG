@@ -9,7 +9,9 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/edfutils.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/libusbdotnet.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/nkh.mindsqualls.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/owi535.library.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/dotnetemotivdongledriver.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/dotnetemotivsdk.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dlls/edk.dll")]

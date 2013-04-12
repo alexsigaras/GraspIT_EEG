@@ -46,5 +46,41 @@ namespace GraspIT_EEG.Properties {
                 this["EmotivUserFilePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4711")]
+        public int VendorID {
+            get {
+                return ((int)(this["VendorID"]));
+            }
+            set {
+                this["VendorID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ProductID {
+            get {
+                return ((int)(this["ProductID"]));
+            }
+            set {
+                this["ProductID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ArmID {
+            get {
+                return ((int)(this["ArmID"]));
+            }
+            set {
+                this["ArmID"] = value;
+            }
+        }
     }
 }

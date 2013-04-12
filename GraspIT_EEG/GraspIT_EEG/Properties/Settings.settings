@@ -8,5 +8,14 @@
     <Setting Name="EmotivUserFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\\ProgramData\\Emotiv\\</Value>
     </Setting>
+    <Setting Name="VendorID" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">4711</Value>
+    </Setting>
+    <Setting Name="ProductID" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ArmID" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

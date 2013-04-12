@@ -49,6 +49,9 @@ using Emotiv;
 using System.IO;
 using GraspIT_EEG.Properties;
 
+// OWI 535 Robotic Arm Library
+using OWI535.Library;
+
 #endregion Libraries
 
 namespace GraspIT_EEG
@@ -123,6 +126,15 @@ namespace GraspIT_EEG
         private static readonly string R2D2ComPort = Settings.Default.R2D2ComPort;
 
         #endregion R2D2
+
+        #region OWI 535 Arm
+
+        //public static readonly int VendorID = Settings.Default.VendorID;
+        //public static readonly int ProductID = Settings.Default.ProductID;
+        //public static readonly int ArmID = Settings.Default.ArmID;
+        //public static ArmController arm = new ArmController(VendorID, ProductID, ArmID);
+
+        #endregion OWI 535 Arm
 
         #region Emotiv
 
@@ -721,18 +733,22 @@ namespace GraspIT_EEG
                 if(lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_CLENCH)
                 {
                    R2D2.MoveForward();
+                   //arm.ClawClose(1000);
                 }
                 else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_LEFT)
                 {
                    R2D2.MoveLeft();
+                   //arm.RotateLeft(1000);
                 }
                 else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_RIGHT)
                 {
                    R2D2.MoveRight();
+                   //arm.RotateRight(1000);
                 }
                 else if (es.ExpressivGetEyebrowExtent() > 0.10)
                 {
                     R2D2.Stop();
+                    //arm.Reset();
                 }
             }
 

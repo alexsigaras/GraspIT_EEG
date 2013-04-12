@@ -188,3 +188,5 @@ C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Deb
 C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.exe
 C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.pdb
 C:\Users\alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_WPF.csprojResolveAssemblyReference.cache
+C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\LibUsbDotNet.dll
+C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\bin\Debug\OWI535.Library.dll
