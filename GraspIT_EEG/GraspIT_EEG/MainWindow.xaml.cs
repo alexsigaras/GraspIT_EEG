@@ -80,8 +80,20 @@ namespace GraspIT_EEG
                     StartUnload.Begin(this);
                     break;
                 case 2:
-                    Storyboard Step1Unload = (Storyboard)FindResource("SettingsPageOut");
-                    Step1Unload.Begin(this);
+                    Storyboard SettingsUnload = (Storyboard)FindResource("SettingsPageOut");
+                    SettingsUnload.Begin(this);
+                    break;
+                case 3:
+                    Storyboard TrainingUnload = (Storyboard)FindResource("TrainingPageOut");
+                    TrainingUnload.Begin(this);
+                    break;
+                case 4:
+                    Storyboard SSVEPTrainingUnload = (Storyboard)FindResource("SSVEPTrainingPageOut");
+                    SSVEPTrainingUnload.Begin(this);
+                    break;
+                case 5:
+                    Storyboard CognitivTrainingUnload = (Storyboard)FindResource("CognitivTrainingPageOut");
+                    CognitivTrainingUnload.Begin(this);
                     break;
                 default:
                     break;
@@ -697,8 +709,11 @@ namespace GraspIT_EEG
         // Train User.
         private void TrainUserBtn_Click(object sender, RoutedEventArgs e)
         {
-            // Navigate to the Train Users .XAML
-            //LoadUsers();
+            // Navigate to the Training Page
+            pageFadeOut(currentPage);
+            Storyboard Step1Load = (Storyboard)FindResource("TrainingPageIn");
+            Step1Load.Begin(this);
+            currentPage = 3;
         }
 
         
@@ -1354,6 +1369,51 @@ namespace GraspIT_EEG
 
       
         }
+
+        #region Training
+        #endregion Training
+
+        /// <summary>
+        /// Start SSVEP Training Button
+        /// </summary>
+        private void StartSSVEPTrainingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Navigate to the SSVEP Training Page
+            pageFadeOut(currentPage);
+            Storyboard Step1Load = (Storyboard)FindResource("SSVEPTrainingPageIn");
+            Step1Load.Begin(this);
+            currentPage = 4;
+
+            // Start SSVEP Training
+            SSVEPTraining();
+        }
+
+        /// <summary>
+        /// Conducts the SSVEP Training
+        /// </summary>
+        private void SSVEPTraining()
+        { }
+
+        /// <summary>
+        /// Start Cognitiv Training Button
+        /// </summary>
+        private void StartCognitivTrainingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Navigate to the Cognitiv Training Page
+            pageFadeOut(currentPage);
+            Storyboard Step1Load = (Storyboard)FindResource("CognitivTrainingPageIn");
+            Step1Load.Begin(this);
+            currentPage = 5;
+
+            // Start Cognitiv Training
+            CognitivTraining();
+        }
+
+        /// <summary>
+        /// Conducts the SSVEP Training
+        /// </summary>
+        private void CognitivTraining()
+        {}
 
         #region TestCode
 

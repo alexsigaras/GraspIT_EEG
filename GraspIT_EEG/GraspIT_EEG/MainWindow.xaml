@@ -8,7 +8,7 @@
     xmlns:telerik ="http://schemas.telerik.com/2008/xaml/presentation"
     x:Class="GraspIT_EEG.MainWindow"
     Title="GraspIT EEG" Height="600" Width="800" mc:Ignorable="d">
-    
+
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
 
@@ -21,13 +21,13 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="Resources/Icons.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                
+
                 <!-- Metro Theme Dark -->
                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />-->
 
                 <!-- Metro Theme Light -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                
+
                 <ResourceDictionary Source="Resources/Icons.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -35,7 +35,7 @@
             <!-- EndRegion -->
 
             <!-- Region Storyboards & Animations -->
-            
+
             <Storyboard x:Key="MainWindowPageIn">
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MainWindowPage">
                     <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
@@ -76,6 +76,66 @@
                     <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}"/>
                 </ObjectAnimationUsingKeyFrames>
             </Storyboard>
+            <Storyboard x:Key="TrainingPageIn">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="TrainingPage">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="TrainingPage">
+                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="TrainingPageOut">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="TrainingPage">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="TrainingPage">
+                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}"/>
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="SSVEPTrainingPageIn">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="SSVEPTrainingPage">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="SSVEPTrainingPage">
+                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="SSVEPTrainingPageOut">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="SSVEPTrainingPage">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="SSVEPTrainingPage">
+                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}"/>
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="CognitivTrainingPageIn">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="CognitivTrainingPage">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="CognitivTrainingPage">
+                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="CognitivTrainingPageOut">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="CognitivTrainingPage">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="CognitivTrainingPage">
+                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}"/>
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
 
             <!-- EndRegion -->
 
@@ -89,7 +149,7 @@
     </Controls:MetroWindow.Triggers>
 
     <!-- Region Titlebar -->
-    
+
     <Controls:MetroWindow.WindowCommands>
         <Controls:WindowCommands>
             <Label x:Name="EmotivStatusLbl" Content="Not Connected" Foreground="White" VerticalAlignment="Center" />
@@ -103,38 +163,39 @@
     <!-- EndRegion -->
 
     <Grid x:Name="PageHolder">
-        
+
         <!-- Region Main Window -->
-        
-        <Grid x:Name="MainWindowPage" Opacity="0" Visibility="Collapsed">
-            <!--<Controls:MetroContentControl></Controls:MetroContentControl>-->
-            <!--<TabControl>
+
+        <Grid x:Name="MainWindowPage" Opacity="100" Visibility="Visible" Margin="0,88,0,0">
+            <TextBlock HorizontalAlignment="Left" Margin="130,152,0,0" TextWrapping="Wrap" Text="Welcome to the application .... " VerticalAlignment="Top"/>
+            <TabControl>
                 <TabItem Header="SSVEP">
-                    <Grid>-->
+                    <Grid>
                         <!--<Controls:ToggleSwitch x:Name="EmotivToggleSwitch" Header="Emotiv State" OnLabel="ON" OffLabel="OFF" Width="100" IsChecked="False" Checked="EmotivToggleSwitch_Checked" Unchecked="EmotivToggleSwitch_Unchecked" />-->
                         <!--<Button Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" Content="&#xE112;" HorizontalAlignment="Left" Margin="146,222,0,0" VerticalAlignment="Top" Width="45" Height="45"/>-->
                         <!--<Controls:RangeSlider Margin="255,110,143.209,148.178"></Controls:RangeSlider>-->
                         <!--<Slider Margin="96,128,329.209,148.178"></Slider>-->
-                    <!--</Grid>
-                </TabItem>-->
-                <!--<TabItem Header="P300">
-                    <Grid>-->
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Cognitiv">
+                    <Grid>
                         <!--Background="#FFE5E5E5"-->
                         <!--<Button Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" Content="&#xE112;" HorizontalAlignment="Left" Margin="146,222,0,0" VerticalAlignment="Top" Width="45" Height="45"/>-->
-                    <!--</Grid>
+                    </Grid>
                 </TabItem>
-            </TabControl>-->
+            </TabControl>
+            
 
         </Grid>
 
         <!-- EndRegion -->
 
         <!-- Region Settings -->
-        
-        <Grid x:Name="SettingsPage">
-            
+
+        <Grid x:Name="SettingsPage" Opacity="0" Visibility="Collapsed">
+
             <!-- Region Settings Sidebar -->
-            
+
             <Button x:Name="BackToMainWindowBtn" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" FontSize="18" Content="&#xE112;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="BackToMainWindowBtn_Click"/>
             <Label x:Name="SettingsLbl" Content="Settings" HorizontalAlignment="Left" Margin="60,13,0,0" VerticalAlignment="Top" FontSize="24"/>
             <Grid x:Name="SettingsSidebar" Margin="0,0,585.141,0.482">
@@ -143,29 +204,29 @@
                 <Label x:Name="Uptime" Content="" HorizontalAlignment="Left" Margin="88,135,0,0" VerticalAlignment="Top" Width="112" FontSize="18"/>
 
                 <!-- Region Headset -->
-                
+
                 <Grid x:Name="Headset" Margin="10,174,10,132.392">
-                	<Image Source="Assets/Images/HeadsetMap.png" Stretch="Fill" HorizontalAlignment="Left" Width="186.859" Height="260.518" VerticalAlignment="Top"/>
-                	<Ellipse x:Name="AF3Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="41.847,31.656,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-                	<Ellipse x:Name="AF4Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="113.169,30.768,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-                	<Ellipse x:Name="F7Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="15.29,69.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-                	<Ellipse x:Name="F3Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="55.113,61.83,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-                	<Ellipse x:Name="F4Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="115.833,61.83,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-                	<Ellipse x:Name="F8Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="147.988,69.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-                	<Ellipse x:Name="FC5Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="40.959,99.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-                	<Ellipse x:Name="FC6Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="127.283,99.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-                	<Ellipse x:Name="T7Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="0,124.855,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-                	<Ellipse x:Name="T8Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="156.476,124.855,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-                	<Ellipse x:Name="CMSContact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="15.29,160.239,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-                	<Ellipse x:Name="DRLContact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="140,160.239,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-                	<Ellipse x:Name="P7Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="40.959,200.966,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-                	<Ellipse x:Name="P8Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="127.283,200.966,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-                	<Ellipse x:Name="O1Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="55.113,238.126,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-                	<Ellipse x:Name="O2Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="115,238.126,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                    <Image Source="Assets/Images/HeadsetMap.png" Stretch="Fill" HorizontalAlignment="Left" Width="186.859" Height="260.518" VerticalAlignment="Top"/>
+                    <Ellipse x:Name="AF3Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="41.847,31.656,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                    <Ellipse x:Name="AF4Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="113.169,30.768,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                    <Ellipse x:Name="F7Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="15.29,69.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                    <Ellipse x:Name="F3Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="55.113,61.83,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                    <Ellipse x:Name="F4Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="115.833,61.83,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                    <Ellipse x:Name="F8Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="147.988,69.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                    <Ellipse x:Name="FC5Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="40.959,99.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                    <Ellipse x:Name="FC6Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="127.283,99.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                    <Ellipse x:Name="T7Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="0,124.855,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                    <Ellipse x:Name="T8Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="156.476,124.855,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                    <Ellipse x:Name="CMSContact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="15.29,160.239,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                    <Ellipse x:Name="DRLContact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="140,160.239,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                    <Ellipse x:Name="P7Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="40.959,200.966,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                    <Ellipse x:Name="P8Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="127.283,200.966,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                    <Ellipse x:Name="O1Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="55.113,238.126,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+                    <Ellipse x:Name="O2Contact" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="115,238.126,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
                 </Grid>
 
                 <!-- EndRegion -->
-                
+
                 <Label x:Name="UserLbl" Content="User" HorizontalAlignment="Left" Margin="10,442,0,0" VerticalAlignment="Top" FontSize="18"/>
                 <ComboBox x:Name="UsersComboBox" HorizontalAlignment="Left" Margin="10,481,0,0" VerticalAlignment="Top" Width="189" SelectionChanged="UsersComboBox_SelectionChanged"/>
                 <Controls:AppBarButton x:Name="AddUserBtn" MetroImageSource="{DynamicResource appbar_user_add}" Foreground="{DynamicResource BlackBrush}" Content="Add" Margin="0,0,0,7.518" Width="50" Height="50" Click="AddUserBtn_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
@@ -175,17 +236,17 @@
             </Grid>
 
             <!-- EndRegion -->
-            
+
             <!-- Region Settings Tabs -->
-            
+
             <Grid Margin="215,10,0.141,0.482">
                 <TabControl>
-                    
+
                     <!-- Region Expressiv -->
                     <TabItem Header="Expresiv">
                         <Grid Margin="0,0,-0.01,0.424">
-                        	<Grid.ColumnDefinitions>
-                        		<ColumnDefinition/>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Rectangle x:Name="ClenchRect"  Fill="Black" HorizontalAlignment="Left" Height="100" Margin="37,207,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
                             <Rectangle x:Name="EyebrowRect"  Fill="Black" HorizontalAlignment="Left" Height="100" Margin="184,207,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
@@ -211,7 +272,7 @@
                     <!-- EndRegion -->
 
                     <!-- Region Affectiv -->
-                    
+
                     <TabItem Header="Affectiv">
                         <Grid>
                             <telerik:RadCartesianChart x:Name="AffectivChart" Palette="Windows8" MaxZoom="100,1" Zoom="100,1" Margin="0,0,0,80">
@@ -257,7 +318,7 @@
                     <!-- EndRegion -->
 
                     <!-- Region Cognitiv -->
-                    
+
                     <TabItem Header="Cognitiv">
                         <Grid>
                             <Label x:Name="cognitivPower" Content="Label" HorizontalAlignment="Left" Margin="150,109,0,0" VerticalAlignment="Top"/>
@@ -270,73 +331,73 @@
                     <!-- EndRegion -->
 
                     <!-- Region EEG -->
-                    
+
                     <TabItem Header="EEG">
                         <Grid>
-                        	<telerik:RadCartesianChart x:Name="O1Chart" Palette="Windows8" Margin="100,10,10,0" MaxZoom="100,1" Zoom="100,1" Height="203" VerticalAlignment="Top">
-                        		<telerik:RadCartesianChart.Behaviors>
-                        			<telerik:ChartPanAndZoomBehavior PanMode="Both" ZoomMode="Both" />
+                            <telerik:RadCartesianChart x:Name="O1Chart" Palette="Windows8" Margin="100,10,10,0" MaxZoom="100,1" Zoom="100,1" Height="203" VerticalAlignment="Top">
+                                <telerik:RadCartesianChart.Behaviors>
+                                    <telerik:ChartPanAndZoomBehavior PanMode="Both" ZoomMode="Both" />
                                     <telerik:ChartTrackBallBehavior ShowIntersectionPoints="True"
                                                                     ShowTrackInfo="True"
                                                                     SnapMode="AllClosePoints" />
-                        		</telerik:RadCartesianChart.Behaviors>
-                        		<telerik:RadCartesianChart.Grid>
-                        			<telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
-                        				<telerik:CartesianChartGrid.MajorYLineStyle>
-                        					<Style TargetType="{x:Type Line}">
-                        						<Setter Property="Stroke" Value="Gray"/>
-                        					</Style>
-                        				</telerik:CartesianChartGrid.MajorYLineStyle>
-                        				<telerik:CartesianChartGrid.MajorXLineStyle>
-                        					<Style TargetType="{x:Type Line}">
-                        						<Setter Property="Stroke" Value="Gray"/>
-                        					</Style>
-                        				</telerik:CartesianChartGrid.MajorXLineStyle>
-                        			</telerik:CartesianChartGrid>
-                        		</telerik:RadCartesianChart.Grid>
-                        		<telerik:RadCartesianChart.VerticalAxis>
+                                </telerik:RadCartesianChart.Behaviors>
+                                <telerik:RadCartesianChart.Grid>
+                                    <telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
+                                        <telerik:CartesianChartGrid.MajorYLineStyle>
+                                            <Style TargetType="{x:Type Line}">
+                                                <Setter Property="Stroke" Value="Gray"/>
+                                            </Style>
+                                        </telerik:CartesianChartGrid.MajorYLineStyle>
+                                        <telerik:CartesianChartGrid.MajorXLineStyle>
+                                            <Style TargetType="{x:Type Line}">
+                                                <Setter Property="Stroke" Value="Gray"/>
+                                            </Style>
+                                        </telerik:CartesianChartGrid.MajorXLineStyle>
+                                    </telerik:CartesianChartGrid>
+                                </telerik:RadCartesianChart.Grid>
+                                <telerik:RadCartesianChart.VerticalAxis>
                                     <telerik:LinearAxis Minimum="3000" Maximum="5000"/>
-                        		</telerik:RadCartesianChart.VerticalAxis>
-                        		<telerik:RadCartesianChart.HorizontalAxis>
-                        			<telerik:DateTimeContinuousAxis MajorStepUnit="Second" 
+                                </telerik:RadCartesianChart.VerticalAxis>
+                                <telerik:RadCartesianChart.HorizontalAxis>
+                                    <telerik:DateTimeContinuousAxis MajorStepUnit="Second" 
                         				LabelInterval="5"
                         				LabelFormat="HH:mm:ss.f" FontFamily="Segoe UI"
                         				PlotMode="OnTicks" />
-                        		</telerik:RadCartesianChart.HorizontalAxis>
-                        		<telerik:SplineSeries Stroke="Blue"/>
-                        	</telerik:RadCartesianChart>
-                        	<telerik:RadCartesianChart x:Name="O2Chart" Palette="Windows8" Margin="100,243,10,60" MaxZoom="100000,1" Zoom="100,1">
-                        		<telerik:RadCartesianChart.Behaviors>
-                        			<telerik:ChartPanAndZoomBehavior PanMode="Both" ZoomMode="Both"  />
+                                </telerik:RadCartesianChart.HorizontalAxis>
+                                <telerik:SplineSeries Stroke="Blue"/>
+                            </telerik:RadCartesianChart>
+                            <telerik:RadCartesianChart x:Name="O2Chart" Palette="Windows8" Margin="100,243,10,60" MaxZoom="100000,1" Zoom="100,1">
+                                <telerik:RadCartesianChart.Behaviors>
+                                    <telerik:ChartPanAndZoomBehavior PanMode="Both" ZoomMode="Both"  />
                                     <telerik:ChartTrackBallBehavior ShowIntersectionPoints="True"
                                                                     ShowTrackInfo="True"
                                                                     SnapMode="AllClosePoints" />
-                        		</telerik:RadCartesianChart.Behaviors>
-                        		<telerik:RadCartesianChart.Grid>
-                        			<telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
-                        				<telerik:CartesianChartGrid.MajorYLineStyle>
-                        					<Style TargetType="{x:Type Line}">
-                        						<Setter Property="Stroke" Value="Gray"/>
-                        					</Style>
-                        				</telerik:CartesianChartGrid.MajorYLineStyle>
-                        				<telerik:CartesianChartGrid.MajorXLineStyle>
-                        					<Style TargetType="{x:Type Line}">
-                        						<Setter Property="Stroke" Value="Gray"/>
-                        					</Style>
-                        				</telerik:CartesianChartGrid.MajorXLineStyle>
-                        			</telerik:CartesianChartGrid>
-                        		</telerik:RadCartesianChart.Grid>
-                        		<telerik:RadCartesianChart.VerticalAxis>
+                                </telerik:RadCartesianChart.Behaviors>
+                                <telerik:RadCartesianChart.Grid>
+                                    <telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
+                                        <telerik:CartesianChartGrid.MajorYLineStyle>
+                                            <Style TargetType="{x:Type Line}">
+                                                <Setter Property="Stroke" Value="Gray"/>
+                                            </Style>
+                                        </telerik:CartesianChartGrid.MajorYLineStyle>
+                                        <telerik:CartesianChartGrid.MajorXLineStyle>
+                                            <Style TargetType="{x:Type Line}">
+                                                <Setter Property="Stroke" Value="Gray"/>
+                                            </Style>
+                                        </telerik:CartesianChartGrid.MajorXLineStyle>
+                                    </telerik:CartesianChartGrid>
+                                </telerik:RadCartesianChart.Grid>
+                                <telerik:RadCartesianChart.VerticalAxis>
                                     <telerik:LinearAxis Minimum="-100" Maximum="100"/>
-                        		</telerik:RadCartesianChart.VerticalAxis>
-                        		<telerik:RadCartesianChart.HorizontalAxis>
-                        			<telerik:DateTimeContinuousAxis MajorStepUnit="Second" 
+                                </telerik:RadCartesianChart.VerticalAxis>
+                                <telerik:RadCartesianChart.HorizontalAxis>
+                                    <telerik:DateTimeContinuousAxis MajorStepUnit="Second" 
                         				LabelInterval="5"
                         				LabelFormat="HH:mm:ss.f" FontFamily="Segoe UI"
                         				PlotMode="OnTicks" />
-                        		</telerik:RadCartesianChart.HorizontalAxis>
-                        		<telerik:SplineSeries Stroke="Blue"/>
-                        	</telerik:RadCartesianChart>
+                                </telerik:RadCartesianChart.HorizontalAxis>
+                                <telerik:SplineSeries Stroke="Blue"/>
+                            </telerik:RadCartesianChart>
                             <Label x:Name="AF4Lbl2" FontSize="26.67" FontFamily="Segoe WP" Content="AF4" HorizontalAlignment="Left" Margin="30,243,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="AF4butval" FontSize="26.67" FontFamily="Segoe WP" Content="Value" HorizontalAlignment="Left" Margin="19,285,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="AF4Lbl1" FontSize="26.67" FontFamily="Segoe WP" Content="AF4" HorizontalAlignment="Left" Margin="30,10,0,0" VerticalAlignment="Top"/>
@@ -372,10 +433,10 @@
                             <Label x:Name="yValueMax" Content="y value" HorizontalAlignment="Left" Margin="471,28,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="xValueMax_Copy" Content="x value" HorizontalAlignment="Left" Margin="357,59,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="yValueMax_Copy" Content="y value" HorizontalAlignment="Left" Margin="471,59,0,0" VerticalAlignment="Top"/>
-                            
+
                             <telerik:RadCartesianChart x:Name="GyroXChart" Palette="Windows8" Margin="0,89.522,0,212.522" Height="200" MaxZoom="10,1" Zoom="10,1">
                                 <telerik:RadCartesianChart.Behaviors>
-                                	<telerik:ChartPanAndZoomBehavior PanMode="Horizontal"
+                                    <telerik:ChartPanAndZoomBehavior PanMode="Horizontal"
                                                                      ZoomMode="Horizontal" />
                                     <telerik:ChartTrackBallBehavior ShowIntersectionPoints="True"
                                                                     ShowTrackInfo="True"
@@ -385,12 +446,12 @@
                                     <telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
                                         <telerik:CartesianChartGrid.MajorYLineStyle>
                                             <Style TargetType="{x:Type Line}">
-                                            	<Setter Property="Stroke" Value="Gray"/>
+                                                <Setter Property="Stroke" Value="Gray"/>
                                             </Style>
                                         </telerik:CartesianChartGrid.MajorYLineStyle>
                                         <telerik:CartesianChartGrid.MajorXLineStyle>
                                             <Style TargetType="{x:Type Line}">
-                                            	<Setter Property="Stroke" Value="Gray"/>
+                                                <Setter Property="Stroke" Value="Gray"/>
                                             </Style>
                                         </telerik:CartesianChartGrid.MajorXLineStyle>
                                     </telerik:CartesianChartGrid>
@@ -412,7 +473,7 @@
                                     </telerik:SplineSeries.TrackBallInfoTemplate>-->
                                 </telerik:SplineSeries>
                             </telerik:RadCartesianChart>
-                            
+
                             <telerik:RadCartesianChart x:Name="GyroYChart" Palette="Windows8" Margin="0,287,0,0" Height="200" MaxZoom="10,1" Zoom="10,1">
                                 <telerik:RadCartesianChart.Behaviors>
                                     <telerik:ChartPanAndZoomBehavior PanMode="Horizontal"
@@ -446,14 +507,14 @@
                                 </telerik:RadCartesianChart.HorizontalAxis>
                                 <telerik:SplineSeries Stroke="Red" />
                             </telerik:RadCartesianChart>
-                            
+
                         </Grid>
                     </TabItem>
 
                     <!-- EndRegion -->
 
                     <!-- Region Data -->
-                    
+
                     <TabItem Header="Data">
                         <Grid>
                             <!--Data Controls-->
@@ -540,10 +601,41 @@
                         </Grid>
                     </TabItem>
                 </TabControl>
-                
+
                 <!-- EndRegion -->
-                
+
             </Grid>
+        </Grid>
+
+        <!-- EndRegion -->
+
+        <!-- Region Training -->
+
+        <Grid x:Name="TrainingPage" Opacity="0" Visibility="Collapsed">
+            <Button x:Name="BackToMainWindowBtn2" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" FontSize="18" Content="&#xE112;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="BackToMainWindowBtn_Click"/>
+            <Label x:Name="TrainingLbl" Content="Training" HorizontalAlignment="Left" Margin="60,13,0,0" VerticalAlignment="Top" FontSize="24"/>
+            <TabControl Margin="0,55,0,0">
+                <TabItem Header="SSVEP">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" Margin="118,121,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="188" Width="360"/>
+                        <Button x:Name="StartSSVEPTrainingBtn" Content="Start Training" HorizontalAlignment="Left" Margin="329,414,0,0" VerticalAlignment="Top" Width="109" Click="StartSSVEPTrainingBtn_Click"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Cognitiv">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" Margin="118,121,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="188" Width="360"/>
+                        <Button x:Name="StartCognitivTrainingBtn" Content="Start Training" HorizontalAlignment="Left" Margin="329,414,0,0" VerticalAlignment="Top" Width="109" Click="StartCognitivTrainingBtn_Click"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+        <Grid x:Name="SSVEPTrainingPage" Opacity="0" Visibility="Collapsed">
+            
+        </Grid>
+
+        <Grid x:Name="CognitivTrainingPage" Opacity="0" Visibility="Collapsed">
+
         </Grid>
 
         <!-- EndRegion -->
