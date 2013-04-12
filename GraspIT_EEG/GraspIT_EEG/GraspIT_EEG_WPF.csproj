@@ -142,7 +142,7 @@
     <Compile Include="Model\ChartDataObjects.cs" />
     <Compile Include="Model\Emotiv.cs" />
     <Compile Include="Model\Flasher.cs" />
-    <Compile Include="Model\OWI535RoboticArm.cs" />
+    <Compile Include="Model\Robots\OWI535RoboticArm.cs" />
     <Compile Include="Model\Robots\R2D2.cs" />
     <Compile Include="Model\Talos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

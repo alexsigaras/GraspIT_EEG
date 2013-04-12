@@ -1,8 +1,25 @@
-﻿using System;
+﻿/*
+ * GraspIT EEG - Emotiv Project
+ * 
+ * Columbia Robotics Lab
+ * Columbia University Copyright ©  2013
+ * 
+ * Supervisor: Professor Peter Allen
+ * Coordination: Jon Weisz
+ * Development: Alexandros Sigaras
+ * Email: alex@sigaras.com
+ * 
+ * Description
+ * OWI 535 Robotic Arm Control
+ * 
+ */
+
+using System;
+
 // Lego Mindstorms NXT Library
 using NKH.MindSqualls;
 
-namespace GraspIT_EEG.Model
+namespace GraspIT_EEG.Model.Robots
 {
     public static class R2D2
     {

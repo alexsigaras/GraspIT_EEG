@@ -36,6 +36,7 @@ using System.IO.Ports;
 
 // Custom written libraries
 using GraspIT_EEG.Model;
+using GraspIT_EEG.Model.Robots;
 using GraspIT_EEG.DialogBoxes;
 
 // Metro WPF Library - MahApps
@@ -48,9 +49,6 @@ using Telerik.Windows.Controls.ChartView;
 using Emotiv;
 using System.IO;
 using GraspIT_EEG.Properties;
-
-// OWI 535 Robotic Arm Library
-using OWI535.Library;
 
 #endregion Libraries
 
@@ -127,15 +125,6 @@ namespace GraspIT_EEG
 
         #endregion R2D2
 
-        #region OWI 535 Arm
-
-        //public static readonly int VendorID = Settings.Default.VendorID;
-        //public static readonly int ProductID = Settings.Default.ProductID;
-        //public static readonly int ArmID = Settings.Default.ArmID;
-        //public static ArmController arm = new ArmController(VendorID, ProductID, ArmID);
-
-        #endregion OWI 535 Arm
-
         #region Emotiv
 
         #region Device
@@ -177,6 +166,7 @@ namespace GraspIT_EEG
         float AffectivExcitementShort;
         float AffectivExcitementLong;
 
+        // Affectiv Lists
         List<AffectivChartDataObject> AffectivEngagementBoredomList = new List<AffectivChartDataObject>();
         List<AffectivChartDataObject> AffectivMeditationList = new List<AffectivChartDataObject>();
         List<AffectivChartDataObject> AffectivFrustrationList = new List<AffectivChartDataObject>();
@@ -193,6 +183,7 @@ namespace GraspIT_EEG
 
         public double AF3, F7, F3, FC5, T7, P7, O1, O2, P8, T8, FC6, F4, F8, AF4;
 
+        // EEG Lists
         List<EEGChartDataObject> AF3List = new List<EEGChartDataObject>();
         List<EEGChartDataObject> F7List = new List<EEGChartDataObject>();
         List<EEGChartDataObject> F3List = new List<EEGChartDataObject>();
@@ -281,10 +272,6 @@ namespace GraspIT_EEG
         #endregion Butterworth Filters Declaration
 
         #endregion SSVEP
-
-        
-
-
 
         #endregion Declarations
 
@@ -406,8 +393,8 @@ namespace GraspIT_EEG
             emotivDataCollectionTimer.Start();
 
             EmotivStatusLbl.Content = "Connected";      // Set to Connected
-            emotivIsConnected = true;
-            LoadUserProfile();
+            emotivIsConnected = true;                   // Set emotivIsConnected to true
+            LoadUserProfile();                          // Load User Profile
             UpdateBatteryCapacityIcon(BatteryLevel);    // Get Battery Level
             UpdateSignalStrengthIcon(SignalStatus);     // Get Wireless Signal Strength
 
@@ -426,7 +413,7 @@ namespace GraspIT_EEG
             emotivDataCollectionTimer.Stop();
 
             EmotivStatusLbl.Content = "Not Connected";      // Set to Disconnected
-            emotivIsConnected = false;
+            emotivIsConnected = false;                      // Set emotivIsConnected to false
             UpdateBatteryCapacityIcon(0);                   // Set Battery Level
             UpdateSignalStrengthIcon("NO_SIGNAL");          // Set Wireless Signal Strength
 
@@ -596,7 +583,7 @@ namespace GraspIT_EEG
                     // Get User Name
                     newUserName = dialog.UserNameTxtBox.Text;
                 }
-                string newUserNamePath = "C:\\ProgramData\\Emotiv\\" + newUserName + ".emu";
+                string newUserNamePath = emotivFilePath + newUserName + ".emu";
 
                 // User gave a name
                 if (newUserName != "")
@@ -652,7 +639,7 @@ namespace GraspIT_EEG
 
         private void SaveUserProfile()
         {
-            engine.EE_SaveUserProfile(userID, "C:\\ProgramData\\Emotiv\\" + System.IO.Path.GetFileName(emuFilePaths[UsersComboBox.SelectedIndex]));
+            engine.EE_SaveUserProfile(userID, emotivFilePath + System.IO.Path.GetFileName(emuFilePaths[UsersComboBox.SelectedIndex]));
         }
 
         // Train User.
@@ -663,7 +650,7 @@ namespace GraspIT_EEG
 
         private void LoadUserProfile()
         {
-            engine.LoadUserProfile(userID, "C:\\ProgramData\\Emotiv\\" + System.IO.Path.GetFileName(emuFilePaths[UsersComboBox.SelectedIndex]));
+            engine.LoadUserProfile(userID, emotivFilePath + System.IO.Path.GetFileName(emuFilePaths[UsersComboBox.SelectedIndex]));
         }
 
         #region Emotiv Event Handlers
@@ -714,8 +701,6 @@ namespace GraspIT_EEG
 
             
             //es.ExpressivGetEyeLocation(out eyeXCoordinate, out eyeYCoordinate);
-            //EyeXCoordinate.Content = eyeXCoordinate.ToString();
-            //EyeYCoordinate.Content = eyeYCoordinate.ToString();
 
             ClenchCheckBox.IsChecked = false;
             EyebrowsCheckBox.IsChecked = false;
@@ -726,33 +711,59 @@ namespace GraspIT_EEG
             LowerFaceAction.Content = lowerFaceAction.ToString();
             UpperFaceAction.Content = upperFaceAction.ToString();
 
+            #region Robots
+
+            #region OWI535 Robotic Arm
+
+            if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_CLENCH)
+            {
+                OWI535RoboticArm.GrippersClose(1000);
+            }
+            else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_LEFT)
+            {
+                OWI535RoboticArm.ArmRotateLeft(1000);
+            }
+            else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_RIGHT)
+            {
+                OWI535RoboticArm.ArmRotateRight(1000);
+            }
+            else if (es.ExpressivGetEyebrowExtent() > 0.10)
+            {
+                OWI535RoboticArm.ArmStop();
+            }
+            else if (es.ExpressivIsRightWink())
+            {
+                OWI535RoboticArm.GrippersOpen(1000);
+            }
+
+            #endregion OWI535 Robotic Arm
+
             #region R2D2
 
             if (R2D2.isConnected)
             {
-                if(lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_CLENCH)
+                if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_CLENCH)
                 {
-                   R2D2.MoveForward();
-                   //arm.ClawClose(1000);
+                    R2D2.MoveForward();
                 }
                 else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_LEFT)
                 {
-                   R2D2.MoveLeft();
-                   //arm.RotateLeft(1000);
+                    R2D2.MoveLeft();
                 }
                 else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_RIGHT)
                 {
-                   R2D2.MoveRight();
-                   //arm.RotateRight(1000);
+                    R2D2.MoveRight();
                 }
                 else if (es.ExpressivGetEyebrowExtent() > 0.10)
                 {
                     R2D2.Stop();
-                    //arm.Reset();
                 }
             }
 
             #endregion R2D2
+            #endregion Robots
+
+            
 
             if (es.ExpressivGetEyebrowExtent() > 0.10)
             {
@@ -800,7 +811,7 @@ namespace GraspIT_EEG
             AffectivExcitementLong = es.AffectivGetExcitementLongTermScore();       // Get Excitement Long Term Score.
             AffectivExcitementShort = es.AffectivGetExcitementShortTermScore();     // Get Excitement Short Term Score.
             AffectivFrustration = es.AffectivGetFrustrationScore();                 // Get Frustration Score.
-            AffectivMeditation = es.AffectivGetMeditationScore();              // Get Meditation Score.
+            AffectivMeditation = es.AffectivGetMeditationScore();                   // Get Meditation Score.
 
             #endregion Affectiv
 
@@ -848,6 +859,7 @@ namespace GraspIT_EEG
                     if (cognitivpower > 0.2)
                     {
                         R2D2.MoveBack();
+                        //OWI535RoboticArm.Handshake();
                     }
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_RIGHT:
@@ -1278,7 +1290,7 @@ namespace GraspIT_EEG
         private void LoadUsers()
         {
             UsersComboBox.Items.Clear();
-            emuFilePaths = Directory.GetFiles("C:\\ProgramData\\Emotiv\\");
+            emuFilePaths = Directory.GetFiles(emotivFilePath);
             foreach (var user in emuFilePaths)
             {
                 UsersComboBox.Items.Add(System.IO.Path.GetFileNameWithoutExtension(user));   

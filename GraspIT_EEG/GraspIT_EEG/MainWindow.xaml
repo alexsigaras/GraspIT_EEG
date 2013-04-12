@@ -194,8 +194,6 @@
                             <CheckBox x:Name="ClenchCheckBox" Content="Clench" HorizontalAlignment="Left" Margin="63,24,0,0" VerticalAlignment="Top"/>
                             <CheckBox x:Name="EyebrowsCheckBox" Content="Eyebrows" HorizontalAlignment="Left" Margin="63,50,0,0" VerticalAlignment="Top"/>
                             <CheckBox x:Name="SmileCheckBox" Content="Smile" HorizontalAlignment="Left" Margin="63,72,0,0" VerticalAlignment="Top"/>
-                            <Label x:Name="EyeXCoordinate" Content="EyeXCoordinate" HorizontalAlignment="Left" Margin="190,109,0,0" VerticalAlignment="Top"/>
-                            <Label x:Name="EyeYCoordinate" Content="EyeYCoordinate" HorizontalAlignment="Left" Margin="347,109,0,0" VerticalAlignment="Top"/>
                             <Rectangle x:Name="SmileRect"  Fill="Black" HorizontalAlignment="Left" Height="100" Margin="321,207,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
                             <Label x:Name="Smile" Content="Label" HorizontalAlignment="Left" Margin="321,328,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="LowerFaceActionLbl"  FontFamily="Segoe WP" Content="Lower Face Action:" HorizontalAlignment="Left" Margin="37,442,0,0" VerticalAlignment="Top"/>
