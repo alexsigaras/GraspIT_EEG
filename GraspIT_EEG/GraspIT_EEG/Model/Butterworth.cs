@@ -11,7 +11,6 @@ namespace GraspIT_EEG.Model
     /// </summary>
     class Butterworth
     {
-        
         public Butterworth()
         { }
 

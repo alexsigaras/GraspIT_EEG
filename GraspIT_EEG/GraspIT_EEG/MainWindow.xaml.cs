@@ -59,6 +59,11 @@ namespace GraspIT_EEG
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        public SolidColorBrush bgColor = new SolidColorBrush(Color.FromRgb(128, 128, 128));
+        public SolidColorBrush flashColor = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+        public SolidColorBrush currentColor = new SolidColorBrush();
+        public int Hz;
+
         #region Declarations
 
         #region UI Specific
@@ -806,6 +811,7 @@ namespace GraspIT_EEG
             {
                 OWI535RoboticArm.ArmRotateRight(1000);
             }
+
             else if (es.ExpressivGetEyebrowExtent() > 0.10)
             {
                 OWI535RoboticArm.ArmStop();
@@ -1438,5 +1444,120 @@ namespace GraspIT_EEG
             R2D2.showCULogo();
         }
 
+        
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            trainingSSVEPTimerStart(30);
+        }
+
+        #region Timers
+
+        #region Regular Timers
+        #endregion Regular Timers
+
+        #region Training Timers
+        
+        #region Training SSVEP Timer
+
+        DispatcherTimer trainingSSVEPTimer = new DispatcherTimer();
+
+        /// <summary>
+        /// Start flashing.
+        /// </summary>
+        /// <param name="Hz"></param>
+        public void trainingSSVEPTimerStart(int Hz)
+        {
+            trainingSSVEPTimer.Tick += trainingSSVEPTimer_Tick;
+            int ms = convertHzToMs(Hz);
+            trainingSSVEPTimer.Interval = new TimeSpan(0, 0, 0, 0, ms / 2);
+            trainingSSVEPTimer.IsEnabled = true;
+        }
+
+        /// <summary>
+        /// Stop flashing.
+        /// </summary>
+        public void trainingSSVEPTimerStop()
+        {
+            trainingSSVEPTimer.Tick -= trainingSSVEPTimer_Tick;
+            trainingSSVEPTimer.IsEnabled = false;
+            trainingSSVEPTimer.Stop();
+        }
+
+        void trainingSSVEPTimer_Tick(object sender, EventArgs e)
+        {
+            SSVEPTrainingRectangle.Fill = new SolidColorBrush(Flash((SolidColorBrush)SSVEPTrainingRectangle.Fill));
+        }
+
+        #endregion Training SSVEP Timer
+
+        #region Training Cognitiv Timer
+
+        DispatcherTimer trainingCognitivTimer = new DispatcherTimer();
+
+        /// <summary>
+        /// Start flashing.
+        /// </summary>
+        /// <param name="Hz"></param>
+        public void trainingCognitivTimerStart(int Hz)
+        {
+            trainingCognitivTimer.Tick += trainingCognitivTimer_Tick;
+            int ms = convertHzToMs(Hz);
+            trainingCognitivTimer.Interval = new TimeSpan(0, 0, 0, 0, ms / 2);
+            trainingCognitivTimer.IsEnabled = true;
+        }
+
+        /// <summary>
+        /// Stop flashing.
+        /// </summary>
+        public void trainingCognitivTimerStop()
+        {
+            trainingCognitivTimer.Tick -= trainingCognitivTimer_Tick;
+            trainingCognitivTimer.IsEnabled = false;
+            trainingCognitivTimer.Stop();
+        }
+
+        void trainingCognitivTimer_Tick(object sender, EventArgs e)
+        {
+            //CognitivTrainingRectangle.Fill = new SolidColorBrush(Flash((SolidColorBrush)SSVEPTrainingRectangle.Fill));
+        }
+
+        #endregion Training Cognitiv Timer
+
+        #endregion Training Timers
+
+        #endregion Timers
+
+        #region Flasher
+
+        /// <summary>
+        /// Flash function
+        /// </summary>
+        /// <param name="currentColor">The current color of the object</param>
+        /// <returns>The flashing color</returns>
+        public Color Flash(SolidColorBrush currentColor)
+        {
+            if (currentColor.Color == bgColor.Color)
+            {
+                currentColor = flashColor;
+            }
+            else
+            {
+                currentColor.Color = bgColor.Color;
+            }
+            return currentColor.Color;
+        }
+
+        /// <summary>
+        /// Converts the Frequency to Time
+        /// </summary>
+        /// <param name="Hz">The Frequency in Hz</param>
+        /// <returns>Returns the time in miliseconds</returns>
+        public int convertHzToMs(int Hz)
+        {
+            return 1 / Hz * 1000;
+        }
+
+        #endregion Flasher
     }
 }

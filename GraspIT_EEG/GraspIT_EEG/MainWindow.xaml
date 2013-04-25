@@ -615,27 +615,41 @@
             <Button x:Name="BackToMainWindowBtn2" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" FontSize="18" Content="&#xE112;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="BackToMainWindowBtn_Click"/>
             <Label x:Name="TrainingLbl" Content="Training" HorizontalAlignment="Left" Margin="60,13,0,0" VerticalAlignment="Top" FontSize="24"/>
             <TabControl Margin="0,55,0,0">
+                
+                <!-- Region SSVEP -->
+                
                 <TabItem Header="SSVEP">
                     <Grid>
                         <TextBlock HorizontalAlignment="Left" Margin="118,121,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="188" Width="360"/>
                         <Button x:Name="StartSSVEPTrainingBtn" Content="Start Training" HorizontalAlignment="Left" Margin="329,414,0,0" VerticalAlignment="Top" Width="109" Click="StartSSVEPTrainingBtn_Click"/>
                     </Grid>
                 </TabItem>
+
+                <!-- EndRegion -->
+
+                <!-- Region Cognitiv -->
+                
                 <TabItem Header="Cognitiv">
                     <Grid>
                         <TextBlock HorizontalAlignment="Left" Margin="118,121,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="188" Width="360"/>
                         <Button x:Name="StartCognitivTrainingBtn" Content="Start Training" HorizontalAlignment="Left" Margin="329,414,0,0" VerticalAlignment="Top" Width="109" Click="StartCognitivTrainingBtn_Click"/>
                     </Grid>
                 </TabItem>
+
+                <!-- EndRegion -->
+                
             </TabControl>
         </Grid>
 
         <Grid x:Name="SSVEPTrainingPage" Opacity="0" Visibility="Collapsed">
-            
+            <Button Content="Button" HorizontalAlignment="Left" Margin="308,370,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+            <Rectangle x:Name="SSVEPTrainingRectangle" Fill="#FF2323B4" HorizontalAlignment="Left" Height="179" Margin="201,97,0,0" Stroke="Black" VerticalAlignment="Top" Width="452"/>
+
         </Grid>
 
         <Grid x:Name="CognitivTrainingPage" Opacity="0" Visibility="Collapsed">
-
+            <Button Content="Button" HorizontalAlignment="Left" Margin="308,370,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+            <Rectangle x:Name="CognitivTrainingRectangle" Fill="#FF2323B4" HorizontalAlignment="Left" Height="179" Margin="201,97,0,0" Stroke="Black" VerticalAlignment="Top" Width="452"/>
         </Grid>
 
         <!-- EndRegion -->

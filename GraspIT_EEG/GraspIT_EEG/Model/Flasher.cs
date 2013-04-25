@@ -76,7 +76,7 @@ namespace GraspIT_EEG.Model
         /// <returns>The flashing color</returns>
         public SolidColorBrush Flash(SolidColorBrush currentColor)
         {
-            if (currentColor == bgColor)
+            if (currentColor.Color == bgColor.Color)
             {
                 currentColor = flashColor;
             }
