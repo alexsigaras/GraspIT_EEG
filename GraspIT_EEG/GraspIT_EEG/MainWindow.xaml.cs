@@ -265,14 +265,12 @@ namespace GraspIT_EEG
 
         #endregion SSVEP Timers Declaration
 
-        //double gain = 1.22698672;
-        //private static readonly double gain = Settings.Default.Frequency1gain;
-        public static double[] gain = new double[] { Settings.Default.Frequency1gain, Settings.Default.Frequency2gain, Settings.Default.Frequency3gain, Settings.Default.Frequency4gain };
+        public static double[] gain = new double[] { Settings.Default.Bandpass6_7gain, Settings.Default.Bandpass7_8gain, Settings.Default.Bandpass8_9gain, Settings.Default.Bandpass9_11gain };
         public static double[][] coefficients = new double[][] {
-                                                                    new double[6] {Settings.Default.Frequency1coef1, Settings.Default.Frequency1coef2, Settings.Default.Frequency1coef3, Settings.Default.Frequency1coef4, Settings.Default.Frequency1coef5, Settings.Default.Frequency1coef6},
-                                                                    new double[6] {Settings.Default.Frequency2coef1, Settings.Default.Frequency2coef2, Settings.Default.Frequency2coef3, Settings.Default.Frequency2coef4, Settings.Default.Frequency2coef5, Settings.Default.Frequency2coef6},
-                                                                    new double[6] {Settings.Default.Frequency3coef1, Settings.Default.Frequency3coef2, Settings.Default.Frequency3coef3, Settings.Default.Frequency3coef4, Settings.Default.Frequency3coef5, Settings.Default.Frequency3coef6},
-                                                                    new double[6] {Settings.Default.Frequency4coef1, Settings.Default.Frequency4coef2, Settings.Default.Frequency4coef3, Settings.Default.Frequency4coef4, Settings.Default.Frequency4coef5, Settings.Default.Frequency4coef6}
+                                                                    new double[6] {Settings.Default.Bandpass6_7coef1, Settings.Default.Bandpass6_7coef2, Settings.Default.Bandpass6_7coef3, Settings.Default.Bandpass6_7coef4, Settings.Default.Bandpass6_7coef5, Settings.Default.Bandpass6_7coef6},
+                                                                    new double[6] {Settings.Default.Bandpass7_8coef1, Settings.Default.Bandpass7_8coef2, Settings.Default.Bandpass7_8coef3, Settings.Default.Bandpass7_8coef4, Settings.Default.Bandpass7_8coef5, Settings.Default.Bandpass7_8coef6},
+                                                                    new double[6] {Settings.Default.Bandpass8_9coef1, Settings.Default.Bandpass8_9coef2, Settings.Default.Bandpass8_9coef3, Settings.Default.Bandpass8_9coef4, Settings.Default.Bandpass8_9coef5, Settings.Default.Bandpass8_9coef6},
+                                                                    new double[6] {Settings.Default.Bandpass9_11coef1, Settings.Default.Bandpass9_11coef2, Settings.Default.Bandpass9_11coef3, Settings.Default.Bandpass9_11coef4, Settings.Default.Bandpass9_11coef5, Settings.Default.Bandpass9_11coef6}
                                                                 };
         
         #region Butterworth Filters Declaration
