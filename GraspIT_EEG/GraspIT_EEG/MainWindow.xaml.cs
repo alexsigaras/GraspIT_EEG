@@ -719,6 +719,17 @@ namespace GraspIT_EEG
             engine.LoadUserProfile(userID, emotivFilePath + System.IO.Path.GetFileName(emuFilePaths[UsersComboBox.SelectedIndex]));
         }
 
+        /// <summary>
+        /// Users Combobox Value Changed
+        /// </summary>
+        private void UsersComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (emotivIsConnected)
+            {
+                LoadUserProfile();
+            }
+        }
+
         #endregion Load Users
 
         #region Train Users
@@ -1373,21 +1384,9 @@ namespace GraspIT_EEG
 
         #endregion SSVEP
 
-        
-
-        private void UsersComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (emotivIsConnected)
-            {
-                LoadUserProfile();
-            }
-
-
-      
-        }
-
         #region Training
-        #endregion Training
+
+        #region SSVEP Training
 
         /// <summary>
         /// Start SSVEP Training Button
@@ -1410,6 +1409,15 @@ namespace GraspIT_EEG
         private void SSVEPTraining()
         { }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            trainingSSVEPTimerStart(30);
+        }
+
+        #endregion SSVEP Training
+
+        #region Cognitiv Training
+
         /// <summary>
         /// Start Cognitiv Training Button
         /// </summary>
@@ -1429,26 +1437,17 @@ namespace GraspIT_EEG
         /// Conducts the SSVEP Training
         /// </summary>
         private void CognitivTraining()
-        {}
+        { }
 
-        #region TestCode
 
-        //double gain = 1.22698672;
-        //double[] coefficients = new double[6] { 0.6642317127, 0.2500608525, -2.2141423193, -0.6015694459, 2.5249625592, 0.3764534782};
-        
-        #endregion
+        #endregion Cognitiv Training
+
+        #endregion Training
 
         private void R2D2Conenctbtn_Click(object sender, RoutedEventArgs e)
         {
             R2D2.ConnectNXT(R2D2ComPort);
             R2D2.showCULogo();
-        }
-
-        
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            trainingSSVEPTimerStart(30);
         }
 
         #region Timers
