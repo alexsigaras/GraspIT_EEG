@@ -73,6 +73,8 @@ namespace GraspIT_EEG {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.0.0.0")]
         public static void Main() {
+            SplashScreen splashScreen = new SplashScreen("assets/images/logos/splashscreen.jpg");
+            splashScreen.Show(true);
             GraspIT_EEG.App app = new GraspIT_EEG.App();
             app.InitializeComponent();
             app.Run();

@@ -170,12 +170,14 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Assets\Images\Logos\SEAS_logo.png" />
     <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <SplashScreen Include="Assets\Images\Logos\SplashScreen.jpg" />
     <Content Include="DLLs\EdfUtils.dll" />
     <Content Include="DLLs\LibUsbDotNet.dll" />
     <Content Include="DLLs\NKH.MindSqualls.dll" />
@@ -198,7 +200,6 @@
     <Content Include="DLLs\EmoEngineClientLibrary.dll" />
     <Content Include="DLLs\EmoEngineControlLibrary.dll" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

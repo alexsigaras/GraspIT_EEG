@@ -1376,9 +1376,7 @@ namespace GraspIT_EEG
             throw new NotImplementedException();
         }
 
-        #endregion SSVEP Timers Ticks
-
-        
+        #endregion SSVEP Timers Ticks  
 
         #endregion SSVEP
 
