@@ -714,7 +714,15 @@ namespace GraspIT_EEG
         /// </summary>
         private void LoadUserProfile()
         {
-            engine.LoadUserProfile(userID, emotivFilePath + System.IO.Path.GetFileName(emuFilePaths[UsersComboBox.SelectedIndex]));
+            try
+            {
+                engine.LoadUserProfile(userID, emotivFilePath + System.IO.Path.GetFileName(emuFilePaths[UsersComboBox.SelectedIndex]));
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Device is not connected!");
+            }
+            
         }
 
         /// <summary>
@@ -1440,12 +1448,6 @@ namespace GraspIT_EEG
 
         #endregion Training
 
-        private void R2D2Conenctbtn_Click(object sender, RoutedEventArgs e)
-        {
-            R2D2.ConnectNXT(R2D2ComPort);
-            R2D2.showCULogo();
-        }
-
         #region Timers
 
         #region Regular Timers
@@ -1554,5 +1556,31 @@ namespace GraspIT_EEG
         }
 
         #endregion Flasher
+
+        #region Robots
+
+        #region R2D2
+
+        /// <summary>
+        /// Connect to R2D2
+        /// </summary>
+        private void R2D2ToggleSwitch_Checked(object sender, RoutedEventArgs e)
+        {
+            R2D2.ConnectNXT(R2D2ComPort);
+            R2D2.showCULogo();
+        }
+
+        /// <summary>
+        /// Disconnect R2D2
+        /// </summary>
+        private void R2D2ToggleSwitch_Unchecked(object sender, RoutedEventArgs e)
+        {
+            R2D2.DisconnectNXT();
+        }
+
+        #endregion R2D2
+
+        #endregion Robots
+
     }
 }

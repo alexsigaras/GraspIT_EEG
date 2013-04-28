@@ -92,6 +92,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Page Include="DialogBoxes\AddUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -155,11 +160,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -181,6 +181,8 @@
   </ItemGroup>
   <ItemGroup>
     <SplashScreen Include="Assets\Images\Logos\SplashScreen.jpg" />
+    <Resource Include="Assets\Images\Robots\owi532_1 left.png" />
+    <Resource Include="Assets\Images\Robots\R2d2.jpg" />
     <Content Include="DLLs\EdfUtils.dll" />
     <Content Include="DLLs\LibUsbDotNet.dll" />
     <Content Include="DLLs\NKH.MindSqualls.dll" />

@@ -59,6 +59,7 @@ namespace GraspIT_EEG.Model.Robots
             }
             catch
             {
+                isConnected = false;
                 DisconnectNXT();
             }
         }
@@ -71,8 +72,9 @@ namespace GraspIT_EEG.Model.Robots
             Idle();
             Brick.PlaySoundfile("! Attention.rso");
             Brick.CommLink.StopProgram();
-            
+
             if (Brick != null && Brick.IsConnected)
+                isConnected = false;
                 Brick.Disconnect();
 
             Brick = null;
