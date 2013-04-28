@@ -162,6 +162,7 @@ C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Deb
 C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\DialogBoxes\RemoveUser.baml
 C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\MainWindow.baml
 C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\Resources\Colours.baml
+C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\Resources\ColumbiaBlue.baml
 C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\Resources\Icons.baml
 C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\App.baml
 C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\DialogBoxes\AddUser.g.cs
@@ -177,4 +178,3 @@ C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Deb
 C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_WPF.csproj.GenerateResource.Cache
 C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.exe
 C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.pdb
-C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_WPF.csprojResolveAssemblyReference.cache
