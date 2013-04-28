@@ -146,7 +146,7 @@ namespace GraspIT_EEG
 
         #region Device
         EmoEngine engine = EmoEngine.Instance;
-        EmoState es;
+        public EmoState es;
 
         bool emotivIsConnected = false;
 
@@ -301,7 +301,6 @@ namespace GraspIT_EEG
         public MainWindow()
         {
             InitializeComponent();
-            //engine.EmoStateUpdated +=engine_EmoStateUpdated;
             LoadUsers(); // Load the user Profiles
 
             #region Instantiate Timers
@@ -642,6 +641,21 @@ namespace GraspIT_EEG
             }
         }
 
+        void engine_UserAdded_Event(object sender, EmoEngineEventArgs e)
+        {
+            //   Console.WriteLine("User Added Event has occured");
+
+            // record the user 
+            userID = e.userId;
+
+            // enable data aquisition for this user.
+            engine.DataAcquisitionEnable((uint)userID, true);
+
+            // ask for up to 1 second of buffered data
+            engine.EE_DataSetBufferSizeInSec(1);
+
+        }
+
         #endregion Add Users
 
         #region Remove Users
@@ -760,144 +774,162 @@ namespace GraspIT_EEG
         {
             es = e.emoState;
             elapsed = es.GetTimeFromStart();
+            UpdateSensorContactQuality(es);
 
             SignalStatus = es.GetWirelessSignalStatus().ToString();
             Uptime.Content = ConvertToTime(es.GetTimeFromStart());
             es.GetBatteryChargeLevel(out BatteryLevel, out MaxBatteryLevel);
             SamplingRate.Content = samplingRate.ToString();
             BufferSize.Content = bufferSize.ToString();
-            UpdateSensorContactQuality(es);
-
-            #region Expressiv
-
-            float leftEye, rightEye;
-            EdkDll.EE_ExpressivAlgo_t lowerFaceAction, upperFaceAction;
-            bool expressivIsActive, expressivIsBlink, expressivIsEyesOpen, expressivIsLeftWink, expressivIsLookingDown, expressivIsLookingLeft, expressivIsLookingRight, expressivIsLookingUp, expressivIsRightWink;
-            float lowerFaceActionPower, upperFaceActionPower;
-
             EdkDll.EE_DataGetBufferSizeInSec(out bufferSize);
             EdkDll.EE_DataGetSamplingRate(userID, out samplingRate);
 
-            es.ExpressivGetEyelidState(out leftEye, out rightEye);
+            EdkDll.EE_ExpressivAlgo_t lowerFaceAction, upperFaceAction;
+            bool expressivIsBlink, expressivIsEyesOpen, expressivIsLeftWink, expressivIsLookingDown, expressivIsLookingLeft, expressivIsLookingRight, expressivIsLookingUp, expressivIsRightWink;
+            float lowerFaceActionPower, upperFaceActionPower;
+            float leftEye, rightEye;
+
+            #region Expressiv
+
+            #region Lower Face Action
+
             lowerFaceAction = es.ExpressivGetLowerFaceAction();
             lowerFaceActionPower = es.ExpressivGetLowerFaceActionPower();
-            upperFaceAction = es.ExpressivGetUpperFaceAction();
-            upperFaceActionPower = es.ExpressivGetUpperFaceActionPower();
-            
-            //expressivIsActive = es.ExpressivIsActive(
+
+            switch (lowerFaceAction)
+            {
+                case EdkDll.EE_ExpressivAlgo_t.EXP_CLENCH:
+                    ClearExpressivCheckBoxes();
+                    ClenchCheckBox.IsChecked = true;
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_LAUGH:
+                    ClearExpressivCheckBoxes();
+                    LaughCheckBox.IsChecked = true;
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_NEUTRAL:
+                    ClearExpressivCheckBoxes();
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_SMILE:
+                    ClearExpressivCheckBoxes();
+                    SmileCheckBox.IsChecked = true;
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_LEFT:
+                    ClearExpressivCheckBoxes();
+                    SmirkLeftCheckBox.IsChecked = true;
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_RIGHT:
+                    ClearExpressivCheckBoxes();
+                    SmirkRightCheckBox.IsChecked = true;
+                    break;
+                default:
+                    break;
+            }
+
+            Smile.Content = es.ExpressivGetSmileExtent().ToString();
+            LowerFaceAction.Content = lowerFaceAction.ToString();
+
+            #endregion Lower Face Action
+
+            #region Middle Face Action
+
+            es.ExpressivGetEyelidState(out leftEye, out rightEye);
             expressivIsBlink = es.ExpressivIsBlink();
+            if (expressivIsBlink)
+            {
+                ClearExpressivCheckBoxes();
+                BlinkCheckBox.IsChecked = true;
+            }
             expressivIsEyesOpen = es.ExpressivIsEyesOpen();
-            if (es.ExpressivIsEyesOpen())
+            if (expressivIsEyesOpen)
             {
                 MiddleFaceAction.Content = "Eyes Open";
+                BlinkCheckBox.IsChecked = false;
             }
             else
             {
+                BlinkCheckBox.IsChecked = true;
                 MiddleFaceAction.Content = "Eyes Closed";
             }
             expressivIsLeftWink = es.ExpressivIsLeftWink();
-            expressivIsLookingDown = es.ExpressivIsLookingDown();
-            expressivIsLookingLeft = es.ExpressivIsLookingLeft();
-            expressivIsLookingRight = es.ExpressivIsLookingRight();
-            expressivIsLookingUp = es.ExpressivIsLookingUp();
-            expressivIsRightWink = es.ExpressivIsRightWink();
-
-            //es.ExpressivGetEyeLocation(out eyeXCoordinate, out eyeYCoordinate);
-
-            ClenchCheckBox.IsChecked = false;
-            EyebrowsCheckBox.IsChecked = false;
-            SmileCheckBox.IsChecked = false;
-
-            Eyebrows.Content = es.ExpressivGetEyebrowExtent().ToString();
-            Smile.Content = es.ExpressivGetSmileExtent().ToString();
-            LowerFaceAction.Content = lowerFaceAction.ToString();
-            UpperFaceAction.Content = upperFaceAction.ToString();
-
-            // Get Expressiv Action
-
-            //switch (EEGAction)
-            //{
-            //    case EdkDll.EE_CognitivAction_t.COG_DISAPPEAR:
-            //        cognitivIsState.Content = "Dissapear";
-            //        break;
-
-            // lowerFaceAction
-            switch (lowerFaceAction)
+            if (expressivIsLeftWink)
             {
-                case EdkDll.EE_ExpressivAlgo_t.EXP_BLINK:
-                    MessageBox.Show("Blink Upper Face");
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_CLENCH:
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_EYEBROW:
-                    MessageBox.Show("Blink Upper Face");
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_FURROW:
-                    MessageBox.Show("Blink Upper Face");
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_HORIEYE:
-                    MessageBox.Show("Blink Upper Face");
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_LAUGH:
-                    MessageBox.Show("Blink Upper Face");
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_NEUTRAL:
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_SMILE:
-                    MessageBox.Show("Blink Upper Face");
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_LEFT:
-                    MessageBox.Show("Blink Upper Face");
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_RIGHT:
-                    MessageBox.Show("Blink Upper Face");
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_WINK_LEFT:
-                    MessageBox.Show("Blink Upper Face");
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_WINK_RIGHT:
-                    MessageBox.Show("Blink Upper Face");
-                    break;
-                default:
-                    break;
+                ClearExpressivCheckBoxes();
+                WinkLeftCheckBox.IsChecked = true;
+            }
+            expressivIsRightWink = es.ExpressivIsRightWink();
+            if (expressivIsRightWink)
+            {
+                ClearExpressivCheckBoxes();
+                WinkRightCheckBox.IsChecked = true;
+            }
+            expressivIsLookingDown = es.ExpressivIsLookingDown();
+            if (expressivIsLookingDown)
+            {
+                //MessageBox.Show("I am looking down");
+            }
+            expressivIsLookingLeft = es.ExpressivIsLookingLeft();
+            if (expressivIsLookingLeft)
+            {
+                //MessageBox.Show("I am looking left"); // Emotiv SDK is wrong
+            }
+            expressivIsLookingRight = es.ExpressivIsLookingRight();
+            if (expressivIsLookingRight)
+            {
+                //MessageBox.Show("I am looking right"); // Emotiv SDK is wrong
+            }
+            expressivIsLookingUp = es.ExpressivIsLookingUp();
+            if (expressivIsLookingUp)
+            {
+                //MessageBox.Show("I am looking up");
+            }
+            float eyeXCoordinate, eyeYCoordinate;
+            es.ExpressivGetEyeLocation(out eyeXCoordinate, out eyeYCoordinate);
+            if (eyeXCoordinate > 0)
+            {
+                //MessageBox.Show("Looking Right");
+            }
+            else if (eyeXCoordinate<0)
+            {
+                //MessageBox.Show("Looking Left"); // sometimes it works
+            }
+            if (eyeYCoordinate > 0)
+            {
+                MessageBox.Show("Looking Up"); // not working
+            }
+            else if (eyeYCoordinate < 0)
+            {
+                MessageBox.Show("Looking Down"); // not working
             }
 
-            // middleFaceAction
-            //switch (mid)
-            //{
-            //    default:
-            //        break;
-            //}
+            #endregion Middle Face Action
 
-            // upperFaceAction
+            #region Upper Face Action
+
+            upperFaceAction = es.ExpressivGetUpperFaceAction();
+            upperFaceActionPower = es.ExpressivGetUpperFaceActionPower();
+
             switch (upperFaceAction)
             {
-                case EdkDll.EE_ExpressivAlgo_t.EXP_BLINK:
-                    break;
                 case EdkDll.EE_ExpressivAlgo_t.EXP_EYEBROW:
+                    ClearExpressivCheckBoxes();
+                    EyebrowsCheckBox.IsChecked = true;
                     break;
                 case EdkDll.EE_ExpressivAlgo_t.EXP_FURROW:
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_HORIEYE:
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_LAUGH:
+                    ClearExpressivCheckBoxes();
+                    FurrowCheckBox.IsChecked = true;
                     break;
                 case EdkDll.EE_ExpressivAlgo_t.EXP_NEUTRAL:
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_SMILE:
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_LEFT:
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_RIGHT:
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_WINK_LEFT:
-                    break;
-                case EdkDll.EE_ExpressivAlgo_t.EXP_WINK_RIGHT:
+                    ClearExpressivCheckBoxes();
                     break;
                 default:
                     break;
             }
 
+            Eyebrows.Content = es.ExpressivGetEyebrowExtent().ToString();
+            UpperFaceAction.Content = upperFaceAction.ToString();
+
+            #endregion Upper Face Action
+            
             #region Robots
 
             #region OWI535 Robotic Arm
@@ -928,26 +960,23 @@ namespace GraspIT_EEG
 
             #region R2D2
 
-            if (R2D2.isConnected)
+            if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_CLENCH)
             {
-                if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_CLENCH)
-                {
-                    R2D2.MoveForward();
-                }
-                else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_LEFT)
-                {
-                    R2D2.MoveLeft();
-                }
-                else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_RIGHT)
-                {
-                    R2D2.MoveRight();
-                }
-                else if (es.ExpressivGetEyebrowExtent() > 0.10)
-                {
-                    R2D2.Stop();
-                }
+                R2D2.MoveForward();
             }
-
+            else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_LEFT)
+            {
+                R2D2.MoveLeft();
+            }
+            else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_RIGHT)
+            {
+                R2D2.MoveRight();
+            }
+            else if (es.ExpressivGetEyebrowExtent() > 0.10)
+            {
+                R2D2.Stop();
+            }
+            
             #endregion R2D2
 
             #endregion Robots
@@ -955,35 +984,29 @@ namespace GraspIT_EEG
             if (es.ExpressivGetEyebrowExtent() > 0.10)
             {
                 EyebrowRect.Fill = Brushes.Green;
-                EyebrowsCheckBox.IsChecked = true;
             }
             else
             {
                 EyebrowRect.Fill = Brushes.Red;
-                EyebrowsCheckBox.IsChecked = false;
             }
 
             Clench.Content = es.ExpressivGetClenchExtent().ToString();
             if (es.ExpressivGetClenchExtent() > 0.10)
             {
                 ClenchRect.Fill = Brushes.Green;
-                ClenchCheckBox.IsChecked = true;
             }
             else
             {
                 ClenchRect.Fill = Brushes.Red;
-                ClenchCheckBox.IsChecked = false;
             }
 
             if (es.ExpressivGetSmileExtent() > 0.05)
             {
                 SmileRect.Fill = Brushes.Green;
-                SmileCheckBox.IsChecked = true;
             }
             else
             {
                 SmileRect.Fill = Brushes.Red;
-                SmileCheckBox.IsChecked = false;
             }
 
             #endregion Expressiv
@@ -1099,19 +1122,19 @@ namespace GraspIT_EEG
             O2Contact.Fill = getContactQualityColor(contactQualityArray[10].ToString());
         }
 
-        void engine_UserAdded_Event(object sender, EmoEngineEventArgs e)
+        // Clear all the Expressiv Checkboxes
+        private void ClearExpressivCheckBoxes()
         {
-            //   Console.WriteLine("User Added Event has occured");
-
-            // record the user 
-            userID = e.userId;
-
-            // enable data aquisition for this user.
-            engine.DataAcquisitionEnable((uint)userID, true);
-
-            // ask for up to 1 second of buffered data
-            engine.EE_DataSetBufferSizeInSec(1);
-
+            ClenchCheckBox.IsChecked = false;
+            EyebrowsCheckBox.IsChecked = false;
+            SmileCheckBox.IsChecked = false;
+            BlinkCheckBox.IsChecked = false;
+            FurrowCheckBox.IsChecked = false;
+            LaughCheckBox.IsChecked = false;
+            SmirkLeftCheckBox.IsChecked = false;
+            SmirkRightCheckBox.IsChecked = false;
+            WinkLeftCheckBox.IsChecked = false;
+            WinkRightCheckBox.IsChecked = false;
         }
 
         #endregion Emotiv Event Handlers
@@ -1827,5 +1850,6 @@ namespace GraspIT_EEG
         #endregion Talos
 
         #endregion Robots
+
     }
 }

@@ -199,7 +199,7 @@ namespace GraspIT_EEG.Model.Robots
         /// </summary>
         public static void MoveForward()
         {
-            if (CheckConnection())
+            if (isConnected)
             {
                 Brick.PlaySoundfile("forward.rso");
                 MotorPair.Run(-100, 0, 0);
@@ -215,7 +215,7 @@ namespace GraspIT_EEG.Model.Robots
         /// </summary>
         public static void MoveBack()
         {
-            if (CheckConnection())
+            if (isConnected)
             {
                 Brick.PlaySoundfile("forward.rso");
                 MotorPair.Run(100, 0, 0);
@@ -231,7 +231,7 @@ namespace GraspIT_EEG.Model.Robots
         /// </summary>
         public static void MoveLeft()
         {
-            if (CheckConnection())
+            if (isConnected)
             {
                 Brick.PlaySoundfile("left.rso");
                 Brick.MotorB.Run(-100, 0);
@@ -248,7 +248,7 @@ namespace GraspIT_EEG.Model.Robots
         /// </summary>
         public static void MoveRight()
         {
-            if (CheckConnection())
+            if (isConnected)
             {
                 Brick.PlaySoundfile("right.rso");
                 Brick.MotorB.Run(100, 0);
@@ -265,7 +265,10 @@ namespace GraspIT_EEG.Model.Robots
         /// </summary>
         public static void Stop()
         {
-            Idle();
+            if (isConnected)
+            {
+                Idle();
+            }
         }
 
         #endregion Stop
