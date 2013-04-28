@@ -109,7 +109,7 @@ namespace GraspIT_EEG.Model.Robots
         }
 
         /// <summary>
-        /// Elbow the Arm Up
+        /// Moves the Elbow Up
         /// </summary>
         /// <param name="ArmSeconds">The Arms Seconds</param>
         public static void ElbowUp(int ArmSeconds)
@@ -119,7 +119,7 @@ namespace GraspIT_EEG.Model.Robots
         }
 
         /// <summary>
-        /// Elbow the Arm Down
+        /// Moves the Elbow Down
         /// </summary>
         /// <param name="ArmSeconds">The Arms Seconds</param>
         public static void ElbowDown(int ArmSeconds)

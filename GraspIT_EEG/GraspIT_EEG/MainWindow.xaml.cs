@@ -764,6 +764,8 @@ namespace GraspIT_EEG
             SignalStatus = es.GetWirelessSignalStatus().ToString();
             Uptime.Content = ConvertToTime(es.GetTimeFromStart());
             es.GetBatteryChargeLevel(out BatteryLevel, out MaxBatteryLevel);
+            SamplingRate.Content = samplingRate.ToString();
+            BufferSize.Content = bufferSize.ToString();
             UpdateSensorContactQuality(es);
 
             #region Expressiv
@@ -800,7 +802,6 @@ namespace GraspIT_EEG
             expressivIsLookingUp = es.ExpressivIsLookingUp();
             expressivIsRightWink = es.ExpressivIsRightWink();
 
-            
             //es.ExpressivGetEyeLocation(out eyeXCoordinate, out eyeYCoordinate);
 
             ClenchCheckBox.IsChecked = false;
@@ -812,31 +813,116 @@ namespace GraspIT_EEG
             LowerFaceAction.Content = lowerFaceAction.ToString();
             UpperFaceAction.Content = upperFaceAction.ToString();
 
+            // Get Expressiv Action
+
+            //switch (EEGAction)
+            //{
+            //    case EdkDll.EE_CognitivAction_t.COG_DISAPPEAR:
+            //        cognitivIsState.Content = "Dissapear";
+            //        break;
+
+            // lowerFaceAction
+            switch (lowerFaceAction)
+            {
+                case EdkDll.EE_ExpressivAlgo_t.EXP_BLINK:
+                    MessageBox.Show("Blink Upper Face");
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_CLENCH:
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_EYEBROW:
+                    MessageBox.Show("Blink Upper Face");
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_FURROW:
+                    MessageBox.Show("Blink Upper Face");
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_HORIEYE:
+                    MessageBox.Show("Blink Upper Face");
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_LAUGH:
+                    MessageBox.Show("Blink Upper Face");
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_NEUTRAL:
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_SMILE:
+                    MessageBox.Show("Blink Upper Face");
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_LEFT:
+                    MessageBox.Show("Blink Upper Face");
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_RIGHT:
+                    MessageBox.Show("Blink Upper Face");
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_WINK_LEFT:
+                    MessageBox.Show("Blink Upper Face");
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_WINK_RIGHT:
+                    MessageBox.Show("Blink Upper Face");
+                    break;
+                default:
+                    break;
+            }
+
+            // middleFaceAction
+            //switch (mid)
+            //{
+            //    default:
+            //        break;
+            //}
+
+            // upperFaceAction
+            switch (upperFaceAction)
+            {
+                case EdkDll.EE_ExpressivAlgo_t.EXP_BLINK:
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_EYEBROW:
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_FURROW:
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_HORIEYE:
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_LAUGH:
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_NEUTRAL:
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_SMILE:
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_LEFT:
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_RIGHT:
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_WINK_LEFT:
+                    break;
+                case EdkDll.EE_ExpressivAlgo_t.EXP_WINK_RIGHT:
+                    break;
+                default:
+                    break;
+            }
+
             #region Robots
 
             #region OWI535 Robotic Arm
 
-            if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_CLENCH)
-            {
-                OWI535RoboticArm.GrippersClose(1000);
-            }
-            else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_LEFT)
-            {
-                OWI535RoboticArm.ArmRotateLeft(1000);
-            }
-            else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_RIGHT)
-            {
-                OWI535RoboticArm.ArmRotateRight(1000);
-            }
+            //if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_CLENCH)
+            //{
+            //    OWI535RoboticArm.GrippersClose(1000);
+            //}
+            //else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_LEFT)
+            //{
+            //    OWI535RoboticArm.ArmRotateLeft(1000);
+            //}
+            //else if (lowerFaceAction == EdkDll.EE_ExpressivAlgo_t.EXP_SMIRK_RIGHT)
+            //{
+            //    OWI535RoboticArm.ArmRotateRight(1000);
+            //}
 
-            else if (es.ExpressivGetEyebrowExtent() > 0.10)
-            {
-                OWI535RoboticArm.ArmStop();
-            }
-            else if (es.ExpressivIsRightWink())
-            {
-                OWI535RoboticArm.GrippersOpen(1000);
-            }
+            //else if (es.ExpressivGetEyebrowExtent() > 0.10)
+            //{
+            //    OWI535RoboticArm.ArmStop();
+            //}
+            //else if (es.ExpressivIsRightWink())
+            //{
+            //    OWI535RoboticArm.GrippersOpen(1000);
+            //}
 
             #endregion OWI535 Robotic Arm
 
@@ -863,9 +949,8 @@ namespace GraspIT_EEG
             }
 
             #endregion R2D2
-            #endregion Robots
 
-            
+            #endregion Robots
 
             if (es.ExpressivGetEyebrowExtent() > 0.10)
             {
@@ -901,14 +986,10 @@ namespace GraspIT_EEG
                 SmileCheckBox.IsChecked = false;
             }
 
-            SamplingRate.Content = samplingRate.ToString();
-            BufferSize.Content = bufferSize.ToString();
-
             #endregion Expressiv
 
             #region Affectiv
-
-            //AffectivIsActive = es.AffectivIsActive; Missing the algo type
+            
             AffectiveEngagementBoredom = es.AffectivGetEngagementBoredomScore();    // Get Engagement/Boredom Score.
             AffectivExcitementLong = es.AffectivGetExcitementLongTermScore();       // Get Excitement Long Term Score.
             AffectivExcitementShort = es.AffectivGetExcitementShortTermScore();     // Get Excitement Short Term Score.
@@ -1580,7 +1661,136 @@ namespace GraspIT_EEG
 
         #endregion R2D2
 
+        #region OWI 535
+
+        /// <summary>
+        /// Turns the light On
+        /// </summary>
+        private void Light_Checked(object sender, RoutedEventArgs e)
+        {
+            OWI535RoboticArm.LightsOn();
+        }
+
+        /// <summary>
+        /// Turns the light Off
+        /// </summary>
+        private void Light_Unchecked(object sender, RoutedEventArgs e)
+        {
+            OWI535RoboticArm.LightsOff();
+        }
+
+        /// <summary>
+        /// Opens the Grippers
+        /// </summary>
+        /// <param name="ArmSeconds">The Arms Seconds</param>
+        private void Grippers_Checked(object sender, RoutedEventArgs e)
+        {
+            OWI535RoboticArm.GrippersOpen(getArmSeconds(SecondsTxtBox.Text));
+        }
+
+        /// <summary>
+        /// Closes the Grippers
+        /// </summary>
+        private void Grippers_Unchecked(object sender, RoutedEventArgs e)
+        {
+            OWI535RoboticArm.GrippersClose(getArmSeconds(SecondsTxtBox.Text));
+        }
+
+        /// <summary>
+        /// Moves the Grippers Up
+        /// </summary>
+        private void GrippersUpBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OWI535RoboticArm.GrippersUp(getArmSeconds(SecondsTxtBox.Text));
+        }
+
+        /// <summary>
+        /// Moves the Grippers Down
+        /// </summary>
+        private void GrippersDownBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OWI535RoboticArm.GrippersDown(getArmSeconds(SecondsTxtBox.Text));
+        }
+
+        /// <summary>
+        /// Moves the Elbow Up
+        /// </summary>
+        private void ElbowUpBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OWI535RoboticArm.ElbowUp(getArmSeconds(SecondsTxtBox.Text));
+        }
+
+        /// <summary>
+        /// Moves the Elbow Down
+        /// </summary>
+        private void ElbowownBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OWI535RoboticArm.ElbowDown(getArmSeconds(SecondsTxtBox.Text));
+        }
+
+        /// <summary>
+        /// Moves the Arm Up
+        /// </summary>
+        private void ArmUpBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OWI535RoboticArm.ArmUp(getArmSeconds(SecondsTxtBox.Text));
+        }
+
+        /// <summary>
+        /// Moves the Arm Down
+        /// </summary>
+        private void ArmDownBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OWI535RoboticArm.ArmDown(getArmSeconds(SecondsTxtBox.Text));
+        }
+
+        /// <summary>
+        /// Rotates the Arm Left
+        /// </summary>
+        private void ArmRotateLeftBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OWI535RoboticArm.ArmRotateLeft(getArmSeconds(SecondsTxtBox.Text));
+        }
+
+        /// <summary>
+        /// Rotates the Arm Right
+        /// </summary>
+        private void ArmRotateRightBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OWI535RoboticArm.ArmRotateRight(getArmSeconds(SecondsTxtBox.Text));
+        }
+
+        /// <summary>
+        /// Returns the arm seconds
+        /// </summary>
+        /// <param name="ArmSecondsStringValue">The arm seconds string value.</param>
+        /// <returns></returns>
+        private int getArmSeconds(string armsSecondsStringValue)
+        {
+            int seconds;
+            Int32.TryParse(armsSecondsStringValue, out seconds);
+            return (seconds * 1000);
+        }
+
+        /// <summary>
+        /// Performs Handshake gesture
+        /// </summary>
+        private void HandshakeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OWI535RoboticArm.Handshake();
+        }
+
+        #endregion OWI 535
+
+        
+
+        
+
         #endregion Robots
+
+        
+
+        
 
     }
 }

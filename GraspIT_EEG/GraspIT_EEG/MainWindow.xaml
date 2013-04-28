@@ -616,12 +616,25 @@
 							<TabItem Header="R2D2">
 								<Grid Margin="10,0,-10,0">
 									<Image Source="Assets/Images/Robots/R2d2.jpg" Margin="0,78,387,134"></Image>
-                                    <Controls:ToggleSwitch x:Name="R2D2ToggleSwitch_Copy" Header="R2D2" OnLabel="ON" OffLabel="OFF" Width="100" IsChecked="False" Checked="R2D2ToggleSwitch_Checked"  Unchecked="R2D2ToggleSwitch_Unchecked" Margin="10,10,0,0" HorizontalAlignment="Left" Height="63" VerticalAlignment="Top" />
+									<Controls:ToggleSwitch x:Name="R2D2ToggleSwitch_Copy" Header="R2D2" OnLabel="ON" OffLabel="OFF" Width="100" IsChecked="False" Checked="R2D2ToggleSwitch_Checked"  Unchecked="R2D2ToggleSwitch_Unchecked" Margin="10,10,0,0" HorizontalAlignment="Left" Height="63" VerticalAlignment="Top" />
 								</Grid>
 							</TabItem>
 							<TabItem Header="OWI 535">
 								<Grid>
 									<Image Source="Assets/Images/Robots/owi532_1 left.png" Margin="10,10,377,202"></Image>
+									<Controls:ToggleSwitch x:Name="Light" Header="Light" OnLabel="ON" OffLabel="OFF" IsChecked="False" Checked="Light_Checked" Unchecked="Light_Unchecked" Margin="235,54,198,342"/>
+									<Button x:Name="ClawUpBtn" Content="Grippers Up" HorizontalAlignment="Left" Margin="235,187,0,0" VerticalAlignment="Top" Width="75" Click="GrippersUpBtn_Click"/>
+									<Button x:Name="ClawDownBtn" Content="Grippers Down" HorizontalAlignment="Left" Margin="335,187,0,0" VerticalAlignment="Top" Width="75" Click="GrippersDownBtn_Click"/>
+									<Button x:Name="ElbowUpBtn" Content="Elbow Up" HorizontalAlignment="Left" Margin="235,225,0,0" VerticalAlignment="Top" Width="75" Click="ElbowUpBtn_Click"/>
+									<Button x:Name="ElbowownBtn" Content="Elbow Down" HorizontalAlignment="Left" Margin="335,225,0,0" VerticalAlignment="Top" Width="75" Click="ElbowownBtn_Click"/>
+									<Button x:Name="ArmUpBtn" Content="Arm Up" HorizontalAlignment="Left" Margin="235,262,0,0" VerticalAlignment="Top" Width="75" Click="ArmUpBtn_Click"/>
+									<Button x:Name="ArmDownBtn" Content="Arm Down" HorizontalAlignment="Left" Margin="335,262,0,0" VerticalAlignment="Top" Width="75" Click="ArmDownBtn_Click"/>
+									<Button x:Name="ArmRotateLeftBtn" Content="Arm Rotate Left" HorizontalAlignment="Left" Margin="210,301,0,0" VerticalAlignment="Top" Width="100" Click="ArmRotateLeftBtn_Click"/>
+									<Button x:Name="ArmRotateRightBtn" Content="Arm Rotate Right" HorizontalAlignment="Left" Margin="335,301,0,0" VerticalAlignment="Top" Width="100" Click="ArmRotateRightBtn_Click"/>
+									<TextBox x:Name="SecondsTxtBox" HorizontalAlignment="Left" Height="23" Margin="335,136,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="100"/>
+									<Label Content="Duration Seconds:" HorizontalAlignment="Left" Margin="210,132,0,0" VerticalAlignment="Top"/>
+									<Controls:ToggleSwitch x:Name="Grippers" Header="Grippers" OnLabel="Open" OffLabel="Close" IsChecked="False" Checked="Grippers_Checked" Unchecked="Grippers_Unchecked" Margin="406,54,27,342"/>
+									<Button x:Name="HandshakeBtn" Content="Handshake" HorizontalAlignment="Left" Margin="235,354,0,0" VerticalAlignment="Top" Width="100" Click="HandshakeBtn_Click"/>
 
 								</Grid>
 							</TabItem>
