@@ -1659,6 +1659,46 @@ namespace GraspIT_EEG
             R2D2.DisconnectNXT();
         }
 
+        /// <summary>
+        /// R2D2 Move Forward
+        /// </summary>
+        private void R2D2MoveForwardBtn_Click(object sender, RoutedEventArgs e)
+        {
+            R2D2.MoveForward();
+        }
+
+        /// <summary>
+        /// R2D2 Turn Left
+        /// </summary>
+        private void R2D2TurnLeftBtn_Click(object sender, RoutedEventArgs e)
+        {
+            R2D2.MoveLeft();
+        }
+
+        /// <summary>
+        /// R2D2 Turn Right
+        /// </summary>
+        private void R2D2TurnRightBtn_Click(object sender, RoutedEventArgs e)
+        {
+            R2D2.MoveRight();
+        }
+
+        /// <summary>
+        /// R2D2 Move Back
+        /// </summary>
+        private void R2D2MoveBackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            R2D2.MoveBack();
+        }
+
+        /// <summary>
+        /// R2D2 Stop
+        /// </summary>
+        private void R2D2StopBtn_Click(object sender, RoutedEventArgs e)
+        {
+            R2D2.Stop();
+        }
+
         #endregion R2D2
 
         #region OWI 535
@@ -1782,15 +1822,10 @@ namespace GraspIT_EEG
 
         #endregion OWI 535
 
-        
+        #region Talos
 
-        
+        #endregion Talos
 
         #endregion Robots
-
-        
-
-        
-
     }
 }
