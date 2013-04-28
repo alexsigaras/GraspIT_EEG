@@ -168,26 +168,51 @@
 
 		<!-- Region Main Window -->
 
-		<Grid x:Name="MainWindowPage" Margin="0,88,0,0" Opacity="0" Visibility="Collapsed">
+		<Grid x:Name="MainWindowPage" Opacity="0" Visibility="Collapsed">
 			<Button x:Name="a1Btn" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" FontSize="18" Content="1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="BackToMainWindowBtn_Click"/>
-			<TextBlock HorizontalAlignment="Left" Margin="130,152,0,0" TextWrapping="Wrap" Text="Welcome to the application .... " VerticalAlignment="Top"/>
-			<TabControl>
-				<TabItem Header="SSVEP">
-					<Grid>
-						<!--<Controls:ToggleSwitch x:Name="EmotivToggleSwitch" Header="Emotiv State" OnLabel="ON" OffLabel="OFF" Width="100" IsChecked="False" Checked="EmotivToggleSwitch_Checked" Unchecked="EmotivToggleSwitch_Unchecked" />-->
-						<!--<Button Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" Content="&#xE112;" HorizontalAlignment="Left" Margin="146,222,0,0" VerticalAlignment="Top" Width="45" Height="45"/>-->
-						<!--<Controls:RangeSlider Margin="255,110,143.209,148.178"></Controls:RangeSlider>-->
-						<!--<Slider Margin="96,128,329.209,148.178"></Slider>-->
-					</Grid>
-				</TabItem>
-				<TabItem Header="Cognitiv">
-					<Grid>
-						<!--Background="#FFE5E5E5"-->
-						<!--<Button Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" Content="&#xE112;" HorizontalAlignment="Left" Margin="146,222,0,0" VerticalAlignment="Top" Width="45" Height="45"/>-->
-					</Grid>
-				</TabItem>
-			</TabControl>
-
+			<Grid x:Name="Headset_Copy" Margin="10,174,595.141,44.874">
+				<Image Source="Assets/Images/HeadsetMap.png" Stretch="Fill" HorizontalAlignment="Left" Width="186.859" Height="260.518" VerticalAlignment="Top"/>
+				<Ellipse x:Name="AF3Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="41.847,31.656,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="AF4Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="113.169,30.768,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="F7Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="15.29,69.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="F3Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="55.113,61.83,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="F4Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="115.833,61.83,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="F8Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="147.988,69.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="FC5Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="40.959,99.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="FC6Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="127.283,99.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="T7Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="0,124.855,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="T8Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="156.476,124.855,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="CMSContact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="15.29,160.239,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="DRLContact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="140,160.239,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="P7Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="40.959,200.966,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="P8Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="127.283,200.966,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="O1Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="55.113,238.126,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="O2Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="115,238.126,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+			</Grid>
+			<Controls:ToggleSwitch x:Name="EmotivToggleSwitch_Copy" Header="Emotiv" OnLabel="ON" OffLabel="OFF" Width="100" IsChecked="False" Checked="EmotivToggleSwitch_Checked" Unchecked="EmotivToggleSwitch_Unchecked" Margin="10,65,0,0" HorizontalAlignment="Left" Height="62.518" VerticalAlignment="Top" />
+			<Label x:Name="UptimeLbl_Copy" Content="Uptime:" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" FontSize="18"/>
+			<Label x:Name="Uptime_Copy" Content="" HorizontalAlignment="Left" Margin="88,135,0,0" VerticalAlignment="Top" Width="112" FontSize="18"/>
+			<Label x:Name="UserLbl_Copy" Content="User" HorizontalAlignment="Left" Margin="10,442,0,0" VerticalAlignment="Top" FontSize="18"/>
+			<ComboBox x:Name="UsersComboBox_Copy" HorizontalAlignment="Left" Margin="10,481,0,0" VerticalAlignment="Top" Width="189" SelectionChanged="UsersComboBox_SelectionChanged"/>
+			<Controls:AppBarButton x:Name="AddUserBtn_Copy" MetroImageSource="{DynamicResource appbar_user_add}" Foreground="{DynamicResource BlackBrush}" Content="Add" Margin="0,0,0,8" Width="50" Height="50" Click="AddUserBtn_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+			<Controls:AppBarButton x:Name="RemoveUserBtn_Copy" MetroImageSource="{DynamicResource appbar_user_minus}" Foreground="{DynamicResource BlackBrush}" Content="Remove" Margin="50,0,0,8" Width="50" Height="50" Click="RemoveUserBtn_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+			<Controls:AppBarButton x:Name="SaveUserBtn_Copy" Content="Save" MetroImageSource="{DynamicResource appbar_save}" Foreground="{DynamicResource BlackBrush}" Margin="100,0,0,8" Width="50" Height="50" Click="SaveUserBtn_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+			<Controls:AppBarButton x:Name="TrainUserBtn_Copy" Content="Train" VerticalAlignment="Bottom" MetroImageSource="{DynamicResource appbar_timer_record}" Foreground="{DynamicResource BlackBrush}" Margin="150,0,0,8" Width="50" Height="50" Click="TrainUserBtn_Click" HorizontalAlignment="Left"  />
+			<Controls:Tile Title="SSVEP"
+				Height="120" Margin="324,274,328,155" Width="120">
+				<Controls:MetroImage Source="{StaticResource appbar_cupcake}" />
+			</Controls:Tile>
+			<Controls:Tile Title="EMG"
+				Height="120" Margin="324,419,328,10" Width="120">
+				<Controls:MetroImage Source="{StaticResource appbar_cupcake}" />
+			</Controls:Tile>
+			<Controls:Tile Name="EEGBtn" Title="EEG"
+				Height="120" Margin="324,129,328,300" Width="120" Click="Tile_Click">
+				<Controls:MetroImage Source="{StaticResource appbar_cupcake}" />
+			</Controls:Tile>
+			<Button x:Name="a1Btn_Copy" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" FontSize="18" Content="2" HorizontalAlignment="Left" Margin="334,10,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="BackToMainWindowBtn_Click"/>
+			<Button x:Name="TrainBtn" Content="Train" HorizontalAlignment="Left" Margin="635,194.5,0,0" VerticalAlignment="Top" Width="75" Click="TrainUserBtn_Click"/>
+			<Button x:Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="635,302.5,0,0" VerticalAlignment="Top" Width="75" Click="StartBtn_Click"/>
 
 		</Grid>
 
@@ -195,7 +220,7 @@
 
 		<!-- Region Settings -->
 
-		<Grid x:Name="SettingsPage">
+		<Grid x:Name="SettingsPage" Opacity="0" Visibility="Collapsed">
 
 			<!-- Region Settings Sidebar -->
 
@@ -668,31 +693,14 @@
 		<Grid x:Name="TrainingPage" Opacity="0" Visibility="Collapsed">
 			<Button x:Name="BackToMainWindowBtn2" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" FontSize="18" Content="&#xE112;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="BackToMainWindowBtn_Click"/>
 			<Label x:Name="TrainingLbl" Content="Training" HorizontalAlignment="Left" Margin="60,13,0,0" VerticalAlignment="Top" FontSize="24"/>
-			<TabControl Margin="0,55,0,0">
-
-				<!-- Region SSVEP -->
-
-				<TabItem Header="SSVEP">
-					<Grid>
-						<TextBlock HorizontalAlignment="Left" Margin="118,121,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="188" Width="360"/>
-						<Button x:Name="StartSSVEPTrainingBtn" Content="Start Training" HorizontalAlignment="Left" Margin="329,414,0,0" VerticalAlignment="Top" Width="109" Click="StartSSVEPTrainingBtn_Click"/>
-					</Grid>
-				</TabItem>
-
-				<!-- EndRegion -->
-
-				<!-- Region Cognitiv -->
-
-				<TabItem Header="Cognitiv">
-					<Grid>
-						<TextBlock HorizontalAlignment="Left" Margin="118,121,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="188" Width="360"/>
-						<Button x:Name="StartCognitivTrainingBtn" Content="Start Training" HorizontalAlignment="Left" Margin="329,414,0,0" VerticalAlignment="Top" Width="109" Click="StartCognitivTrainingBtn_Click"/>
-					</Grid>
-				</TabItem>
-
-				<!-- EndRegion -->
-
-			</TabControl>
+			<Controls:Tile x:Name="StartSSVEPTrainingBtn" Title="SSVEP"
+				Height="200" Margin="151,218,438,151" Width="200" Click="StartSSVEPTrainingBtn_Click">
+				<Controls:MetroImage Source="{StaticResource appbar_cupcake}" />
+			</Controls:Tile>
+			<Controls:Tile x:Name="EEGBtn_Copy" Title="EEG"
+				Height="200" Margin="465,218,127,151" Width="200" Click="Tile_Click">
+				<Controls:MetroImage Source="{StaticResource appbar_cupcake}" />
+			</Controls:Tile>
 		</Grid>
 
 		<Grid x:Name="SSVEPTrainingPage" Opacity="0" Visibility="Collapsed">

@@ -1845,6 +1845,25 @@ namespace GraspIT_EEG
 
         #endregion OWI 535
 
+        private void Tile_Click(object sender, RoutedEventArgs e)
+        {
+            if (EEGBtn.Background != Brushes.BurlyWood)
+            {
+                EEGBtn.Background = Brushes.BurlyWood;
+                MessageBox.Show("Checked!");
+            }
+            else
+            {
+                EEGBtn.Background = new SolidColorBrush(Color.FromArgb(204,64, 106,165));
+                MessageBox.Show("UnChecked!");
+            }
+        }
+
+        private void StartBtn_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+        	
+        }
+
         #region Talos
 
         #endregion Talos
