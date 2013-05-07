@@ -10,6 +10,8 @@
 	ShowIconOnTitleBar="True" Icon="Assets/Images/Logos/CVGLogo.png"
 	Title="Graspit! BCI" Height="600" Width="800" mc:Ignorable="d" >
 
+	<!-- Region Resources -->
+
 	<Controls:MetroWindow.Resources>
 		<ResourceDictionary>
 
@@ -144,11 +146,17 @@
 		</ResourceDictionary>
 	</Controls:MetroWindow.Resources>
 
+	<!-- EndRegion -->
+
+	<!-- Region Triggers -->
+	
 	<Controls:MetroWindow.Triggers>
 		<EventTrigger RoutedEvent="FrameworkElement.Loaded">
 			<BeginStoryboard Storyboard="{StaticResource MainWindowPageIn}"/>
 		</EventTrigger>
 	</Controls:MetroWindow.Triggers>
+	
+	<!-- EndRegion -->
 
 	<!-- Region Titlebar -->
 
@@ -282,6 +290,7 @@
 
 				<TabControl>
 					<TabItem Header="Emotiv">
+						<!-- Region Emotiv -->
 
 						<TabControl>
 
@@ -308,7 +317,7 @@
 									<Label x:Name="MiddleFaceAction"  FontFamily="Segoe WP" Content="Value" HorizontalAlignment="Left" Margin="227,364,0,0" VerticalAlignment="Top"/>
 									<CheckBox x:Name="BlinkCheckBox" Content="Blink" HorizontalAlignment="Left" Margin="214,52,0,0" VerticalAlignment="Top"/>
 									<CheckBox x:Name="FurrowCheckBox" Content="Furrow" HorizontalAlignment="Left" Margin="127,52,0,0" VerticalAlignment="Top"/>
-									<CheckBox x:Name="LaughCheckBox" Content="Laugh" HorizontalAlignment="Left" Margin="132,74,0,0" VerticalAlignment="Top"/>
+									<CheckBox x:Name="LaughCheckBox" Content="Laugh" HorizontalAlignment="Left" Margin="127,74,0,0" VerticalAlignment="Top"/>
 									<CheckBox x:Name="SmirkLeftCheckBox" Content="Smirk Left" HorizontalAlignment="Left" Margin="296,74,0,0" VerticalAlignment="Top"/>
 									<CheckBox x:Name="SmirkRightCheckBox" Content="Smirk Right" HorizontalAlignment="Left" Margin="402,74,0,0" VerticalAlignment="Top"/>
 									<CheckBox x:Name="WinkLeftCheckBox" Content="Wink Left" HorizontalAlignment="Left" Margin="296,52,0,0" VerticalAlignment="Top"/>
@@ -557,17 +566,15 @@
 										<telerik:SplineSeries Stroke="Red" />
 									</telerik:RadCartesianChart>
 									<Label x:Name="InterpolatedLbl" FontSize="26.67" FontFamily="Segoe WP" Content="Interpolated:" HorizontalAlignment="Left" Margin="314,10,0,0" VerticalAlignment="Top"/>
-
 								</Grid>
 							</TabItem>
 						</TabControl>
 
-
 						<!-- EndRegion -->
 
 					</TabItem>
-
-
+					
+					<!-- EndRegion -->
 					<TabItem Header="EEG">
 						<!-- Region EEG -->
 
@@ -645,14 +652,10 @@
 					</TabItem>
 
 					<!-- EndRegion -->
-
 					<TabItem Header="SSVEP">
-
-
+						<!-- Region SSVEP-->
+						<!-- EndRegion -->
 					</TabItem>
-
-
-
 					<TabItem Header="Control">
 						<TabControl>
 							<TabItem Header="R2D2">
@@ -686,12 +689,18 @@
 								</Grid>
 							</TabItem>
 							<TabItem Header="Talos">
-
+								<Grid Margin="10,0,-10,0">
+									<Image Source="Assets/Images/Robots/Talos.jpg" Margin="0,78,387,134"/>
+									<Controls:ToggleSwitch x:Name="TalosToggleSwitch" Header="Talos" OnLabel="ON" OffLabel="OFF" Width="100" IsChecked="False"  Unchecked="R2D2ToggleSwitch_Unchecked" Margin="10,10,0,0" HorizontalAlignment="Left" Height="63" VerticalAlignment="Top" Checked="TalosToggleSwitch_Checked" />
+									<Button x:Name="TalosMoveForwardBtn" Content="Forward" HorizontalAlignment="Left" Margin="290,78,0,0" VerticalAlignment="Top" Width="75" Click="TalosMoveForwardBtn_Click"/>
+									<Button x:Name="TalosMoveBackBtn" Content="Backward" HorizontalAlignment="Left" Margin="290,190,0,0" VerticalAlignment="Top" Width="75" Click="TalosMoveBackBtn_Click"/>
+									<Button x:Name="TalosTurnLeftBtn" Content="Turn Left" HorizontalAlignment="Left" Margin="199,132,0,0" VerticalAlignment="Top" Width="75" Click="TalosTurnLeftBtn_Click"/>
+									<Button x:Name="TalosTurnRightBtn" Content="Turn Right" HorizontalAlignment="Left" Margin="387,132,0,0" VerticalAlignment="Top" Width="75" Click="TalosTurnRightBtn_Click"/>
+									<Button x:Name="TalosStopBtn" Content="Stop" HorizontalAlignment="Left" Margin="290,132,0,0" VerticalAlignment="Top" Width="75" Click="TalosStopBtn_Click"/>
+								</Grid>
 							</TabItem>
 						</TabControl>
 					</TabItem>
-
-
 				</TabControl>
 
 			</Grid>
@@ -699,7 +708,9 @@
 
 		<!-- EndRegion -->
 
-		<!-- Region Training -->
+		<!-- EndRegion -->
+		
+		<!-- Region Training Page -->
 
 		<Grid x:Name="TrainingPage" Opacity="0" Visibility="Collapsed">
 			<Button x:Name="BackToMainWindowBtn2" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" FontSize="18" Content="&#xE112;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="BackToMainWindowBtn_Click"/>
@@ -714,17 +725,25 @@
 			</Controls:Tile>
 		</Grid>
 
+		<!-- EndRegion -->
+		
+		<!-- Region SSVEP Training Page-->
+
 		<Grid x:Name="SSVEPTrainingPage" Opacity="0" Visibility="Collapsed">
 			<Button Content="Button" HorizontalAlignment="Left" Margin="308,370,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
 			<Rectangle x:Name="SSVEPTrainingRectangle" Fill="#FF2323B4" HorizontalAlignment="Left" Height="179" Margin="201,97,0,0" Stroke="Black" VerticalAlignment="Top" Width="452"/>
 
 		</Grid>
 
+		<!-- EndRegion -->
+
+		<!-- Region Cognitiv Training Page -->
 		<Grid x:Name="CognitivTrainingPage" Opacity="0" Visibility="Collapsed">
 			<Button Content="Button" HorizontalAlignment="Left" Margin="308,370,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
 			<Rectangle x:Name="CognitivTrainingRectangle" Fill="#FF2323B4" HorizontalAlignment="Left" Height="179" Margin="201,97,0,0" Stroke="Black" VerticalAlignment="Top" Width="452"/>
 		</Grid>
 
 		<!-- EndRegion -->
+		
 	</Grid>
 </Controls:MetroWindow>

@@ -305,14 +305,14 @@ namespace GraspIT_EEG
             emotivDataCollectionTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             emotivDataCollectionTimer.Tick += emotivDataCollectionTimer_Tick;
 
-            SSVEPFlashDuration.Interval = new TimeSpan(0, 0, 0, 0, 125);
-            SSVEPFlashDuration.Tick += SSVEPFlashDuration_Tick;
+            //SSVEPFlashDuration.Interval = new TimeSpan(0, 0, 0, 0, 125);
+            //SSVEPFlashDuration.Tick += SSVEPFlashDuration_Tick;
 
-            SSVEPNoFlashDuration.Interval = new TimeSpan(0, 0, 0, 0, 475);
-            SSVEPNoFlashDuration.Tick += SSVEPNoFlashDuration_Tick;
+            //SSVEPNoFlashDuration.Interval = new TimeSpan(0, 0, 0, 0, 475);
+            //SSVEPNoFlashDuration.Tick += SSVEPNoFlashDuration_Tick;
 
-            SSVEPFlashingPeriod.Interval = new TimeSpan(0, 0, 0, 0, 8);
-            SSVEPFlashingPeriod.Tick += SSVEPFlashingPeriod_Tick;
+            //SSVEPFlashingPeriod.Interval = new TimeSpan(0, 0, 0, 0, 8);
+            //SSVEPFlashingPeriod.Tick += SSVEPFlashingPeriod_Tick;
 
             #endregion Instantiate Timers
         }
@@ -392,6 +392,63 @@ namespace GraspIT_EEG
         #endregion Wireless Signal
 
         #endregion TitleBar
+
+        #region Main Menu
+
+        public Color columbiaBlue = Color.FromArgb(204, 142, 180, 227);
+        public Color royalBlue = Color.FromArgb(204, 64, 106, 165);
+
+        private void Tile_Click(object sender, RoutedEventArgs e)
+        {
+            if ((EEGBtn.Background as SolidColorBrush).Color != columbiaBlue)
+            {
+                EEGBtn.Background = new SolidColorBrush(columbiaBlue);
+                //MessageBox.Show("Checked!");
+            }
+            else
+            {
+                EEGBtn.Background = new SolidColorBrush(royalBlue);
+                //MessageBox.Show("UnChecked!");
+            }
+        }
+
+        private void SSVEPBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EMGBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EEGBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void R2D2Btn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OWIArmBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TalosBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void StartBtn_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
+
+
+        #endregion Main Menu
 
         #region Settings
 
@@ -1466,29 +1523,6 @@ namespace GraspIT_EEG
 
         #endregion Settings
 
-        #region SSVEP
-
-        #region SSVEP Timers Ticks
-
-        void SSVEPFlashingPeriod_Tick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        void SSVEPNoFlashDuration_Tick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        void SSVEPFlashDuration_Tick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion SSVEP Timers Ticks  
-
-        #endregion SSVEP
-
         #region Training
 
         #region SSVEP Training
@@ -1549,6 +1583,30 @@ namespace GraspIT_EEG
 
         #endregion Training
 
+        //#region SSVEP
+
+        //#region SSVEP Timers Ticks
+
+        //void SSVEPFlashingPeriod_Tick(object sender, EventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //void SSVEPNoFlashDuration_Tick(object sender, EventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //void SSVEPFlashDuration_Tick(object sender, EventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //#endregion SSVEP Timers Ticks  
+
+        //#endregion SSVEP
+
+        
         #region Timers
 
         #region Regular Timers
@@ -1842,72 +1900,41 @@ namespace GraspIT_EEG
 
         #endregion OWI 535
 
-        
-
         #region Talos
+
+        private void TalosToggleSwitch_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TalosMoveForwardBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TalosMoveBackBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TalosTurnLeftBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TalosTurnRightBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TalosStopBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         #endregion Talos
 
         #endregion Robots
-
-        #region Main Menu
-
-        public Color columbiaBlue = Color.FromArgb(204, 142, 180, 227);
-        public Color royalBlue = Color.FromArgb(204, 64, 106, 165);
-
-        private void Tile_Click(object sender, RoutedEventArgs e)
-        {
-            if ((EEGBtn.Background as SolidColorBrush).Color != columbiaBlue)
-            {
-                EEGBtn.Background = new SolidColorBrush(columbiaBlue);
-                //MessageBox.Show("Checked!");
-            }
-            else
-            {
-                EEGBtn.Background = new SolidColorBrush(royalBlue);
-                //MessageBox.Show("UnChecked!");
-            }
-        }
-
-        private void SSVEPBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void EMGBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void EEGBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void R2D2Btn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void OWIArmBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void TalosBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void StartBtn_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-
-        }
-
-
-        #endregion Main Menu
-
-        
 
     }
 }
