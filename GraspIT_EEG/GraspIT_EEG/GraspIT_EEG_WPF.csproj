@@ -197,6 +197,7 @@
     <Resource Include="Assets\Images\Robots\R2d2.jpg" />
     <Resource Include="Assets\Images\Logos\CURoboticsLogo.png" />
     <Resource Include="Assets\Images\Logos\CVGLogo.png" />
+    <Resource Include="Assets\Images\Robots\Talos.jpg" />
     <Content Include="DLLs\EdfUtils.dll" />
     <Content Include="DLLs\LibUsbDotNet.dll" />
     <Content Include="DLLs\NKH.MindSqualls.dll" />

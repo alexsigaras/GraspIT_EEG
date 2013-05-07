@@ -206,7 +206,7 @@
 				<Controls:MetroImage Source="{StaticResource appbar_cupcake}" />
 			</Controls:Tile>
 			<Controls:Tile Name="EEGBtn" Title="EEG"
-				Height="Auto" Margin="78,145,594,304" Width="Auto" Click="Tile_Click">
+				Height="Auto" Margin="78,145,0,304" Width="120" Click="Tile_Click" HorizontalAlignment="Left">
 				<Controls:MetroImage Source="{StaticResource appbar_cupcake}" />
 			</Controls:Tile>
 			<Controls:Tile x:Name="OWIArmBtn" Title="OWI 535"
