@@ -8,11 +8,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("GraspIT_EEG")]
-[assembly: AssemblyDescription("GraspIT EEG SSVEP/P300 Application")]
+[assembly: AssemblyDescription("GraspIT EMG EEG SSVEP Application")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Columbia University")]
 [assembly: AssemblyProduct("Emotiv EEG")]
-[assembly: AssemblyCopyright("Alexandros Sigaras | Copyright ©  2012")]
+[assembly: AssemblyCopyright("Alexandros Sigaras | Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

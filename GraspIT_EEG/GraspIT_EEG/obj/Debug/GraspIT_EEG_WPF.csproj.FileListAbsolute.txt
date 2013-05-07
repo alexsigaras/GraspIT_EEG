@@ -171,8 +171,6 @@ C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Deb
 C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\App.g.cs
 C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_Content.g.cs
 C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_MarkupCompile.cache
-C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_MarkupCompile.lref
-C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\Themes\Generic.baml
 C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.g.resources
 C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG.Properties.Resources.resources
 C:\Users\Alex\Dropbox\Github\Private\GraspIT_EEG\GraspIT_EEG\GraspIT_EEG\obj\Debug\GraspIT_EEG_WPF.csproj.GenerateResource.Cache

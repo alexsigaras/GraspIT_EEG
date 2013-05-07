@@ -174,9 +174,6 @@ namespace GraspIT_EEG
 
         #region Affectiv
 
-        // EdkDll.EE_AffectivAlgo_t  must declare algo type to finish affectiv.
-
-        bool AffectivIsActive;
         float AffectiveEngagementBoredom;
         float AffectivMeditation;
         float AffectivFrustration;
@@ -1845,30 +1842,72 @@ namespace GraspIT_EEG
 
         #endregion OWI 535
 
-        private void Tile_Click(object sender, RoutedEventArgs e)
-        {
-            if (EEGBtn.Background != Brushes.BurlyWood)
-            {
-                EEGBtn.Background = Brushes.BurlyWood;
-                MessageBox.Show("Checked!");
-            }
-            else
-            {
-                EEGBtn.Background = new SolidColorBrush(Color.FromArgb(204,64, 106,165));
-                MessageBox.Show("UnChecked!");
-            }
-        }
-
-        private void StartBtn_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-        	
-        }
+        
 
         #region Talos
 
         #endregion Talos
 
         #endregion Robots
+
+        #region Main Menu
+
+        public Color columbiaBlue = Color.FromArgb(204, 142, 180, 227);
+        public Color royalBlue = Color.FromArgb(204, 64, 106, 165);
+
+        private void Tile_Click(object sender, RoutedEventArgs e)
+        {
+            if ((EEGBtn.Background as SolidColorBrush).Color != columbiaBlue)
+            {
+                EEGBtn.Background = new SolidColorBrush(columbiaBlue);
+                //MessageBox.Show("Checked!");
+            }
+            else
+            {
+                EEGBtn.Background = new SolidColorBrush(royalBlue);
+                //MessageBox.Show("UnChecked!");
+            }
+        }
+
+        private void SSVEPBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EMGBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EEGBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void R2D2Btn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OWIArmBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TalosBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void StartBtn_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
+
+
+        #endregion Main Menu
+
+        
 
     }
 }

@@ -7,7 +7,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	xmlns:telerik ="http://schemas.telerik.com/2008/xaml/presentation"
 	x:Class="GraspIT_EEG.MainWindow"
-	ShowIconOnTitleBar="True" Icon="Assets/Images/Logos/SEAS_logo.png"
+	ShowIconOnTitleBar="True" Icon="Assets/Images/Logos/CVGLogo.png"
 	Title="Graspit! BCI" Height="600" Width="800" mc:Ignorable="d" >
 
 	<Controls:MetroWindow.Resources>
@@ -157,7 +157,7 @@
 			<Label x:Name="EmotivStatusLbl" Content="Not Connected" Foreground="White" VerticalAlignment="Center" />
 			<Image x:Name="Signal" HorizontalAlignment="Left" Height="22" VerticalAlignment="Center" Width="22" Source="Assets/Images/Signal/Wireless - No Signal.png" />
 			<Image x:Name="Battery" HorizontalAlignment="Left" Height="16" VerticalAlignment="Center" Width="16" Source="Assets/Images/Battery/Battery-Empty.png" />
-			<Button x:Name="ShowSettingsBtn" Content="settings" Click="ShowSettingsBtn_Click" />
+			<Button x:Name="ShowSettingsBtn" Content="@" Click="ShowSettingsBtn_Click" FontSize="20" FontFamily="/GraspIT_EEG;component/Resources/#Entypo" />
 			<Button x:Name="HelpBtn" Content="?" Click="HelpBtn_Click"/>
 		</Controls:WindowCommands>
 	</Controls:MetroWindow.WindowCommands>
@@ -168,51 +168,62 @@
 
 		<!-- Region Main Window -->
 
-		<Grid x:Name="MainWindowPage" Opacity="0" Visibility="Collapsed">
-			<Button x:Name="a1Btn" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" FontSize="18" Content="1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="BackToMainWindowBtn_Click"/>
-			<Grid x:Name="Headset_Copy" Margin="10,174,595.141,44.874">
+		<Grid x:Name="MainWindowPage">
+			<Grid x:Name="MainHeadset" Margin="592,172,13.141,46.874">
 				<Image Source="Assets/Images/HeadsetMap.png" Stretch="Fill" HorizontalAlignment="Left" Width="186.859" Height="260.518" VerticalAlignment="Top"/>
-				<Ellipse x:Name="AF3Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="41.847,31.656,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-				<Ellipse x:Name="AF4Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="113.169,30.768,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-				<Ellipse x:Name="F7Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="15.29,69.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-				<Ellipse x:Name="F3Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="55.113,61.83,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-				<Ellipse x:Name="F4Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="115.833,61.83,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-				<Ellipse x:Name="F8Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="147.988,69.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-				<Ellipse x:Name="FC5Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="40.959,99.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-				<Ellipse x:Name="FC6Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="127.283,99.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-				<Ellipse x:Name="T7Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="0,124.855,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-				<Ellipse x:Name="T8Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="156.476,124.855,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-				<Ellipse x:Name="CMSContact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="15.29,160.239,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-				<Ellipse x:Name="DRLContact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="140,160.239,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-				<Ellipse x:Name="P7Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="40.959,200.966,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-				<Ellipse x:Name="P8Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="127.283,200.966,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-				<Ellipse x:Name="O1Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="55.113,238.126,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
-				<Ellipse x:Name="O2Contact1" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="115,238.126,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="AF3ContactMain" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="41.847,31.656,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="AF4ContactMain" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="113.169,30.768,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="F7ContactMain" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="15.29,69.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="F3ContactMain" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="55.113,61.83,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="F4ContactMain" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="115.833,61.83,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="F8ContactMain" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="147.988,69.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="FC5ContactMain" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="40.959,99.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="FC6ContactMain" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="127.283,99.822,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="T7ContactMain" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="0,124.855,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="T8ContactMain" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="156.476,124.855,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="CMSContactMain" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="15.29,160.239,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="DRLContactMain" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="140,160.239,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="P7ContactMain" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="40.959,200.966,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="P8ContactMain" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="127.283,200.966,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="O1ContactMain" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="55.113,238.126,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
+				<Ellipse x:Name="O2ContactMain" Fill="#FF000000" HorizontalAlignment="Left" Height="25" Margin="115,238.126,0,0" Stroke="Black" VerticalAlignment="Top" Width="25"/>
 			</Grid>
-			<Controls:ToggleSwitch x:Name="EmotivToggleSwitch_Copy" Header="Emotiv" OnLabel="ON" OffLabel="OFF" Width="100" IsChecked="False" Checked="EmotivToggleSwitch_Checked" Unchecked="EmotivToggleSwitch_Unchecked" Margin="10,65,0,0" HorizontalAlignment="Left" Height="62.518" VerticalAlignment="Top" />
-			<Label x:Name="UptimeLbl_Copy" Content="Uptime:" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" FontSize="18"/>
-			<Label x:Name="Uptime_Copy" Content="" HorizontalAlignment="Left" Margin="88,135,0,0" VerticalAlignment="Top" Width="112" FontSize="18"/>
-			<Label x:Name="UserLbl_Copy" Content="User" HorizontalAlignment="Left" Margin="10,442,0,0" VerticalAlignment="Top" FontSize="18"/>
-			<ComboBox x:Name="UsersComboBox_Copy" HorizontalAlignment="Left" Margin="10,481,0,0" VerticalAlignment="Top" Width="189" SelectionChanged="UsersComboBox_SelectionChanged"/>
-			<Controls:AppBarButton x:Name="AddUserBtn_Copy" MetroImageSource="{DynamicResource appbar_user_add}" Foreground="{DynamicResource BlackBrush}" Content="Add" Margin="0,0,0,8" Width="50" Height="50" Click="AddUserBtn_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
-			<Controls:AppBarButton x:Name="RemoveUserBtn_Copy" MetroImageSource="{DynamicResource appbar_user_minus}" Foreground="{DynamicResource BlackBrush}" Content="Remove" Margin="50,0,0,8" Width="50" Height="50" Click="RemoveUserBtn_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
-			<Controls:AppBarButton x:Name="SaveUserBtn_Copy" Content="Save" MetroImageSource="{DynamicResource appbar_save}" Foreground="{DynamicResource BlackBrush}" Margin="100,0,0,8" Width="50" Height="50" Click="SaveUserBtn_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
-			<Controls:AppBarButton x:Name="TrainUserBtn_Copy" Content="Train" VerticalAlignment="Bottom" MetroImageSource="{DynamicResource appbar_timer_record}" Foreground="{DynamicResource BlackBrush}" Margin="150,0,0,8" Width="50" Height="50" Click="TrainUserBtn_Click" HorizontalAlignment="Left"  />
-			<Controls:Tile Title="SSVEP"
-				Height="120" Margin="324,274,328,155" Width="120">
+			<Controls:ToggleSwitch x:Name="MainEmotivToggleSwitch" Header="Emotiv" OnLabel="ON" OffLabel="OFF" IsChecked="False" Checked="EmotivToggleSwitch_Checked" Unchecked="EmotivToggleSwitch_Unchecked" Margin="0,63,100,443.482" HorizontalAlignment="Right" Width="100" />
+			<Label x:Name="MainUptimeLbl" Content="Uptime:" HorizontalAlignment="Left" Margin="591.964,133,0,0" VerticalAlignment="Top" FontSize="18"/>
+			<Label x:Name="MainUptime" Content="" HorizontalAlignment="Left" Margin="670,133,0,0" VerticalAlignment="Top" Width="112" FontSize="18"/>
+			<Label x:Name="MainUserLbl" Content="User" HorizontalAlignment="Left" Margin="591.964,440,0,0" VerticalAlignment="Top" FontSize="18"/>
+			<ComboBox x:Name="MainUsersComboBox" HorizontalAlignment="Left" Margin="592,479,0,0" VerticalAlignment="Top" Width="189" SelectionChanged="UsersComboBox_SelectionChanged"/>
+			<Controls:AppBarButton x:Name="MainAddUserBtn" MetroImageSource="{DynamicResource appbar_user_add}" Foreground="{DynamicResource BlackBrush}" Content="Add" Margin="582,0,160,10" Width="Auto" Height="50" Click="AddUserBtn_Click" VerticalAlignment="Bottom" />
+			<Controls:AppBarButton x:Name="MainRemoveUserBtn" MetroImageSource="{DynamicResource appbar_user_minus}" Foreground="{DynamicResource BlackBrush}" Content="Remove" Margin="632,0,0,10" Width="50" Height="50" Click="RemoveUserBtn_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+			<Controls:AppBarButton x:Name="MainTrainUserBtn" Content="Train" MetroImageSource="{DynamicResource appbar_timer_record}" Foreground="{DynamicResource BlackBrush}" Margin="682,0,0,10" Width="50" Height="50" Click="TrainUserBtn_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+			<Controls:AppBarButton x:Name="StartBtn" Content="Start" VerticalAlignment="Bottom" MetroImageSource="{DynamicResource appbar_os_windows_8}" Foreground="{DynamicResource BlackBrush}" Margin="732,0,0,10" Width="50" Height="50" Click="StartBtn_Click" HorizontalAlignment="Left"  />
+			<Controls:Tile x:Name="SSVEPBtn" Title="SSVEP"
+				Height="Auto" Margin="77.647,289.873,594.353,159.127" Width="Auto">
 				<Controls:MetroImage Source="{StaticResource appbar_cupcake}" />
 			</Controls:Tile>
-			<Controls:Tile Title="EMG"
-				Height="120" Margin="324,419,328,10" Width="120">
+			<Controls:Tile x:Name="EMGBtn" Title="EMG"
+				Height="120" Margin="77.647,434.873,594.352,14.127" Width="120">
 				<Controls:MetroImage Source="{StaticResource appbar_cupcake}" />
 			</Controls:Tile>
 			<Controls:Tile Name="EEGBtn" Title="EEG"
-				Height="120" Margin="324,129,328,300" Width="120" Click="Tile_Click">
+				Height="Auto" Margin="78,145,594,304" Width="Auto" Click="Tile_Click">
 				<Controls:MetroImage Source="{StaticResource appbar_cupcake}" />
 			</Controls:Tile>
-			<Button x:Name="a1Btn_Copy" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="Segoe UI Symbol" FontSize="18" Content="2" HorizontalAlignment="Left" Margin="334,10,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="BackToMainWindowBtn_Click"/>
-			<Button x:Name="TrainBtn" Content="Train" HorizontalAlignment="Left" Margin="635,194.5,0,0" VerticalAlignment="Top" Width="75" Click="TrainUserBtn_Click"/>
-			<Button x:Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="635,302.5,0,0" VerticalAlignment="Top" Width="75" Click="StartBtn_Click"/>
+			<Controls:Tile x:Name="OWIArmBtn" Title="OWI 535"
+				Height="120" Margin="320.024,289.873,351.975,159.127" Width="120">
+				<Controls:MetroImage Source="{StaticResource appbar_cupcake}" />
+			</Controls:Tile>
+			<Controls:Tile x:Name="TalosBtn" Title="Talos"
+				Height="120" Margin="320.024,434.873,351.975,14.127" Width="120">
+				<Controls:MetroImage Source="{StaticResource appbar_cupcake}" />
+			</Controls:Tile>
+			<Controls:Tile x:Name="R2D2Btn" Title="R2D2"
+				Height="120" Margin="320.024,144.873,351.975,304.127" Width="120" Click="Tile_Click">
+				<Controls:MetroImage Source="{StaticResource appbar_cupcake}" />
+			</Controls:Tile>
+			<Label x:Name="Step1Lbl" Content="Step 1" Margin="78,19,648,513.4" FontSize="20" Height="36.6" HorizontalAlignment="Left" VerticalAlignment="Top" />
+			<Label x:Name="Step2Lbl" Content="Step 2" HorizontalAlignment="Left" Margin="320,19,0,0" VerticalAlignment="Top" FontSize="20"/>
+			<Label x:Name="Step3Lbl" Content="Step 3" Margin="592,19,134.12,513.4" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
 		</Grid>
 
