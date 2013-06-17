@@ -1,4 +1,0 @@
-- Realtime Charts -> Telerik RadControls for WPF -> www.telerik.com
-- WPF Metro Style -> mahapps.com
-- DLLs from Emotiv Research Edition
-- Some icons from Iconspedia.com
