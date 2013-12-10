@@ -1,0 +1,189 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GraspIT_EEG.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="R2D2ComPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="EmotivUserFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\\ProgramData\\Emotiv\\</Value>
+    </Setting>
+    <Setting Name="VendorID" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">4711</Value>
+    </Setting>
+    <Setting Name="ProductID" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ArmID" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Bandpass6_7gain" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">70996.86298</Value>
+    </Setting>
+    <Setting Name="Bandpass6_7coef1" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-0.9064815219</Value>
+    </Setting>
+    <Setting Name="Bandpass6_7coef2" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">5.2504533221</Value>
+    </Setting>
+    <Setting Name="Bandpass6_7coef3" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-12.9468830643</Value>
+    </Setting>
+    <Setting Name="Bandpass6_7coef4" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">17.3739583958</Value>
+    </Setting>
+    <Setting Name="Bandpass6_7coef5" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-13.3776569031</Value>
+    </Setting>
+    <Setting Name="Bandpass6_7coef6" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">5.6056470274</Value>
+    </Setting>
+    <Setting Name="Bandpass7_8gain" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">70996.86304</Value>
+    </Setting>
+    <Setting Name="Bandpass7_8coef1" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-0.9064815219</Value>
+    </Setting>
+    <Setting Name="Bandpass7_8coef2" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">5.15902028</Value>
+    </Setting>
+    <Setting Name="Bandpass7_8coef3" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-12.5968492018</Value>
+    </Setting>
+    <Setting Name="Bandpass7_8coef4" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">16.8499943409</Value>
+    </Setting>
+    <Setting Name="Bandpass7_8coef5" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-13.0159752844</Value>
+    </Setting>
+    <Setting Name="Bandpass7_8coef6" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">5.5080285307</Value>
+    </Setting>
+    <Setting Name="Bandpass8_9gain" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">70996.86306</Value>
+    </Setting>
+    <Setting Name="Bandpass8_9coef1" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-0.9064815219</Value>
+    </Setting>
+    <Setting Name="Bandpass8_9coef2" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">5.0551587062</Value>
+    </Setting>
+    <Setting Name="Bandpass8_9coef3" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-12.2066948229</Value>
+    </Setting>
+    <Setting Name="Bandpass8_9coef4" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">16.2689518805</Value>
+    </Setting>
+    <Setting Name="Bandpass8_9coef5" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-12.6128380955</Value>
+    </Setting>
+    <Setting Name="Bandpass8_9coef6" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">5.3971407108</Value>
+    </Setting>
+    <Setting Name="Bandpass9_11gain" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">9304.588516</Value>
+    </Setting>
+    <Setting Name="Bandpass9_11coef1" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-0.821660008</Value>
+    </Setting>
+    <Setting Name="Bandpass9_11coef2" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">4.4954776676</Value>
+    </Setting>
+    <Setting Name="Bandpass9_11coef3" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-10.8292354227</Value>
+    </Setting>
+    <Setting Name="Bandpass9_11coef4" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">14.5814195235</Value>
+    </Setting>
+    <Setting Name="Bandpass9_11coef5" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-11.562225122</Value>
+    </Setting>
+    <Setting Name="Bandpass9_11coef6" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">5.1246045354</Value>
+    </Setting>
+    <Setting Name="Bandpass11_13gain" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">9304.588548</Value>
+    </Setting>
+    <Setting Name="Bandpass11_13coef1" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-0.821660008</Value>
+    </Setting>
+    <Setting Name="Bandpass11_13coef2" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">4.238307006</Value>
+    </Setting>
+    <Setting Name="Bandpass11_13coef3" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-9.9175516295</Value>
+    </Setting>
+    <Setting Name="Bandpass11_13coef4" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">13.2241672905</Value>
+    </Setting>
+    <Setting Name="Bandpass11_13coef5" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-10.5888017443</Value>
+    </Setting>
+    <Setting Name="Bandpass11_13coef6" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">4.8314437111</Value>
+    </Setting>
+    <Setting Name="Bandpass14_16gain" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">9304.588558</Value>
+    </Setting>
+    <Setting Name="Bandpass14_16coef1" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-0.821660008</Value>
+    </Setting>
+    <Setting Name="Bandpass14_16coef2" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">3.7769009224</Value>
+    </Setting>
+    <Setting Name="Bandpass14_16coef3" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-8.4164211561</Value>
+    </Setting>
+    <Setting Name="Bandpass14_16coef4" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">11.0169678703</Value>
+    </Setting>
+    <Setting Name="Bandpass14_16coef5" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-8.9860141257</Value>
+    </Setting>
+    <Setting Name="Bandpass14_16coef6" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">4.3054654095</Value>
+    </Setting>
+    <Setting Name="Bandpass19_21gain" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">9304.588559</Value>
+    </Setting>
+    <Setting Name="Bandpass19_21coef1" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-0.821660008</Value>
+    </Setting>
+    <Setting Name="Bandpass19_21coef2" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2.8319462023</Value>
+    </Setting>
+    <Setting Name="Bandpass19_21coef3" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-5.8815433063</Value>
+    </Setting>
+    <Setting Name="Bandpass19_21coef4" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">7.2887686977</Value>
+    </Setting>
+    <Setting Name="Bandpass19_21coef5" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-6.2794733524</Value>
+    </Setting>
+    <Setting Name="Bandpass19_21coef6" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">3.228267478</Value>
+    </Setting>
+    <Setting Name="Bandpass0_16_60gain" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1.226986718</Value>
+    </Setting>
+    <Setting Name="Bandpass0_16_60coef1" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.6642317127</Value>
+    </Setting>
+    <Setting Name="Bandpass0_16_60coef2" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.2500608525</Value>
+    </Setting>
+    <Setting Name="Bandpass0_16_60coef3" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-2.2141423193</Value>
+    </Setting>
+    <Setting Name="Bandpass0_16_60coef4" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-0.6015694459</Value>
+    </Setting>
+    <Setting Name="Bandpass0_16_60coef5" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2.5249625592</Value>
+    </Setting>
+    <Setting Name="Bandpass0_16_60coef6" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.3764534782</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
