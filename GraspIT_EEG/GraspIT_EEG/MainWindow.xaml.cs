@@ -230,6 +230,9 @@ namespace GraspIT_EEG
 		List<EEGChartDataObject> F8List = new List<EEGChartDataObject>();
 		List<EEGChartDataObject> AF4List = new List<EEGChartDataObject>();
 
+
+        List<EEGChartDataObject> butAF4List = new List<EEGChartDataObject>();
+
 		#endregion EEG
 
 		#region Gyro
@@ -269,15 +272,15 @@ namespace GraspIT_EEG
 
 		#endregion Emotiv
 
-		#region SSVEP
+        //#region SSVEP
 
-		#region SSVEP Timers Declaration
+        //#region SSVEP Timers Declaration
 
-		DispatcherTimer SSVEPFlashDuration = new DispatcherTimer();
-		DispatcherTimer SSVEPNoFlashDuration = new DispatcherTimer();
-		DispatcherTimer SSVEPFlashingPeriod = new DispatcherTimer();
+        //DispatcherTimer SSVEPFlashDuration = new DispatcherTimer();
+        //DispatcherTimer SSVEPNoFlashDuration = new DispatcherTimer();
+        //DispatcherTimer SSVEPFlashingPeriod = new DispatcherTimer();
 
-		#endregion SSVEP Timers Declaration
+        //#endregion SSVEP Timers Declaration
 
 		public static double[] gain = new double[] { Settings.Default.Bandpass6_7gain, Settings.Default.Bandpass7_8gain, Settings.Default.Bandpass8_9gain, Settings.Default.Bandpass9_11gain };
 		public static double[][] coefficients = new double[][] {
@@ -289,26 +292,39 @@ namespace GraspIT_EEG
 		
 		#region Butterworth Filters Declaration
 
-		Butterworth ButAF3 = new Butterworth();
-		Butterworth ButF7 = new Butterworth();
-		Butterworth ButF3 = new Butterworth();
-		Butterworth ButFC5 = new Butterworth();
-		Butterworth ButT7 = new Butterworth();
-		Butterworth ButP7 = new Butterworth();
-		Butterworth ButO1 = new Butterworth();
-		Butterworth ButO2 = new Butterworth();
-		Butterworth ButP8 = new Butterworth();
-		Butterworth ButT8 = new Butterworth();
-		Butterworth ButFC6 = new Butterworth();
-		Butterworth ButF4 = new Butterworth();
-		Butterworth ButF8 = new Butterworth();
-		Butterworth ButAF4 = new Butterworth();
-		//Butterworth[] alex = new Butterworth[4];
-		double butAF3, butF7, butF3, butFC5, butT7, butP7, butO1, butO2, butP8, butT8, butFC6, butF4, butF8, butAF4;
+        Butterworth[] ButAF3 = new Butterworth[] { new Butterworth(), new Butterworth(), new Butterworth(), new Butterworth() };
+        Butterworth[] ButF7 = new Butterworth[] { new Butterworth(), new Butterworth(), new Butterworth(), new Butterworth() };
+        Butterworth[] ButF3 = new Butterworth[] { new Butterworth(), new Butterworth(), new Butterworth(), new Butterworth() };
+        Butterworth[] ButFC5 = new Butterworth[] { new Butterworth(), new Butterworth(), new Butterworth(), new Butterworth() };
+        Butterworth[] ButT7 = new Butterworth[] { new Butterworth(), new Butterworth(), new Butterworth(), new Butterworth() };
+        Butterworth[] ButP7 = new Butterworth[] { new Butterworth(), new Butterworth(), new Butterworth(), new Butterworth() };
+        Butterworth[] ButO1 = new Butterworth[] { new Butterworth(), new Butterworth(), new Butterworth(), new Butterworth() };
+        Butterworth[] ButO2 = new Butterworth[] { new Butterworth(), new Butterworth(), new Butterworth(), new Butterworth() };
+        Butterworth[] ButP8 = new Butterworth[] { new Butterworth(), new Butterworth(), new Butterworth(), new Butterworth() };
+        Butterworth[] ButT8 = new Butterworth[] { new Butterworth(), new Butterworth(), new Butterworth(), new Butterworth() };
+        Butterworth[] ButFC6 = new Butterworth[] { new Butterworth(), new Butterworth(), new Butterworth(), new Butterworth() };
+        Butterworth[] ButF4 = new Butterworth[] { new Butterworth(), new Butterworth(), new Butterworth(), new Butterworth() };
+        Butterworth[] ButF8 = new Butterworth[] { new Butterworth(), new Butterworth(), new Butterworth(), new Butterworth() };
+        Butterworth[] ButAF4 = new Butterworth[] { new Butterworth(), new Butterworth(), new Butterworth(), new Butterworth() };
+		
+        double [] butAF3 = new double[4];
+        double [] butF7 = new double[4];
+        double [] butF3 = new double[4];
+        double [] butFC5 = new double[4];
+        double [] butT7 = new double[4];
+        double [] butP7 = new double[4];
+        double [] butO1 = new double[4];
+        double [] butO2 = new double[4];
+        double [] butP8 = new double[4];
+        double [] butT8 = new double[4];
+        double [] butFC6 = new double[4];
+        double [] butF4 = new double[4];
+        double [] butF8 = new double[4];
+        double [] butAF4 = new double[4];
 
 		#endregion Butterworth Filters Declaration
 
-		#endregion SSVEP
+        //#endregion SSVEP
 
 
 		#endregion Declarations
@@ -527,7 +543,7 @@ namespace GraspIT_EEG
 				deselectRobotSelectedButtons();
 
                 iRobotCreateBtn.Background = new SolidColorBrush(columbiaBlue);
-				robotSelected = "Talos";
+				robotSelected = "iRobot";
 			}
 			else // Tile Unchecked
 			{
@@ -809,42 +825,103 @@ namespace GraspIT_EEG
 
 			#region Butterworth Filtered Data
 
-			for (int j = 0; j < 4; j++)
-			{
-				// Butterworth Filtered Data
-				butAF3 = ButAF3.getFilteredValue(AF3, coefficients[j], gain[j]);
-				butAF4 = ButAF4.getFilteredValue(AF4, coefficients[j], gain[j]);
-				butF3 = ButF3.getFilteredValue(F3, coefficients[j], gain[j]);
-				butF4 = ButF4.getFilteredValue(F4, coefficients[j], gain[j]);
-				butF7 = ButF7.getFilteredValue(F7, coefficients[j], gain[j]);
-				butF8 = ButF8.getFilteredValue(F8, coefficients[j], gain[j]);
-				butFC5 = ButFC5.getFilteredValue(FC5, coefficients[j], gain[j]);
-				butFC6 = ButFC6.getFilteredValue(FC6, coefficients[j], gain[j]);
-				butO1 = ButO1.getFilteredValue(O1, coefficients[j], gain[j]);
-				butO2 = ButO2.getFilteredValue(O2, coefficients[j], gain[j]);
-				butP7 = ButP7.getFilteredValue(P7, coefficients[j], gain[j]);
-				butP8 = ButP8.getFilteredValue(P8, coefficients[j], gain[j]);
-				butT7 = ButT7.getFilteredValue(T7, coefficients[j], gain[j]);
-				butT8 = ButT8.getFilteredValue(T8, coefficients[j], gain[j]);
-			}
-
-			//Console.WriteLine("AF4:" + AF4.ToString());
-			//Console.WriteLine("But AF4:" + butAF4.ToString());
+            for (int j = 0; j < 4; j++)
+            {
+				// Butterworth Filtered Data for every filter
+                butAF3[j] = ButAF3[j].getFilteredValue(AF3, coefficients[j], gain[j]);
+                butAF4[j] = ButAF4[j].getFilteredValue(AF4, coefficients[j], gain[j]);
+                butF3[j] = ButF3[j].getFilteredValue(F3, coefficients[j], gain[j]);
+                butF4[j] = ButF4[j].getFilteredValue(F4, coefficients[j], gain[j]);
+                butF7[j] = ButF7[j].getFilteredValue(F7, coefficients[j], gain[j]);
+                butF8[j] = ButF8[j].getFilteredValue(F8, coefficients[j], gain[j]);
+                butFC5[j] = ButFC5[j].getFilteredValue(FC5, coefficients[j], gain[j]);
+                butFC6[j] = ButFC6[j].getFilteredValue(FC6, coefficients[j], gain[j]);
+                butO1[j] = ButO1[j].getFilteredValue(O1, coefficients[j], gain[j]);
+                butO2[j] = ButO2[j].getFilteredValue(O2, coefficients[j], gain[j]);
+                butP7[j] = ButP7[j].getFilteredValue(P7, coefficients[j], gain[j]);
+                butP8[j] = ButP8[j].getFilteredValue(P8, coefficients[j], gain[j]);
+                butT7[j] = ButT7[j].getFilteredValue(T7, coefficients[j], gain[j]);
+                butT8[j] = ButT8[j].getFilteredValue(T8, coefficients[j], gain[j]);
+            }
 
 			#endregion Butterworth Filtered Data
 
-			// Set Values            
-			AF4val.Content = ((Int32)AF4).ToString();
-			AF4butval.Content = ((Int32)butAF4).ToString();
+            //#region Update EEG Values
 
-			#region Gyro Data
+            //switch (ElectrodeComboBox.Text)
+            //{
+            //    case "AF3":
+            //        EEGval.Content = ((Int32)AF3).ToString();
+            //        EEGbutval.Content = ((Int32)butAF3[FilterComboBox.SelectedIndex]).ToString();
+            //        break;
+            //    case "F7":
+            //        EEGval.Content = ((Int32)F7).ToString();
+            //        EEGbutval.Content = ((Int32)butF7[FilterComboBox.SelectedIndex]).ToString();
+            //        break;
+            //    case "F3":
+            //        EEGval.Content = ((Int32)F3).ToString();
+            //        EEGbutval.Content = ((Int32)butF3[FilterComboBox.SelectedIndex]).ToString();
+            //        break;
+            //    case "FC5":
+            //        EEGval.Content = ((Int32)FC5).ToString();
+            //        EEGbutval.Content = ((Int32)butFC5[FilterComboBox.SelectedIndex]).ToString();
+            //        break;
+            //    case "T7":
+            //        EEGval.Content = ((Int32)T7).ToString();
+            //        EEGbutval.Content = ((Int32)butT7[FilterComboBox.SelectedIndex]).ToString();
+            //        break;
+            //    case "P7":
+            //        EEGval.Content = ((Int32)P7).ToString();
+            //        EEGbutval.Content = ((Int32)butP7[FilterComboBox.SelectedIndex]).ToString();
+            //        break;
+            //    case "O1":
+            //        EEGval.Content = ((Int32)O1).ToString();
+            //        EEGbutval.Content = ((Int32)butO1[FilterComboBox.SelectedIndex]).ToString();
+            //        break;
+            //    case "O2":
+            //        EEGval.Content = ((Int32)O2).ToString();
+            //        EEGbutval.Content = ((Int32)butO2[FilterComboBox.SelectedIndex]).ToString();
+            //        break;
+            //    case "P8":
+            //        EEGval.Content = ((Int32)P8).ToString();
+            //        EEGbutval.Content = ((Int32)butP8[FilterComboBox.SelectedIndex]).ToString();
+            //        break;
+            //    case "T8":
+            //        EEGval.Content = ((Int32)T8).ToString();
+            //        EEGbutval.Content = ((Int32)butT8[FilterComboBox.SelectedIndex]).ToString();
+            //        break;
+            //    case "FC6":
+            //        EEGval.Content = ((Int32)FC6).ToString();
+            //        EEGbutval.Content = ((Int32)butFC6[FilterComboBox.SelectedIndex]).ToString();
+            //        break;
+            //    case "F4":
+            //        EEGval.Content = ((Int32)F4).ToString();
+            //        EEGbutval.Content = ((Int32)butF4[FilterComboBox.SelectedIndex]).ToString();
+            //        break;
+            //    case "F8":
+            //        EEGval.Content = ((Int32)F8).ToString();
+            //        EEGbutval.Content = ((Int32)butF8[FilterComboBox.SelectedIndex]).ToString();
+            //        break;
+            //    case "AF4":
+            //        EEGval.Content = ((Int32)AF4).ToString();
+            //        EEGbutval.Content = ((Int32)butAF4[FilterComboBox.SelectedIndex]).ToString();
+            //        break;
+            //    default:
+            //        break;
+            //}
+            
+            
+            //#endregion Update EEG Values
 
-			// Gyro Data
+
+            #region Gyro Data
+
+            // Gyro Data
 			GYROX = data[EdkDll.EE_DataChannel_t.GYROX][i];
 			GYROY = data[EdkDll.EE_DataChannel_t.GYROY][i];
 
 			#endregion Gyro Data
-
+             
 			#region Other Data
 
 			// Other Data
@@ -1625,48 +1702,310 @@ namespace GraspIT_EEG
 
 			#region EEG Graphs
 
-			#region O1Graph
+            #region Raw EEG Graphs
 
-			EEGChartDataObject O1Obj = new EEGChartDataObject
-			{
-				Time = DateTime.Now,
-				Value = AF4
-			};
-			O1List.Add(O1Obj);
+            #region AF3Graph
 
-			LineSeries O1Series = (LineSeries)this.O1Chart.Series[0];
-			O1Series.CategoryBinding = new PropertyNameDataPointBinding()
-			{
-				PropertyName = "Time"
-			};
-			O1Series.ValueBinding = new PropertyNameDataPointBinding()
-			{
-				PropertyName = "Value"
-			};
-			O1Series.ItemsSource = O1List;
+            EEGChartDataObject AF3Obj = new EEGChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = AF3
+            };
+            AF3List.Add(AF3Obj);
 
-			#endregion O1Graph
+            #endregion AF3Graph
+
+            #region F7Graph
+
+            EEGChartDataObject F7Obj = new EEGChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = F7
+            };
+            F7List.Add(F7Obj);
+
+            #endregion F7Graph
+
+            #region F3Graph
+
+            EEGChartDataObject F3Obj = new EEGChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = F3
+            };
+            F3List.Add(F3Obj);
+
+            #endregion F3Graph
+
+            #region FC5Graph
+
+            EEGChartDataObject FC5Obj = new EEGChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = FC5
+            };
+            FC5List.Add(FC5Obj);
+
+            #endregion FC5Graph
+
+            #region T7Graph
+
+            EEGChartDataObject T7Obj = new EEGChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = T7
+            };
+            T7List.Add(T7Obj);
+
+            #endregion T7Graph
+
+            #region P7Graph
+
+            EEGChartDataObject P7Obj = new EEGChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = P7
+            };
+            P7List.Add(P7Obj);
+
+            #endregion T7Graph
+
+            #region O1Graph
+
+            EEGChartDataObject O1Obj = new EEGChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = O1
+            };
+            O1List.Add(O1Obj);
+
+            #endregion O1Graph
+
+            #region O2Graph
+
+            EEGChartDataObject O2Obj = new EEGChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = O2
+            };
+
+            O2List.Add(O2Obj);
+
+            #endregion O2Graph
+
+            #region P8Graph
+
+            EEGChartDataObject P8Obj = new EEGChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = P8
+            };
+
+            P8List.Add(P8Obj);
+
+            #endregion P8Graph
+
+            #region T8Graph
+
+            EEGChartDataObject T8Obj = new EEGChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = T8
+            };
+
+            T8List.Add(T8Obj);
+
+            #endregion T8Graph
+
+            #region FC6Graph
+
+            EEGChartDataObject FC6Obj = new EEGChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = FC6
+            };
+
+            FC6List.Add(FC6Obj);
+
+            #endregion P8Graph
+
+            #region F4Graph
+
+            EEGChartDataObject F4Obj = new EEGChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = F4
+            };
+
+            F4List.Add(F4Obj);
+
+            #endregion P8Graph
+
+            #region F8Graph
+
+            EEGChartDataObject F8Obj = new EEGChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = F8
+            };
+
+            F8List.Add(F8Obj);
+
+            #endregion F8Graph
+
+            #region AF4Graph
+
+            EEGChartDataObject AF4Obj = new EEGChartDataObject
+            {
+                Time = DateTime.Now,
+                Value = AF4
+            };
+
+            AF4List.Add(AF4Obj);
+
+            #endregion AF4Graph
+
+            #endregion Raw EEG Graphs
+
+            #region Butterworth Graphs
+            
+            #endregion Butterworth Graphs
+
+            LineSeries EEGSeries = (LineSeries)this.EEGChart.Series[0];
+            EEGSeries.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            EEGSeries.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+
+            LineSeries ButterworthSeries = (LineSeries)this.ButterworthChart.Series[0];
+            ButterworthSeries.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            ButterworthSeries.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+
+            switch (ElectrodeComboBox.Text)
+            {
+                case "AF3":
+                    EEGval.Content = ((Int32)AF3).ToString();
+                    EEGbutval.Content = ((Int32)butAF3[FilterComboBox.SelectedIndex]).ToString();
+                    EEGSeries.ItemsSource = AF3List;
+                    break;
+                case "F7":
+                    EEGval.Content = ((Int32)F7).ToString();
+                    EEGbutval.Content = ((Int32)butF7[FilterComboBox.SelectedIndex]).ToString();
+                    EEGSeries.ItemsSource = F7List;
+                    break;
+                case "F3":
+                    EEGval.Content = ((Int32)F3).ToString();
+                    EEGbutval.Content = ((Int32)butF3[FilterComboBox.SelectedIndex]).ToString();
+                    EEGSeries.ItemsSource = AF3List;
+                    break;
+                case "FC5":
+                    EEGval.Content = ((Int32)FC5).ToString();
+                    EEGbutval.Content = ((Int32)butFC5[FilterComboBox.SelectedIndex]).ToString();
+                    EEGSeries.ItemsSource = FC5List;
+                    break;
+                case "T7":
+                    EEGval.Content = ((Int32)T7).ToString();
+                    EEGbutval.Content = ((Int32)butT7[FilterComboBox.SelectedIndex]).ToString();
+                    EEGSeries.ItemsSource = T7List;
+                    break;
+                case "P7":
+                    EEGval.Content = ((Int32)P7).ToString();
+                    EEGbutval.Content = ((Int32)butP7[FilterComboBox.SelectedIndex]).ToString();
+                    EEGSeries.ItemsSource = P7List;
+                    break;
+                case "O1":
+                    EEGval.Content = ((Int32)O1).ToString();
+                    EEGbutval.Content = ((Int32)butO1[FilterComboBox.SelectedIndex]).ToString();
+                    EEGSeries.ItemsSource = O1List;
+                    break;
+                case "O2":
+                    EEGval.Content = ((Int32)O2).ToString();
+                    EEGbutval.Content = ((Int32)butO2[FilterComboBox.SelectedIndex]).ToString();
+                    EEGSeries.ItemsSource = O2List;
+                    break;
+                case "P8":
+                    EEGval.Content = ((Int32)P8).ToString();
+                    EEGbutval.Content = ((Int32)butP8[FilterComboBox.SelectedIndex]).ToString();
+                    EEGSeries.ItemsSource = P8List;
+                    break;
+                case "T8":
+                    EEGval.Content = ((Int32)T8).ToString();
+                    EEGbutval.Content = ((Int32)butT8[FilterComboBox.SelectedIndex]).ToString();
+                    EEGSeries.ItemsSource = T8List;
+                    break;
+                case "FC6":
+                    EEGval.Content = ((Int32)FC6).ToString();
+                    EEGbutval.Content = ((Int32)butFC6[FilterComboBox.SelectedIndex]).ToString();
+                    EEGSeries.ItemsSource = FC6List;
+                    break;
+                case "F4":
+                    EEGval.Content = ((Int32)F4).ToString();
+                    EEGbutval.Content = ((Int32)butF4[FilterComboBox.SelectedIndex]).ToString();
+                    EEGSeries.ItemsSource = F4List;
+                    break;
+                case "F8":
+                    EEGval.Content = ((Int32)F8).ToString();
+                    EEGbutval.Content = ((Int32)butF8[FilterComboBox.SelectedIndex]).ToString();
+                    EEGSeries.ItemsSource = F8List;
+                    break;
+                case "AF4":
+                    EEGval.Content = ((Int32)AF4).ToString();
+                    EEGbutval.Content = ((Int32)butAF4[FilterComboBox.SelectedIndex]).ToString();
+                    EEGSeries.ItemsSource = AF4List;
+                    break;
+                default:
+                    break;
+            }
+
 
 			#region O2Graph
 
-			EEGChartDataObject O2Obj = new EEGChartDataObject
+			EEGChartDataObject butAF4Obj = new EEGChartDataObject
 			{
 				Time = DateTime.Now,
-				Value = butAF4
+				Value = butAF4[0]
 			};
 
-			O2List.Add(O2Obj);
+            butAF4List.Add(butAF4Obj);
 
-			LineSeries O2Series = (LineSeries)this.O2Chart.Series[0];
-			O2Series.CategoryBinding = new PropertyNameDataPointBinding()
-			{
-				PropertyName = "Time"
-			};
-			O2Series.ValueBinding = new PropertyNameDataPointBinding()
-			{
-				PropertyName = "Value"
-			};
-			O2Series.ItemsSource = O2List;
+			
+            ButterworthSeries.ItemsSource = butAF4List;
+
+
+            LineSeries AF3Series = (LineSeries)this.AF3Chart.Series[0];
+            AF3Series.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            AF3Series.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            AF3Series.ItemsSource = AF3List;
+
+            LineSeries F7Series = (LineSeries)this.F7Chart.Series[0];
+            F7Series.CategoryBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Time"
+            };
+            F7Series.ValueBinding = new PropertyNameDataPointBinding()
+            {
+                PropertyName = "Value"
+            };
+            F7Series.ItemsSource = F7List;
+
+
+
 
 			#endregion O2Graph
 
@@ -1961,22 +2300,23 @@ namespace GraspIT_EEG
         {
             // Update Overall Skill Rating
             //MessageBox.Show(Convert.ToInt32(engine.CognitivGetOverallSkillRating(userID) * 100).ToString());
-            CognitivPushTrainingTile.Count = engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_PUSH).ToString() + "%";
-            CognitivPullTrainingTile.Count = engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_PULL).ToString() + "%";
-            CognitivLiftTrainingTile.Count = engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_LIFT).ToString() + "%";
-            CognitivDropTrainingTile.Count = engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_DROP).ToString() + "%";
-            CognitivLeftTrainingTile.Count = engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_LEFT).ToString() + "%";
-            CognitivRightTrainingTile.Count = engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_RIGHT).ToString() + "%";
-            CognitivRotateLeftTrainingTile.Count = engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_ROTATE_LEFT).ToString() + "%";
-            CognitivRotateRightTrainingTile.Count = engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_ROTATE_RIGHT).ToString() + "%";
-            CognitivRotateClockwiseTrainingTile.Count = engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_ROTATE_CLOCKWISE).ToString() + "%";
-            CognitivRotateAntiClockwiseTrainingTile.Count = engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_ROTATE_COUNTER_CLOCKWISE).ToString() + "%";
-            CognitivRotateForwardsTrainingTile.Count = engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_ROTATE_FORWARDS).ToString() + "%";
-            CognitivRotateBackwardsTrainingTile.Count = engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_ROTATE_REVERSE).ToString() + "%";
-            CognitivDisappearTrainingTile.Count = engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_DISAPPEAR).ToString() + "%";
-            CognitivNeutralTrainingTile.Count = engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_NEUTRAL).ToString() + "%";
+
+            CognitivPushTrainingTile.Count = (Math.Round(engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_PUSH), 2) * 100).ToString() + "%";
+            CognitivPullTrainingTile.Count = (Math.Round(engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_PULL), 2) * 100).ToString() + "%";
+            CognitivLiftTrainingTile.Count = (Math.Round(engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_LIFT), 2) * 100).ToString() + "%";
+            CognitivDropTrainingTile.Count = (Math.Round(engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_DROP), 2) * 100).ToString() + "%";
+            CognitivLeftTrainingTile.Count = (Math.Round(engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_LEFT), 2) * 100).ToString() + "%";
+            CognitivRightTrainingTile.Count = (Math.Round(engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_RIGHT), 2) * 100).ToString() + "%";
+            CognitivRotateLeftTrainingTile.Count = (Math.Round(engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_ROTATE_LEFT), 2) * 100).ToString() + "%";
+            CognitivRotateRightTrainingTile.Count = (Math.Round(engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_ROTATE_RIGHT), 2) * 100).ToString() + "%";
+            CognitivRotateClockwiseTrainingTile.Count = (Math.Round(engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_ROTATE_CLOCKWISE), 2) * 100).ToString() + "%";
+            CognitivRotateAntiClockwiseTrainingTile.Count = (Math.Round(engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_ROTATE_COUNTER_CLOCKWISE), 2) * 100).ToString() + "%";
+            CognitivRotateForwardsTrainingTile.Count = (Math.Round(engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_ROTATE_FORWARDS), 2) * 100).ToString() + "%";
+            CognitivRotateBackwardsTrainingTile.Count = (Math.Round(engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_ROTATE_REVERSE), 2) * 100).ToString() + "%";
+            CognitivDisappearTrainingTile.Count = (Math.Round(engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_DISAPPEAR), 2) * 100).ToString() + "%";
+            CognitivNeutralTrainingTile.Count = (Math.Round(engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_NEUTRAL), 2) * 100).ToString() + "%";
             // Not Sure
-            CognitivLongNeutralTrainingTile.Count = engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_NEUTRAL).ToString() + "%";
+            CognitivLongNeutralTrainingTile.Count = (Math.Round(engine.CognitivGetActionSkillRating(userID, EdkDll.EE_CognitivAction_t.COG_NEUTRAL), 2) * 100).ToString() + "%";
         }
 
         #region Cognitiv Training Tiles
@@ -2371,14 +2711,20 @@ namespace GraspIT_EEG
             //MessageBox.Show(engine.CognitivGetActiveActions(userID).ToString());
             //engine.CognitivSetTrainingAction(userID, EdkDll.EE_CognitivAction_t.COG_PUSH);
 
+
+            MessageBox.Show(engine.CognitivGetTrainingAction(userID).ToString());
+
+            MessageBox.Show(engine.CognitivGetActiveActions(userID).ToString());
+
             engine.CognitivSetTrainingControl(userID, EdkDll.EE_CognitivTrainingControl_t.COG_START);
 
-            engine.CognitivSetActivationLevel(userID, 3);
-            EdkDll.EE_CognitivAction_t actions =
-            EdkDll.EE_CognitivAction_t.COG_LEFT
-            | EdkDll.EE_CognitivAction_t.COG_PULL
-            | EdkDll.EE_CognitivAction_t.COG_PUSH;
-            EmoEngine.Instance.CognitivSetActiveActions(0, (UInt32)actions); 
+            //engine.CognitivSetActivationLevel(userID, 3);
+            //EdkDll.EE_CognitivAction_t actions =
+            //EdkDll.EE_CognitivAction_t.COG_LEFT
+            //| EdkDll.EE_CognitivAction_t.COG_PULL
+            //| 
+            //EdkDll.EE_CognitivAction_t.COG_PUSH;
+            //EmoEngine.Instance.CognitivSetActiveActions(0, (UInt32)actions); 
 
             
             engine.CognitivTrainingStarted += engine_CognitivTrainingStarted;
@@ -2930,7 +3276,7 @@ namespace GraspIT_EEG
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            ButAF4.reset();
+            ButAF4[0].reset();
         }
 
         private void iRobotCreateToggleSwitch_Checked(object sender, RoutedEventArgs e)
