@@ -253,7 +253,7 @@
         	</Grid>
 
         </Grid>
-        <Grid x:Name="SettingsPage">
+        <Grid x:Name="SettingsPage" Opacity="0" Visibility="Collapsed">
 
             <!-- EndRegion -->
 
@@ -989,9 +989,9 @@
         							<Image Source="Assets/Images/Robots/owi532_1 left.png" Margin="10,10,377,202"/>
         							<Controls:ToggleSwitch x:Name="Light" Header="Light" OnLabel="ON" OffLabel="OFF" IsChecked="False" Margin="235,10,198,386" Click="Light_Click"/>
         							<Button x:Name="ClawUpBtn" Content="Grippers Up" HorizontalAlignment="Left" Margin="235,187,0,0" VerticalAlignment="Top" Width="75" Click="GrippersUpBtn_Click"/>
-        							<Button x:Name="ClawDownBtn" Content="Grippers Down" HorizontalAlignment="Left" Margin="335,187,0,0" VerticalAlignment="Top" Width="75" Click="GrippersDownBtn_Click"/>
+        							<Button x:Name="ClawDownBtn" Content="Grippers Down" HorizontalAlignment="Left" Margin="335,187,0,0" VerticalAlignment="Top" Width="110" Click="GrippersDownBtn_Click"/>
         							<Button x:Name="ElbowUpBtn" Content="Elbow Up" HorizontalAlignment="Left" Margin="235,225,0,0" VerticalAlignment="Top" Width="75" Click="ElbowUpBtn_Click"/>
-        							<Button x:Name="ElbowownBtn" Content="Elbow Down" HorizontalAlignment="Left" Margin="335,225,0,0" VerticalAlignment="Top" Width="75" Click="ElbowownBtn_Click"/>
+        							<Button x:Name="ElbowownBtn" Content="Elbow Down" HorizontalAlignment="Left" Margin="335,225,0,0" VerticalAlignment="Top" Width="90" Click="ElbowownBtn_Click"/>
         							<Button x:Name="ArmUpBtn" Content="Arm Up" HorizontalAlignment="Left" Margin="235,262,0,0" VerticalAlignment="Top" Width="75" Click="ArmUpBtn_Click"/>
         							<Button x:Name="ArmDownBtn" Content="Arm Down" HorizontalAlignment="Left" Margin="335,262,0,0" VerticalAlignment="Top" Width="75" Click="ArmDownBtn_Click"/>
         							<Button x:Name="ArmRotateLeftBtn" Content="Arm Rotate Left" HorizontalAlignment="Left" Margin="200,301,0,0" VerticalAlignment="Top" Width="110" Click="ArmRotateLeftBtn_Click"/>
